@@ -5,8 +5,6 @@ package com.flipkart.business;
 
 import java.util.HashMap;
 
-import com.flipkart.bean.RegisteredCourses;
-import com.flipkart.bean.ReportCard;
 
 /**
  * @author Asus
