@@ -8,5 +8,5 @@ package com.crs.flipkart.validators;
  *
  */
 public class AdminValidators {
-
+      
 }
