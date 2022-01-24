@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class UserDB extends User{
 	private HashMap<String,User> db=new HashMap<String,User>();
 	
-	UserDB()
+	public UserDB()
 	{
 		User user1 = new User();
 		user1.setEmailID("abc@def.com");

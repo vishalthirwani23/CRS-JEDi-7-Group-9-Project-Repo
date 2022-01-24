@@ -3,8 +3,8 @@
  */
 package com.flipkart.dao;
 import com.flipkart.constant.ModeOfPayment;
-import com.crs.flipkart.constant.NotificationType;
-
+import com.flipkart.constant.NotificationType;
+import com.flipkart.constant.NotificationType;
 
 public interface NotificationDaoInterface {
 	

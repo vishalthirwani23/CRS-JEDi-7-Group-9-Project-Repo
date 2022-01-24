@@ -2,10 +2,12 @@
  * 
  */
 package com.flipkart.dao;
-
+import com.flipkart.constant.NotificationType;
+import com.flipkart.bean.User;
+import com.flipkart.bean.UserDB;
 import java.util.HashMap;
 
-import com.crs.flipkart.bean.User;
+import com.flipkart.bean.User;
 
 /**
  * @author venkat.karthik
@@ -30,7 +32,7 @@ public class UserDaoOperation extends UserDB implements UserDaoInterface {
 	}
 	
 	public boolean updatePassword(String userId, String newPassword) {
-		HashMap<Integer, User> userDB = new HashMap<Integer, User>();
+		
 		User user = getUser(userId);
 		if(user == null){
 			System.out.println("User not found!!");
@@ -45,7 +47,7 @@ public class UserDaoOperation extends UserDB implements UserDaoInterface {
 	}
 	
 	public boolean verifyCredentials(String userId, String password) {
-		HashMap<Integer, User> userDB = new HashMap<Integer, User>();
+		
 		User user = getUser(userId);
 		if(user == null) {
 			System.out.println("User not found!!");
