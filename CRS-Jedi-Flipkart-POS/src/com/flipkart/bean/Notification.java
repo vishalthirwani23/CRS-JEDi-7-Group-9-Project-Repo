@@ -1,59 +1,91 @@
-/**
- * 
- */
 package com.flipkart.bean;
 
+import com.flipkart.constant.NotificationType;
+
 /**
- * @author User
- *
+ * Class that sends notification for different events
  */
 public class Notification {
-	private String notificationID;
-	private String paymentID;
-	private String message;
+	private int notificationId;
+	private int studentId;
+	private NotificationType type;
+	private String referenceId;
 
-	
-	public Notification() {
-		notificationID = "null";
-		paymentID = "null";
-		message = "NothingToDisplay";
-	}
-	
-	
-	public Notification(String notificationID, String paymentID, String message) {
-		
-		this.notificationID = notificationID;
-		this.paymentID = paymentID;
-		this.message = message;
-		
-	}
-	public String getNotificationID() {
-		return notificationID;
+	/**
+	 * Parameterized constructor
+	 * 
+	 * @param notificationId: notification id in the database
+	 * @param studentId:      student id of the student
+	 * @param type:           type of notificaton
+	 * @param referenceId:    reference id for the payment
+	 */
+	public Notification(int notificationId, int studentId, NotificationType type, String referenceId) {
+		this.notificationId = notificationId;
+		this.studentId = studentId;
+		this.type = type;
+		this.referenceId = referenceId;
 	}
 
-
-	public void setNotificationID(String notificationID) {
-		this.notificationID = notificationID;
+	/**
+	 * Method to get Notification Id
+	 * 
+	 * @return Notification Id
+	 */
+	public int getNotificationId() {
+		return notificationId;
 	}
 
-
-	public String getPaymentID() {
-		return paymentID;
+	/**
+	 * Method to get Student Id of student enrolled in the course
+	 * 
+	 * @return Student Id
+	 */
+	public int getStudentId() {
+		return studentId;
 	}
 
-
-	public void setPaymentID(String paymentID) {
-		this.paymentID = paymentID;
+	/**
+	 * Method to set Student Id of student enrolled in the course
+	 * 
+	 * @param studentId: Id Of The Student
+	 */
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
 	}
 
-
-	public String getMessage() {
-		return message;
+	/**
+	 * Method to get Notification Type
+	 * 
+	 * @return Notification Type
+	 */
+	public NotificationType getType() {
+		return type;
 	}
 
-
-	public void setMessage(String message) {
-		this.message = message;
+	/**
+	 * Method to set Notification Type
+	 * 
+	 * @param type: Type Of The Notification
+	 */
+	public void setType(NotificationType type) {
+		this.type = type;
 	}
 
+	/**
+	 * Method to get Reference Id
+	 * 
+	 * @return Reference Id
+	 */
+	public String getReferenceId() {
+		return referenceId;
+	}
+
+	/**
+	 * Method to set Reference Id
+	 * 
+	 * @param referenceId: Reference Id
+	 */
+	public void setReferenceId(String referenceId) {
+		this.referenceId = referenceId;
+	}
 }
