@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkart.constraints;
+package com.flipkart.constant;
 
 /**
  * @author User
