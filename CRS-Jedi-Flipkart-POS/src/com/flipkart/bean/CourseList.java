@@ -2,8 +2,8 @@
  * 
  */
 package com.flipkart.bean;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+
 
 /**
  * @author User
@@ -12,12 +12,30 @@ import java.util.List;
 public class CourseList extends Course{
 	
 	
-	private ArrayList<Course> list = new ArrayList<Course>();
+	private HashMap<String,Course> list = new HashMap<String,Course>();
 	
-	CourseList()
+	public void addCourse(String courseID,String coursename,String instructorID,Integer totalSeats,Integer availableSeats,Integer offeredSemester)
 	{
-		list.clear();
+		Course course=new Course();
+		course.setAvailableSeats(availableSeats);
+		course.setCourseID(courseID);
+		course.setCoursename(coursename);
+		course.setInstructorID(instructorID);
+		course.setOfferedSemester(offeredSemester);
+		course.setTotalSeats(totalSeats);
+		list.put(courseID, course);
+		
 	}
 	
-	void addCourse()
+	public void deleteCourse(String courseID)
+	{
+		if(list.containsKey(courseID))
+		{
+			list.remove(courseID);
+		}
+		else
+			System.out.println("Not found course");
+	}
+	
+
 }

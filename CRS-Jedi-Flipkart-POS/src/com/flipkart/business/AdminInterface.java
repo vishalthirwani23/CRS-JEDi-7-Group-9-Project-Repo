@@ -53,7 +53,7 @@ public interface AdminInterface {
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseFoundException If course is not found
 	 */
-	public void addCourse(Course course, List<Course> courseList);
+	public void addCourse(Course course);
 
 
 	/**
@@ -63,7 +63,7 @@ public interface AdminInterface {
 	 * @param studentList List Of Students
 	 * @throws StudentNotFoundForApprovalException If student is not found
 	 */
-	public void approveStudent(int studentId, List<Student> studentList) ;
+	public void approveStudent(Integer studentId) ;
 
 	
 
@@ -85,6 +85,8 @@ public interface AdminInterface {
 	public List<Professor> viewProfessors();
 	
 	public void addProfessor (String name,String ID,String password,String mobile,String email,String role);
+	
+	
 	
 	
 	

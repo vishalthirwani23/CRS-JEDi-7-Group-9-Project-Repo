@@ -26,7 +26,7 @@ public class AdminOperation implements AdminInterface {
     //private void courseId()
 	private static volatile AdminOperation instance = null;
 
-	private AdminOperation() {
+	public AdminOperation() {
 
 	}
 	/**
@@ -34,14 +34,14 @@ public class AdminOperation implements AdminInterface {
 	 *
 	 * @return instance of AdminOperation
 	 */
-//	public static AdminOperation getInstance() {
-//		if (instance == null) {
-//			synchronized (AdminOperation.class) {
-//				instance = new AdminOperation();
-//			}
-//		}
-//		return instance;
-//	}
+	public static AdminOperation getInstance() {
+		if (instance == null) {
+			synchronized (AdminOperation.class) {
+				instance = new AdminOperation();
+			}
+		}
+		return instance;
+	}
 
 	
 
