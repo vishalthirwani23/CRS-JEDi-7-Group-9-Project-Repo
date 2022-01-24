@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crs.flipkart.bean;
+package com.flipkart.bean;
 
 
 /**
@@ -24,7 +24,7 @@ public class Professor extends User{
 
 	
 	public Professor(String userName, String userId,  String password, String mobileNo, String emailID, String role, String course) {
-		super(userName, userId, password, mobileNo, emailID, role);
+		//super(userName, userId, password, mobileNo, emailID, role);
 		this.setcourse(course);
 	
 	}
