@@ -18,8 +18,16 @@ public class Course {
 	private Integer offeredSemester;
 	
 	
-	public Course(String courseCode, String courseName2, Object object, int i) {
+	public Course() {
 		// TODO Auto-generated constructor stub
+		courseID=null;
+		coursename=null;
+		instructorID=null;
+		
+		totalSeats=-1;
+		availableSeats=-1;
+		offeredSemester=-1;
+		
 	}
 	public String getCourseID() {
 		return courseID;

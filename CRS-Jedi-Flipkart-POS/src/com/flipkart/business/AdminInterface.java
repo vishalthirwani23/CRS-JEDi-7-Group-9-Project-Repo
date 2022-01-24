@@ -1,24 +1,27 @@
 package com.flipkart.business;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
-
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.
+
 
 
 /**
- * Interface for Admin Operations
  *
+ *
+ * Interface for Admin Operations
+ * 
  */
-
 public interface AdminInterface {
 
+	/**
+	 * Method to demonstrate admin operation performed
+	 */
+//	default public void demonstrate(){
+//		System.out.println("Admin Operation performed");
+//	}
 
 	/**
 	 * Method to add Admin Account
@@ -26,14 +29,20 @@ public interface AdminInterface {
 	 * @param name : Name of the Admin
 	 * @param userID : User ID of the Admin
 	 * @param password : password
+	 * @param gender : Gender of the Admin
+	 * @param address  : Address Of the Admin
+	 * @param country : Country Of the Admin
+	 * @throws AdminAccountNotCreatedException If admin account is not created
 	 * @return Admin ID
 	 */
-	public int register(String name, String userID, String password ) ;
+	public int register(String name, String userID, String password);
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * 
 	 * @param courseCode : Course Code
 	 * @param courseList : Courses available in the catalog
+	 * @throws CourseNotFoundException If course is not found
+	 * @throws CourseNotDeletedException If course not deleted
 	 */
 	public void deleteCourse(String courseCode, List<Course> courseList);
 
@@ -42,8 +51,9 @@ public interface AdminInterface {
 	 * 
 	 * @param course     : Course object storing details of a course
 	 * @param courseList : Courses available in the catalog
+	 * @throws CourseFoundException If course is not found
 	 */
-	public void addCourse(Course course, List<Course> courseList) ;
+	public void addCourse(Course course, List<Course> courseList);
 
 
 	/**
@@ -51,27 +61,13 @@ public interface AdminInterface {
 	 * 
 	 * @param studentId : Student ID
 	 * @param studentList List Of Students
+	 * @throws StudentNotFoundForApprovalException If student is not found
 	 */
 	public void approveStudent(int studentId, List<Student> studentList) ;
 
-	/**
-	 * Method to add Professor to DB
-	 * 
-	 * @param professor : Professor Object storing details of a professor
-	 * @throws ProfessorNotAddedException If professor is not found
-	 * @throws UserIdAlreadyInUseException If user id is already in use
-	 */
-	public void addProfessor(Professor professor) ;
+	
 
-	/**
-	 * Method to assign Course to a Professor
-	 * 
-	 * @param courseCode : Course Code
-	 * @param professorId : ID Of Professor
-	 * @throws CourseNotFoundException If course is not found
-	 * @throws UserNotFoundException If user is not found
-	 */
-	public void assignCourse(String courseCode, String professorId);
+	
 
 	/**
 	 * Method to get list of courses in catalog
@@ -79,7 +75,7 @@ public interface AdminInterface {
 	 * @param catalogId: Id Of Catalog
 	 * @return List of courses in catalog
 	 */
-	public List<Course> viewCourses(int catalogId);
+	public List<Course> viewCourses();
 
 	/**
 	 * View professor in the institute
@@ -87,4 +83,9 @@ public interface AdminInterface {
 	 * @return List of the professors in the institute
 	 */
 	public List<Professor> viewProfessors();
+	
+	public void addProfessor (String name,String ID,String password,String mobile,String email,String role);
+	
+	
+	
 }

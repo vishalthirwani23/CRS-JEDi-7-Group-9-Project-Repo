@@ -34,27 +34,27 @@ public class AdminOperation implements AdminInterface {
 	 *
 	 * @return instance of AdminOperation
 	 */
-	public static AdminOperation getInstance() {
-		if (instance == null) {
-			synchronized (AdminOperation.class) {
-				instance = new AdminOperation();
-			}
-		}
-		return instance;
-	}
+//	public static AdminOperation getInstance() {
+//		if (instance == null) {
+//			synchronized (AdminOperation.class) {
+//				instance = new AdminOperation();
+//			}
+//		}
+//		return instance;
+//	}
 
 	
 
 
 	@Override
-	public void removeCourse(String courseID) {
+	public void deleteCourse(String courseCode,List<Course> courseList) {
 		// TODO Auto-generated method stub
 		//ado removes course
 		
 	}
 
 	@Override
-	public void addCourse(String course_name, String courseID, int semester) {
+	public void addCourse(Course course_name,) {
 		// TODO Auto-generated method stub
 		Course newCourse = new Course();
 		newCourse.setCoursename(course_name);
@@ -96,11 +96,6 @@ public class AdminOperation implements AdminInterface {
 	}
 	
 	
-
-	public static AdminInterface getInstance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }
