@@ -1,299 +1,285 @@
 package com.flipkart.application;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Scanner;
 
-//import com.crs.flipkart.constants.constants;
-//import com.crs.flipkart.exception.CourseNotDeletedException;
-//import com.crs.flipkart.exception.CourseNotFoundException;
-//import com.crs.flipkart.exception.FeesPendingException;
-//import com.crs.flipkart.exception.GradeNotAddedException;
-//import com.crs.flipkart.exception.StudentNotApprovedException;
-//import com.crs.flipkart.exception.StudentNotRegisteredException;
-import com.crs.flipkart.service.AdminInterface;
-import com.crs.flipkart.service.AdminOperation;
-import com.flipkart.bean.ReportCard;
-import com.flipkart.bean.Student;
 
+// import com.flipkart.bean.Course;
+// import com.flipkart.bean.Professor;
+// import com.flipkart.bean.Student;
 
-//public class CRSAdminMenu {
-//
-//}
+/* import com.flipkart.constant.Color;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.NotificationType;
+import com.flipkart.constant.Role; 
+import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
+import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException; */
+import com.flipkart.business.AdminInterface;
+import com.flipkart.business.AdminOperation;
+/*
+import com.flipkart.business.NotificationInterface;
+import com.flipkart.business.NotificationOperation;
+import com.flipkart.utils.StringUtils; */
 
-
+/**
+ * Class that display Admin Client Menu
+ */
 public class CRSAdminMenu {
-    private Scanner sc = new Scanner(System.in);
-//    AdminOperation ao = new AdminOperation();
-    	
-	AdminInterface ao = AdminOperation.getInstance();
-//	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 
-    public void createAdminMenu(String username) {
+
+    AdminInterface adminOperation = AdminOperation.getInstance();
+    Scanner scanner = new Scanner(System.in);
+//     NotificationInterface notificationInterface = NotificationOperation.getInstance();
+
+    /**
+     * Method to Create Admin Menu
+     */
+    public void createMenu() {
+
+        while (CRSApplication.loggedin) {
+		
+	   System.out.println("Administrative Control Menu");
+           System.out.println("1. View course Catalogue");
+           System.out.println("2. Add New Course to Catalogue");
+           System.out.println("3. Delete Course from Catalogue");
+           System.out.println("4. Approve Student Registration");
+           System.out.println("5. View Pending Student Approvals");
+           System.out.println("6. Add New Professor");
+           System.out.println("7. Assign Courses To Professor");
+           System.out.println("8. Logout");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    viewCoursesInCatalogue();
+                    break;
+
+                case 2:
+                    addCourseToCatalogue();
+                    break;
+
+                case 3:
+                    deleteCourse();
+                    break;
+
+                case 4:
+                    approveStudent();
+                    break;
+
+                case 5:
+                    viewPendingAdmissions();
+                    break;
+
+                case 6:
+                    addProfessor();
+                    break;
+
+                case 7:
+                    assignCourseToProfessor();
+                    break;
+
+                case 8:
+                    CRSApplication.loggedin = false;
+                    return;
+
+                default:
+                    System.out.println("***** Wrong Choice *****");
+            }
+        }
+    }
+
+    /**
+     * Method to assign Course to a Professor
+     */
+    private void assignCourseToProfessor() {
+        List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
+        System.out.println("List of Professors Available");
+        System.out.println("ProfessorId", "Name", "Designation");
+        for (Professor professor : professorList) {
+            System.out.println(professor.getUserId(), professor.getName(), professor.getDesignation());
+        }
+        
+
+        List<Course> courseList = adminOperation.viewCourses(); // add viewCourses method in admin
+        System.out.println("List of Courses Available");
+        System.out.println("CourseCode", "CourseName");
+        for (Course course : courseList) {
+            System.out.println(course.getCourseCode(), course.getCourseName());
+        }
+     
+        System.out.println("Enter Course Code of the course to be assigned:");
+        String courseCode = scanner.next();
+
+        System.out.println("Enter Professor's User Id:");
+        String userId = scanner.next();
+
         try {
 
-            while(true) {
-            	System.out.println("\n\n==~~=~~=~~=~~=~Admin Panel~=~~=~~=~~=~~==");
-                System.out.println("Choose an option : ");
-                System.out.println("---------------------------------------");
-                System.out.println("1 : Edit course details");
-                System.out.println("2 : Generate report card");
-                System.out.println("3 : Approve student registration");
-                System.out.println("4 : Add Professor");
-                System.out.println("5 : Remove Professor");
-                System.out.println("6 : View Course Wise student list");
-                System.out.println("7 : Approve Pending Student Accounts");
-                System.out.println("8 : Logout");
-                System.out.println("=======================================");
-
-                int menuOption = sc.nextInt();
-                sc.nextLine();
-
-                switch(menuOption) {
-                    case 1 :
-                        editCourseList();
-                        break;
-                    case 2 :
-                        generateReportCard();
-                        break;
-                    case 3:
-                        approveStudentRegistration();
-                        break;
-                    case 4:
-                    	addProfessorDetails();
-                        break;
-                    case 5:
-                    	removeProfessor();
-                        break;
-                    case 6:
-                        viewCourseStudentList();
-                        break;
-                    case 7:
-                    	approvePendingStudentAccounts();
-                    case 8:
-//                    	System.exit(0);
-                        return;
-                    default:
-                        System.out.println("Invalid input");
-                }
-            }
+            adminOperation.assignCourse(courseCode, userId); // add assignCourse method in admin
 
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    private void approvePendingStudentAccounts() {
-		
-    	List<Student> pendingStudents = ao.getPendingStudentAccountsList();
-    	
-    	System.out.println("List of Students with Pending Account Approval : ");
-    	System.out.println();
-    	System.out.println("Student ID\t Name\t Department\t Joining Year\t Contact Number");
-    	for(Student st: pendingStudents) {
-    		System.out.println(st.getStudentID()+"\t"+st.getName()+"\t"+st.getDepartment()+"\t"+st.getJoiningYear()+"\t"+st.getContactNumber());
-    	}
-    	
-    	System.out.println("\n Enter the Student ID for the Student Account you want to approve : ");
-		Integer studentID = sc.nextInt();
-		sc.nextLine();
-		
-		ao.approveStudentAccount(studentID);
-		
-		
-	}
-
-	private void viewCourseStudentList() {
-    	
-    	System.out.println("\n\n==~~=~~=~Course Details~=~~=~~=~~==");
-        System.out.println("Choose an option : ");
-        System.out.println("---------------------------------------");
-        System.out.println("1 : View All Course's Details");
-        System.out.println("2 : View for a particular course");
-        System.out.println("=======================================");
-        int menuOption = sc.nextInt();
-        sc.nextLine();
-
-    	String courseID="";
-    	Boolean viewAll = true;
-        switch(menuOption) {
-            case 1 :
-                break;
-            case 2 :
-            	viewAll=false;
-            	System.out.println("Enter course ID: ");
-            	courseID = sc.nextLine();
-                break;
-            default:
-                System.out.println("Invalid input");
+            System.out.println(e);
         }
 
-        
-//        AdminOperation Ao= new AdminOperation();
-        HashMap<String,ArrayList<Integer> > CourseStudentList = ao.viewCourseStudentList (courseID,SemesterID,viewAll);
-        System.out.println("+-------------------------------------+");
-        CourseStudentList.entrySet().forEach(entry -> {
-    	    System.out.println("| Course ID : " + entry.getKey());
-    	    System.out.print("| Students Enrolled : \n| " );
-    	    for(Integer stID : entry.getValue()) {
-    	    	System.out.print(stID.toString()+"\t");
-    	    }
-    	    System.out.println();
-    	    System.out.println("+-------------------------------------+");
-//    	    System.out.println();
-    	});
-        
     }
 
+    /**
+     * Method to add Professor to DB
+     */
+    private void addProfessor() {
 
-    private void removeProfessor() {
-    	System.out.println("Enter Instructor ID :");
-    	Integer professorID = sc.nextInt();
-        
-    	try {
-            ao.removeProfessor(professorID);                            
+        Professor professor = new Professor();
+        System.out.println("Add Professor Portal");
+        System.out.println("Enter Professor Name:");
+        String professorName = scanner.next();
+        professor.setName(professorName);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+        System.out.println("Enter Department:");
+        String department = scanner.next();
+        professor.setDepartment(department);
 
+        System.out.println("Enter Designation:");
+        String designation = scanner.next();
+        professor.setDesignation(designation);
 
+        System.out.println("Enter Email:");
+        String userId = scanner.next();
+        professor.setUserId(userId);
 
-    private void addProfessorDetails() {
-    	
-    	
+        System.out.println("Enter Password:");
+        String password = scanner.next();
+        professor.setPassword(password);
+
+        System.out.println("Enter Gender: \t 1: Male \t 2.Female \t 3.Other ");
+        int gender = scanner.nextInt();
+        professor.setGender(gender);
+
+        System.out.println("Enter Address:");
+        String address = scanner.next();
+        professor.setAddress(address);
+
+        System.out.println("Enter Country:");
+        String country = scanner.next();
+        professor.setCountry(country);
+
+        professor.setRole(Professor");
+
         try {
+            adminOperation.addProfessor(professor);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
-            String username, name, password, department, designation, contact;
-            Integer joiningYear;
-            
-            System.out.println("=======================================");
-            System.out.println("Enter professor details");
-            System.out.println("---------------------------------------");
-            System.out.println("User Name: ");
-            username = sc.nextLine();
-            System.out.println("Password: ");
-            password = sc.nextLine();
-            System.out.println("Name: ");
-            name = sc.nextLine();
-            System.out.println("Department: ");
-            department = sc.nextLine();
-            System.out.println("Designation: ");
-            designation = sc.nextLine();
-            System.out.println("Contact Number");
-            contact = sc.nextLine();
-            System.out.println("Joining Year");
-            joiningYear = sc.nextInt();
-            System.out.println("=======================================");
+    }
 
-            Professor Prof = new Professor();
-            Prof.setUserID(username);
-            Prof.setName(name);
-            Prof.setPassword(password);
-            Prof.setDepartment(department);
-            Prof.setDesignation(designation);
-            Prof.setContactNumber(contact);
-            Prof.setJoiningYear(joiningYear);
-            
-            ao.addProfessor(Prof);
-            //done : create professor obj, and add to db
+    /**
+     * Method to view Students who are yet to be approved
+     * @return List of Students whose admissions are pending
+     */
+    private List<Student> viewPendingAdmissions() {
+
+        List<Student> pendingStudentsList = adminOperation.viewPendingAdmissions(); // add viewPendingAdmissions method in admin
+        if (pendingStudentsList.size() == 0) {
+            return pendingStudentsList;
+        }
+        System.out.println("Students Pending for Approval");
+        System.out.println("UserId", "StudentId", "Name", "Gender");
+        for (Student student : pendingStudentsList) {
+            System.out.println(student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString());
+        }
+        return pendingStudentsList;
+    }
+
+    /**
+     * Method to approve a Student using Student's ID
+     */
+    private void approveStudent() {
+
+        List<Student> studentList = viewPendingAdmissions();
+        if (studentList.size() == 0) {
+            return;
+        }
+        System.out.println(("Approve Student Portal");
+        System.out.println("Enter Student's ID:");
+        int studentUserIdApproval = scanner.nextInt();
+
+        try {
+            adminOperation.approveStudent(studentUserIdApproval, studentList);
+            //send notification from system
+           /* notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null); */
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 
-    private void approveStudentRegistration() {
-        int studentID;
-        System.out.println("Enter student ID: ");
-        studentID = sc.nextInt();
-        
-//        AdminOperation Ao= new AdminOperation();
+    /**
+     * Method to delete Course from catalogue
+     *
+     * @throws CourseNotFoundException
+     */
+    private void deleteCourse() {
+        System.out.println("Delete Course Portal");
+        List<Course> courseList = viewCoursesInCatalogue();
+        System.out.println("Enter Course Code:");
+        String courseCode = scanner.next();
 
-			ao.approveStudentRegistration(studentID,SemesterID);
-        
-        // to do : approve student reg logic
+        try {
+            adminOperation.deleteCourse(courseCode, courseList);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
-    private void generateReportCard() {
-        int studentID;
-        System.out.println("Enter student ID: ");
-        studentID = sc.nextInt();
-        ReportCard R = new ReportCard();
-		R = ao.generateReportCard(studentID);
-		
-		if(R.getSpi() > 0)
-        System.out.println("Student ID : "+studentID+"    SPI : "+ R.getSpi());
-        // to do : get student courses and grade, and generate report card
+    /**
+     * Method to add Course to catalogue
+     */
+    private void addCourseToCatalogue() {
+        System.out.println("Add Course to Catalogue Portal");
+        List<Course> courseList = viewCoursesInCatalogue();
+        scanner.nextLine();
+        System.out.println("Enter Course Code:");
+        String courseCode = scanner.nextLine();
+
+        System.out.println("Enter Course Name:");
+        String courseName = scanner.next();
+
+        Course course = new Course(courseCode, courseName, null, 10);
+
+        try {
+            adminOperation.addCourse(course, courseList);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
-    private void editCourseList() {
-        
-        
-            while(true) {
-            	System.out.println("=======================================");
-                System.out.println("Options : ");
-                System.out.println("---------------------------------------");
-                System.out.println("1 : Add course");
-                System.out.println("2 : Remove course");
-                System.out.println("3 : Exit");
-                System.out.println("=======================================");
-
-                int menuOption = sc.nextInt();
-                sc.nextLine();
-
-                switch(menuOption) {
-                    case 1 :
-                        addCourse();
-                        break;
-                    case 2 :
-                        removeCourse();
-                        break;
-                    case 3:
-                        return;
-                    default:
-                        System.out.println("Invalid input");
-                }
-            }
-
-        
-    }
-
-    private void removeCourse() {
-        String courseID;
-        System.out.println("=======================================");
-        System.out.println("Enter course ID: ");
-        courseID = sc.nextLine();
-        
-        
-			ao.removeCourse(courseID);
-		
-        // to do : remove course from db
-    }
-
-    private void addCourse() {
-
-        
-            String course_name, courseID;
-            int offeredSemester;
-            
-            System.out.println("=======================================");
-            System.out.println("Enter course details");
-            System.out.print("Course Name: ");
-            course_name = sc.nextLine();
-            System.out.print("Course ID: ");
-            courseID = sc.nextLine();
-            System.out.print("Semester: ");
-            offeredSemester = sc.nextInt();
-            
-            ao.addCourse(course_name, courseID, offeredSemester);
-
-            // to do : create course object, update course in db
-        
-
-
+    /**
+     * Method to display courses in catalogue
+     *
+     * @return List of courses in catalogue
+     */
+    private List<Course> viewCoursesInCatalogue() {
+        List<Course> courseList = adminOperation.viewCourses();
+        if (courseList.size() == 0) {
+            System.out.println("No course in the catalogue!");
+            return courseList;
+        }
+        System.out.println("Course Catalogue");
+        System.out.println("COURSE CODE", "COURSE NAME", "INSTRUCTOR");
+        for (Course course : courseList) {
+            String instructorId = "No Professor";
+            if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
+                instructorId = course.getInstructorId();
+            System.out.println(course.getCourseCode(), course.getCourseName(), instructorId);
+        }
+        return courseList;
     }
 }
