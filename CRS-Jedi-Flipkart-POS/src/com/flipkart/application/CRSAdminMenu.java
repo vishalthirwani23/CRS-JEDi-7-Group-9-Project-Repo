@@ -43,10 +43,9 @@ public class CRSAdminMenu {
            System.out.println("2. Add New Course to Catalogue");
            System.out.println("3. Delete Course from Catalogue");
            System.out.println("4. Approve Student Registration");
-           System.out.println("5. View Pending Student Approvals");
-           System.out.println("6. Add New Professor");
-           System.out.println("7. Assign Courses To Professor");
-           System.out.println("8. Logout");
+           System.out.println("5. Add New Professor");
+           System.out.println("6. Assign Courses To Professor");
+           System.out.println("7. Logout");
 
             int choice = scanner.nextInt();
 
@@ -67,19 +66,16 @@ public class CRSAdminMenu {
                     approveStudent();
                     break;
 
+         
                 case 5:
-                    viewPendingAdmissions();
-                    break;
-
-                case 6:
                     addProfessor();
                     break;
 
-                case 7:
+                case 6:
                     assignCourseToProfessor();
                     break;
 
-                case 8:
+                case 7:
                     CRSApplication.loggedin = false;
                     return;
 
