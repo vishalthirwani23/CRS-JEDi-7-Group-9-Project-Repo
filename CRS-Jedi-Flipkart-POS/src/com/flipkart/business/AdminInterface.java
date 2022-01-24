@@ -5,12 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-<<<<<<< HEAD:CRS-Jedi-Flipkart-POS/src/com/crs/flipkart/business/AdminInterface.java
+
 import com.crs.flipkart.bean.Course;
 import com.crs.flipkart.bean.Professor;
 import com.crs.flipkart.bean.Student;
-=======
-import com.flipkart.bean.Course;
+
 
 
 /**
