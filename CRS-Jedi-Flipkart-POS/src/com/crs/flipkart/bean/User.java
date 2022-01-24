@@ -1,13 +1,4 @@
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
->>>>>>> 6b75ff446ef301b1bf9f2ed9d613ec4bf6b66ce0
 package com.crs.flipkart.bean;
 
 public class User {
@@ -17,6 +8,7 @@ public class User {
     private String password;
     private String mobileNo;
     private String emailID;
+    private String role;
 
     public String getUserName() {
         return userName;
@@ -41,15 +33,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-<<<<<<< HEAD
+	
 	public String getMobileNo() {
 		return mobileNo;
 	}
+
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	
+
 	public String getEmailID() {
 		return emailID;
 	}
@@ -57,35 +49,27 @@ public class User {
 		this.emailID = emailID;
 	}
 
-    public User() {
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public User() {
 
     }
 
-    public User(String userName, String userId,  String password, String mobileNo, String emailID ) {
+    public User(String userName, String userId,  String password, String mobileNo, String emailID, String role ) {
         this.userName = userName;
         this.userId = userId;
         this.password = password;
-        this.mobileNo = mobileNo;
+        this.setMobileNo(mobileNo);
         this.emailID = emailID;
+        this.role = role;
 
     }
-=======
-    public String getContactNumber() {
-        return contactNumber;
-    }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public Integer getJoiningYear() {
-        return joiningYear;
-    }
-
-    public void setJoiningYear(Integer joiningYear) {
-        this.joiningYear = joiningYear;
-    }
-  
->>>>>>> 6b75ff446ef301b1bf9f2ed9d613ec4bf6b66ce0
 }
 
