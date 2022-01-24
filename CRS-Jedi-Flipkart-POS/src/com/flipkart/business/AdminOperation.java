@@ -5,7 +5,7 @@ package com.flipkart.business;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import com.flipkart.bean.Course;
+import com.crs.flipkart.bean.Course;
 //import com.flipkart.bean.ReportCard;
 
 
@@ -17,34 +17,14 @@ import com.flipkart.bean.Course;
 
 public class AdminOperation implements AdminInterface {
 	
-//	AdminDaoOperation ado = new AdminDaoOperation();
-	private static volatile AdminOperation instance = null;
-	
-	private AdminOperation()
-	{
-		
-	}
-	
-	/**
-	 * Method to make AdminOperation Singleton
-	 */
-	public static AdminOperation getInstance()
-	{
-		if(instance == null)
-		{
-			synchronized(AdminOperation.class){
-				instance = new AdminOperation();
-			}
-		}
-		return instance;
-	}
-	
 
+    
+    //private void courseId()
+	
 
 	@Override
 	public void addProfessor(Professor professor) {
 		
-		//ado adds professor
 		
 	}
 

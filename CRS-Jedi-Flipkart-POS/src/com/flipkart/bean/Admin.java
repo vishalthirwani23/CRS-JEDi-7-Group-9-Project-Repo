@@ -25,8 +25,12 @@ public class Admin extends User {
 	public void setAdminID(String adminID) {
 		this.adminID = adminID;
 	}
-	
-	
-	
+
+	public Admin(String adminName, String adminID, String password)
+	{
+		this.setAdminName(adminName);
+		this.setAdminID(adminID);
+		this.setPassword(password);
+	}
 
 }

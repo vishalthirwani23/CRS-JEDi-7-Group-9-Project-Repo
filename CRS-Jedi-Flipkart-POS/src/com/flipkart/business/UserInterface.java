@@ -9,9 +9,24 @@ package com.flipkart.business;
  */
 public interface UserInterface {
 	
-	public void updatePassword(String userID, String password);
-	public void updateContactNumber(String userID, String number);
-	public void updateRole(String userID, String role);
-	public boolean loginUser(String userID, String password, String role);
+	boolean updatePassword(String userID, String newPassword);
+
+	/**
+	 * Method to verify User credentials
+	 * 
+	 * @param userID User ID
+	 * @param password Password of the user
+	 * @return boolean indicating if user exists in the database
+	 * @throws UserNotFoundException If Student is not registered
+	 */
+	public boolean verifyCredentials(String userID, String password);
+
+	/**
+	 * Method to get role of a specific User
+	 * 
+	 * @param userId User ID
+	 * @return Role of the User
+	 */
+	public String getRole(String userId);
 	
 }
