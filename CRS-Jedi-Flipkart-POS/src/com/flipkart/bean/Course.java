@@ -3,6 +3,8 @@
  */
 package com.flipkart.bean;
 
+import java.util.List;
+
 /**
  * @author User
  *
@@ -16,6 +18,9 @@ public class Course {
 	private Integer offeredSemester;
 	
 	
+	public Course(String courseCode, String courseName2, Object object, int i) {
+		// TODO Auto-generated constructor stub
+	}
 	public String getCourseID() {
 		return courseID;
 	}
@@ -51,6 +56,18 @@ public class Course {
 	}
 	public void setOfferedSemester(Integer offeredSemester) {
 		this.offeredSemester = offeredSemester;
+	}
+	public int getCourseCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int getCourseName() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public String getInstructorId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

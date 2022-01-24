@@ -3,6 +3,7 @@
  */
 package com.flipkart.bean;
 
+import com.flipkart.constant.Role;
 
 /**
  * @author Dell
@@ -27,6 +28,30 @@ public class Professor extends User{
 		//super(userName, userId, password, mobileNo, emailID, role);
 		this.setcourse(course);
 	
+	}
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getDesignation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setName(String professorName) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setDesignation(String designation) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setDepartment(String department) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setRole(Role stringToName) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 ;

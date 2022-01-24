@@ -91,17 +91,17 @@ public class CRSAdminMenu {
     private void assignCourseToProfessor() {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
         System.out.println("List of Professors Available");
-        System.out.println("ProfessorId", "Name", "Designation");
+        System.out.println("ProfessorId Name Designation");
         for (Professor professor : professorList) {
-            System.out.println(professor.getUserId(), professor.getName(), professor.getDesignation());
+            System.out.println(professor.getUserId()+professor.getName()+professor.getDesignation());
         }
         
 
         List<Course> courseList = adminOperation.viewCourses(); // add viewCourses method in admin
         System.out.println("List of Courses Available");
-        System.out.println("CourseCode", "CourseName");
+        System.out.println("CourseCode CourseName");
         for (Course course : courseList) {
-            System.out.println(course.getCourseCode(), course.getCourseName());
+            System.out.println(course.getCourseCode()+course.getCourseName());
         }
      
         System.out.println("Enter Course Code of the course to be assigned:");
@@ -141,17 +141,7 @@ public class CRSAdminMenu {
         String password = scanner.next();
         professor.setPassword(password);
 
-        System.out.println("Enter Gender: \t 1: Male \t 2.Female \t 3.Other ");
-        int gender = scanner.nextInt();
-        professor.setGender(gender);
-
-        System.out.println("Enter Address:");
-        String address = scanner.next();
-        professor.setAddress(address);
-
-        System.out.println("Enter Country:");
-        String country = scanner.next();
-        professor.setCountry(country);
+ 
 
         professor.setRole(Role.stringToName("Professor"));
 
@@ -223,12 +213,12 @@ public class CRSAdminMenu {
             return courseList;
         }
         System.out.println("Course Catalogue");
-        System.out.println("COURSE CODE", "COURSE NAME", "INSTRUCTOR");
+        System.out.println("COURSE CODE COURSE NAME INSTRUCTOR");
         for (Course course : courseList) {
             String instructorId = "No Professor";
             if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
                 instructorId = course.getInstructorId();
-            System.out.println(course.getCourseCode(), course.getCourseName(), instructorId);
+            System.out.println(course.getCourseCode()+course.getCourseName()+instructorId);
         }
         return courseList;
     }
