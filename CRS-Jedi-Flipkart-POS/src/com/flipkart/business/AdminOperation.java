@@ -5,7 +5,11 @@ package com.flipkart.business;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import com.crs.flipkart.bean.Course;
+
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
+import com.flipkart.bean.Student;
 //import com.flipkart.bean.ReportCard;
 
 
@@ -20,19 +24,26 @@ public class AdminOperation implements AdminInterface {
 
     
     //private void courseId()
+	private static volatile AdminOperation instance = null;
+
+	private AdminOperation() {
+
+	}
+	/**
+	 * Method to make AdminOperation Singleton
+	 *
+	 * @return instance of AdminOperation
+	 */
+	public static AdminOperation getInstance() {
+		if (instance == null) {
+			synchronized (AdminOperation.class) {
+				instance = new AdminOperation();
+			}
+		}
+		return instance;
+	}
+
 	
-
-	@Override
-	public void addProfessor(Professor professor) {
-		
-		
-	}
-
-	@Override
-	public void removeProfessor(int professorID) {
-		//ado rmoves professor
-		
-	}
 
 
 	@Override
@@ -83,6 +94,8 @@ public class AdminOperation implements AdminInterface {
 	public void approveStudentAccount(Integer studentID) {
 		//ado approves account		
 	}
+	
+	
 
 	public static AdminInterface getInstance() {
 		// TODO Auto-generated method stub
