@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crs.flipkart.utils;
+package com.flipkart.utils;
 
 /**
  * @author User

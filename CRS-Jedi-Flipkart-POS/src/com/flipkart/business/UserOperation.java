@@ -1,4 +1,4 @@
-package com.crs.flipkart.business;
+package com.flipkart.business;
 
 public class UserOperation implements UserInterface{
 	public void updatePassword(String userID, String password) {

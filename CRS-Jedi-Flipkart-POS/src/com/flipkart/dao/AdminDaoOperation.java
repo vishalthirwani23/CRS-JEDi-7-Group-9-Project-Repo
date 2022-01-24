@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crs.flipkart.dao;
+package com.flipkart.dao;
 
 /**
  * @author User
