@@ -1,13 +1,11 @@
-package com.crs.flipkart.application;
+package com.flipkart.application;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-//import com.crs.flipkart.bean.Professor;
-import com.crs.flipkart.bean.ReportCard;
-import com.crs.flipkart.bean.Student;
+
 //import com.crs.flipkart.constants.constants;
 //import com.crs.flipkart.exception.CourseNotDeletedException;
 //import com.crs.flipkart.exception.CourseNotFoundException;
@@ -17,6 +15,8 @@ import com.crs.flipkart.bean.Student;
 //import com.crs.flipkart.exception.StudentNotRegisteredException;
 import com.crs.flipkart.service.AdminInterface;
 import com.crs.flipkart.service.AdminOperation;
+import com.flipkart.bean.ReportCard;
+import com.flipkart.bean.Student;
 
 
 //public class CRSAdminMenu {

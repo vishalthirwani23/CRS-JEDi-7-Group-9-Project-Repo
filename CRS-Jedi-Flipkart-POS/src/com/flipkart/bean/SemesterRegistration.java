@@ -1,4 +1,4 @@
-package com.crs.flipkart.bean;
+package com.flipkart.bean;
 
 public class SemesterRegistration {
 	private Integer studentID;

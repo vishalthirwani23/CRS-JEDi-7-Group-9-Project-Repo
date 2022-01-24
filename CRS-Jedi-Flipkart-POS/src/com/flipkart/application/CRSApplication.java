@@ -1,4 +1,4 @@
-package com.crs.flipkart.application;
+package com.flipkart.application;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crs.flipkart.business;
+package com.flipkart.business;
 
 /**
  * @author jayant

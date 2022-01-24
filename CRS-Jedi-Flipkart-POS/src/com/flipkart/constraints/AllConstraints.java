@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crs.flipkart.constraints;
+package com.flipkart.constraints;
 
 /**
  * @author User

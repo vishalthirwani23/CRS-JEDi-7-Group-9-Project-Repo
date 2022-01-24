@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.crs.flipkart.business;
+package com.flipkart.business;
 
 import java.util.Map;
 
