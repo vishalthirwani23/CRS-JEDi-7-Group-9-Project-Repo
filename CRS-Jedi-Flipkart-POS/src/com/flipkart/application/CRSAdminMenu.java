@@ -4,27 +4,22 @@ import java.util.List;
 import java.util.Scanner;
 
 
-// import com.flipkart.bean.Course;
-// import com.flipkart.bean.Professor;
-// import com.flipkart.bean.Student;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 
-/* import com.flipkart.constant.Color;
+import com.flipkart.constant.Color;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role; 
-import com.flipkart.exception.CourseFoundException;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
-import com.flipkart.exception.UserIdAlreadyInUseException;
-import com.flipkart.exception.UserNotFoundException; */
 import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
-/*
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
-import com.flipkart.utils.StringUtils; */
+
+/*
+import com.flipkart.utils.StringUtils; 
+*/
 
 /**
  * Class that display Admin Client Menu
@@ -34,7 +29,7 @@ public class CRSAdminMenu {
 
     AdminInterface adminOperation = AdminOperation.getInstance();
     Scanner scanner = new Scanner(System.in);
-//     NotificationInterface notificationInterface = NotificationOperation.getInstance();
+    NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
     /**
      * Method to Create Admin Menu
@@ -118,16 +113,9 @@ public class CRSAdminMenu {
 
         System.out.println("Enter Professor's User Id:");
         String userId = scanner.next();
-
-        try {
-
-            adminOperation.assignCourse(courseCode, userId); // add assignCourse method in admin
-
-        } catch (Exception e) {
-
-            System.out.println(e);
-        }
-
+	   
+        adminOperation.assignCourse(courseCode, userId); // add assignCourse method in admin
+	    
     }
 
     /**
@@ -169,32 +157,10 @@ public class CRSAdminMenu {
         String country = scanner.next();
         professor.setCountry(country);
 
-        professor.setRole(Professor");
+        professor.setRole(Role.stringToName("Professor"));
 
-        try {
-            adminOperation.addProfessor(professor);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
-    /**
-     * Method to view Students who are yet to be approved
-     * @return List of Students whose admissions are pending
-     */
-    private List<Student> viewPendingAdmissions() {
-
-        List<Student> pendingStudentsList = adminOperation.viewPendingAdmissions(); // add viewPendingAdmissions method in admin
-        if (pendingStudentsList.size() == 0) {
-            return pendingStudentsList;
-        }
-        System.out.println("Students Pending for Approval");
-        System.out.println("UserId", "StudentId", "Name", "Gender");
-        for (Student student : pendingStudentsList) {
-            System.out.println(student.getUserId(), student.getStudentId(), student.getName(), student.getGender().toString());
-        }
-        return pendingStudentsList;
+        adminOperation.addProfessor(professor);
+ 
     }
 
     /**
@@ -210,14 +176,10 @@ public class CRSAdminMenu {
         System.out.println("Enter Student's ID:");
         int studentUserIdApproval = scanner.nextInt();
 
-        try {
-            adminOperation.approveStudent(studentUserIdApproval, studentList);
+        adminOperation.approveStudent(studentUserIdApproval, studentList);
             //send notification from system
-           /* notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null); */
+        notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
 
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
     /**
@@ -231,11 +193,7 @@ public class CRSAdminMenu {
         System.out.println("Enter Course Code:");
         String courseCode = scanner.next();
 
-        try {
-            adminOperation.deleteCourse(courseCode, courseList);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+	adminOperation.deleteCourse(courseCode, courseList);
     }
 
     /**
@@ -252,13 +210,9 @@ public class CRSAdminMenu {
         String courseName = scanner.next();
 
         Course course = new Course(courseCode, courseName, null, 10);
-
-        try {
-            adminOperation.addCourse(course, courseList);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
+	
+	adminOperation.addCourse(course, courseList);
+ 
     }
 
     /**
