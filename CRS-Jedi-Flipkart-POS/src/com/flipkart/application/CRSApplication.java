@@ -3,8 +3,8 @@ package com.flipkart.application;
 import java.util.Scanner;
 
 import com.flipkart.business.*;
-import com.flipkart.constant.Gender;
-import com.flipkart.constant.NotificationType;
+//import com.flipkart.constant.Gender;
+//import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 
 
@@ -104,7 +104,7 @@ public class CRSApplication {
                 switch (userRole) {
                     case ADMIN:
                     	System.out.println( " Login Successful as Admin");
-                        AdminCRSMenu adminMenu = new AdminCRSMenu();
+                    	CRSAdminMenu adminMenu = new CRSAdminMenu();
                         adminMenu.createMenu();
                         break;
                     case PROFESSOR:
@@ -151,9 +151,8 @@ public class CRSApplication {
         	System.out.println("Incorrect Password! Access Denied");
             return;
         }
-        String userId, name, password, address, country;
-        Gender gender;
-        int genderV;
+        String userId, name, password;
+   
       
             //input all the student details
         	System.out.println("Administrative Account Creation Portal");
@@ -171,38 +170,7 @@ public class CRSApplication {
      * Method to help Student register themselves, pending admin approval
      */
     public void registerStudent() {
-        Scanner sc = new Scanner(System.in);
 
-        String userId, name, password, address, country, branchName;
-        Gender gender;
-        int genderV, batch;
-     
-            //input all the student details
-        	System.out.println("Student Registration Portal");
-            System.out.println("Name:");
-            name = sc.nextLine();
-            System.out.println("Email:");
-            userId = sc.next();
-            System.out.println("Password:");
-            password = sc.next();
-            System.out.println("Gender: \t 1: Male \t 2.Female\t 3.Other");
-            genderV = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Branch:");
-            branchName = sc.nextLine();
-            System.out.println("Batch:");
-            batch = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Address:");
-            address = sc.nextLine();
-            System.out.println("Country");
-            country = sc.next();
-            gender = Gender.getName(genderV);
-            int newStudentId = studentInterface.register(name, userId, password, gender, batch, branchName, address, country);
-            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
-
-      
-            System.out.println("Student Successfully Registered!");
     }
 
     /**

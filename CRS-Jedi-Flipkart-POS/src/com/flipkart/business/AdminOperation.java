@@ -84,5 +84,10 @@ public class AdminOperation implements AdminInterface {
 		//ado approves account		
 	}
 
+	public static AdminInterface getInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
