@@ -1,38 +1,10 @@
-<<<<<<< HEAD
-/**
- * 
- */
-package com.crs.flipkart.bean;
 
-/**
- * @author User
- *
- */
-public class User {
-	private String emailID;
-	public String getEmailID() {
-		return emailID;
-	}
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getMobileNo() {
-		return mobileNo;
-	}
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
-	private String name;
-	private String mobileNo;
 
-}
-=======
+
+
+
+
+
 package com.crs.flipkart.bean;
 
 public class User {
@@ -90,18 +62,6 @@ public class User {
     public void setJoiningYear(Integer joiningYear) {
         this.joiningYear = joiningYear;
     }
-
-    public User() {
-
-    }
-
-    public User(String userName, String userId, String role, String password, String contactNumber, Integer joiningYear) {
-        this.userName = userName;
-        this.userId = userId;
-        this.role = role;
-        this.password = password;
-        this.contactNumber = contactNumber;
-        this.joiningYear = joiningYear;
-    }
+  
 }
->>>>>>> 8b09488f4e7c7ff31952eae4184c95de883d08c6
+
