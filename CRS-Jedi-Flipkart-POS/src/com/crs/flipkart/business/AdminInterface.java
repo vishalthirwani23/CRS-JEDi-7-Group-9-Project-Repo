@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.flipkart.bean.Course;
+import com.crs.flipkart.bean.Course;
 //import com.flipkart.bean.Professor;
 //import com.flipkart.bean.ReportCard;
 //import com.flipkart.bean.Student;
