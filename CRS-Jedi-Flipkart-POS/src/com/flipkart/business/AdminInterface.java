@@ -35,7 +35,7 @@ public interface AdminInterface {
 	 * @throws AdminAccountNotCreatedException If admin account is not created
 	 * @return Admin ID
 	 */
-	public int register(String name, String userID, String password);
+	public String register(String name, String userID, String password,String email);
 	/**
 	 * Method to Delete Course from Course Catalog
 	 * 
@@ -44,7 +44,7 @@ public interface AdminInterface {
 	 * @throws CourseNotFoundException If course is not found
 	 * @throws CourseNotDeletedException If course not deleted
 	 */
-	public void deleteCourse(String courseCode, List<Course> courseList);
+	public void deleteCourse(String courseCode);
 
 	/**
 	 * Method to add Course to Course Catalog
@@ -69,20 +69,13 @@ public interface AdminInterface {
 
 	
 
-	/**
-	 * Method to get list of courses in catalog
-	 * 
-	 * @param catalogId: Id Of Catalog
-	 * @return List of courses in catalog
-	 */
-	public List<Course> viewCourses();
 
 	/**
 	 * View professor in the institute
 	 * 
 	 * @return List of the professors in the institute
 	 */
-	public List<Professor> viewProfessors();
+	public void viewProfessors();
 	
 	public void addProfessor (String name,String ID,String password,String mobile,String email,String role);
 	

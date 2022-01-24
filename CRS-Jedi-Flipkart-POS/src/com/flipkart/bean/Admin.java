@@ -9,6 +9,10 @@ package com.flipkart.bean;
  */
 public class Admin extends User {
 	
+	public Admin()
+	{
+		
+	}
 	private String adminName;
 	private String adminID;
 	

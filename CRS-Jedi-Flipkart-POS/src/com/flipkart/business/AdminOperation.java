@@ -8,8 +8,13 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Admin;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.UserDB;
+import com.flipkart.bean.*;
+import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.AdminDaoOperation;
 //import com.flipkart.bean.ReportCard;
 
 
@@ -19,14 +24,14 @@ import com.flipkart.bean.Student;
  */
 
 
-public class AdminOperation implements AdminInterface {
+public class AdminOperation extends UserDB implements AdminInterface {
 	
 
     
     //private void courseId()
 	private static volatile AdminOperation instance = null;
 
-	public AdminOperation() {
+	private AdminOperation() {
 
 	}
 	/**
@@ -35,65 +40,73 @@ public class AdminOperation implements AdminInterface {
 	 * @return instance of AdminOperation
 	 */
 	public static AdminOperation getInstance() {
-		if (instance == null) {
-			synchronized (AdminOperation.class) {
-				instance = new AdminOperation();
-			}
-		}
+//		
+	   instance = new AdminOperation();
 		return instance;
 	}
+	
+	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
+	
+	@Override
+    public String register(String name, String userID,String password,String email) {
+		
+		super.putUser(name, userID, password, "9012", email, "Admin");
+		return userID;
+		
+	}
+	
+	@Override
+	public void addCourse(Course course)
+	{
+		System.out.println(course.getCourseID()+" Added");
+	}
+	
+	@Override
+    public void deleteCourse(String courseCode)
+    {
+    	System.out.println(courseCode+" Deleted");
+    }
+	
+	@Override
+	public void approveStudent(Integer studentId) 
+	{
+		if(super.db.containsKey(studentId)==true)
+		{
+			System.out.println("Approved");
+		}
+		else
+		{
+			System.out.println("Student not found");
+		}
+	}
+	
+	public void viewProfessors()
+	{
+		for (HashMap.Entry<String,User> entry : super.db.entrySet())
+		{
+			if(entry.getValue().getRole()=="Professor")
+				System.out.println("Professor name "+entry.getValue().getUserName()+" Emai is "+entry.getValue().getEmailID());
+		}
+	}
+	
+	public void addProfessor(String name,String ID,String password,String mobile,String email,String role)
+	{
+		super.putUser(name, ID, password, mobile, email, "Professor");
+	}
+	
+	
+    
+    
+    
+    
+	
+	
+	
 
+	
 	
 
 
-	@Override
-	public void deleteCourse(String courseCode,List<Course> courseList) {
-		// TODO Auto-generated method stub
-		//ado removes course
-		
-	}
-
-	@Override
-	public void addCourse(Course course_name,) {
-		// TODO Auto-generated method stub
-		Course newCourse = new Course();
-		newCourse.setCoursename(course_name);
-		newCourse.setCourseID(courseID);
-		newCourse.setOfferedSemester(semester);
-		newCourse.setAvailableSeats(10);
-		
-		//ado adds course
-		
-	}
-
-	
-	@Override
-	public HashMap<String,ArrayList<Integer> > viewCourseStudentList(String courseID, int semester, Boolean viewAll) {
-		
-//		AdminDaoOperation ado1 = new AdminDaoOperation();
-		//ado gives permission to view list
-	}
-
-	@Override
-	public ReportCard generateReportCard(int studentID)
-			
-		ReportCard R = new ReportCard();
-		//ado gives permission to grades
-		return R;
-	}
-
-	
-	@Override
-	public List<Student> getPendingStudentAccountsList() {
-
-		//returns list
-		
-	}
-
-	@Override
-	public void approveStudentAccount(Integer studentID) {
-		//ado approves account		
-	}
 	
 	
 

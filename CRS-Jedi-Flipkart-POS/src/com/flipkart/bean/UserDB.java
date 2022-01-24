@@ -8,9 +8,10 @@ import java.util.HashMap;
  * @author User
  *
  */
+
 public class UserDB extends User{
-	private HashMap<String,User> db=new HashMap<String,User>();
 	
+	public HashMap<String,User> db=new HashMap<String,User>();
 	public UserDB()
 	{
 		User user1 = new User();
