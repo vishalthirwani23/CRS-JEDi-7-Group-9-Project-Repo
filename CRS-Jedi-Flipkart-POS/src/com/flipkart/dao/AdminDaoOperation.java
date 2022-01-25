@@ -9,6 +9,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
+import com.mysql.jdbc.PreparedStatement;
 
 
 public class AdminDaoOperation implements AdminDaoInterface{
