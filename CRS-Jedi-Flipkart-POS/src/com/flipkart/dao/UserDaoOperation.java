@@ -2,18 +2,25 @@
  * 
  */
 package com.flipkart.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.flipkart.constant.SQLQueriesConstants;
+
 import com.flipkart.constant.NotificationType;
 import com.flipkart.bean.User;
-import com.flipkart.bean.UserDB;
-import java.util.HashMap;
 
-import com.flipkart.bean.User;
+import com.flipkart.utils.DBUtils;
+
 
 /**
  * @author venkat.karthik
  *
  */
-public class UserDaoOperation extends UserDB implements UserDaoInterface {
+public class UserDaoOperation  implements UserDaoInterface {
 
 	private static volatile UserDaoOperation instance = null;
 
@@ -31,54 +38,94 @@ public class UserDaoOperation extends UserDB implements UserDaoInterface {
 		return instance;
 	}
 	
+	
+	@Override
 	public boolean updatePassword(String userId, String newPassword) {
-		
-		User user = getUser(userId);
-		if(user == null){
-			System.out.println("User not found!!");
-			return false;
+		Connection connection = DBUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.UPDATE_PASSWORD);
+
+			statement.setString(1, newPassword);
+			statement.setString(2, userId);
+
+			int row = statement.executeUpdate();
+			if (row == 1)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		else {
-			user.setPassword(newPassword);
-			System.out.println("Password updated!!!");
-			return true;
-		}
-		
+		return false;
 	}
 	
+	
+	@Override
 	public boolean verifyCredentials(String userId, String password) {
-		
-		User user = getUser(userId);
-		if(user == null) {
-			System.out.println("User not found!!");
-			return false;
-		}
-		else {
-			if(user.getPassword().equals(password)) {
-				System.out.println("Credentials Verified!!!");
+		Connection connection = DBUtils.getConnection();
+		try {
+			// open db connection
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.VERIFY_CREDENTIALS);
+			preparedStatement.setString(1, userId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				System.out.println(userId + " User not found");
+			else if (password.equals(resultSet.getString("password"))) {
 				return true;
-			}
-			else {
-				System.out.println("Username/Password is incorrect");
+			} else {
 				return false;
 			}
-		}
-	}
 
+		} catch (SQLException ex) {
+			System.out.println("Something went wrong, please try again! " + ex.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	
+	
+	
 	public boolean updatePassword(String userID) {
 		System.out.println("Enter password!!!");
 		return false;
 	}
 	
+	@Override
 	public String getRole(String userId) {
-		User user = getUser(userId);
-		if(user == null) {
-			System.out.println("User not found!!");
-			return null;
+		Connection connection = DBUtils.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ROLE);
+			statement.setString(1, userId);
+			ResultSet rs = statement.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString("role");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		else {
-			return user.getRole();
-		}
+		return null;
 	}
+
 	
 }

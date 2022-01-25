@@ -2,11 +2,16 @@ package com.flipkart.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBUtils {
@@ -22,10 +27,9 @@ public class DBUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        DB_URL = prop.getProperty("jdbc:mysql://localhost/test");
-        USER = prop.getProperty("root");
+        DB_URL = prop.getProperty("url");
+        USER = prop.getProperty("user");
         PASS = prop.getProperty("password");
-
     }
 
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -45,4 +49,3 @@ public class DBUtils {
         return LocalDateTime.parse(str, formatter);
     }
 }
-
