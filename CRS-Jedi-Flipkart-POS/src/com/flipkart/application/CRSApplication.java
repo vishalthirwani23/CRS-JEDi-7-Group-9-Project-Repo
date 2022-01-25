@@ -5,7 +5,6 @@ import java.util.Scanner;
 import com.flipkart.business.*;
 //import com.flipkart.constant.Gender;
 //import com.flipkart.constant.NotificationType;
-import com.flipkart.constant.Role;
 
 
 /**
@@ -53,7 +52,7 @@ public class CRSApplication {
                 createMainMenu();
                 userInput = sc.nextInt();
             }
-        
+        sc.close();
     }
 
     /**

@@ -3,38 +3,27 @@
  */
 package com.flipkart.bean;
 
+import com.flipkart.constant.Role;
+
+import java.util.Date;
 /**
  * @author User
  *
  */
 public class Admin extends User {
 	
-	public Admin()
-	{
-		
-	}
-	private String adminName;
-	private String adminID;
+	private Date dateOfJoining;
 	
-	public String getAdminName() {
-		return adminName;
-	}
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
+	public Admin(String userId, String name, Role role, String password) {
+	super(userId, name, role, password);
+}
+	public Date getDateOfJoining() {
+		return dateOfJoining;
 	}
 	
-	public String getAdminID() {
-		return adminID;
+	public void setDateOfJoining(Date dateOfJoining) {
+		this.dateOfJoining = dateOfJoining;
 	}
-	public void setAdminID(String adminID) {
-		this.adminID = adminID;
-	}
-
-	public Admin(String adminName, String adminID, String password)
-	{
-		this.setAdminName(adminName);
-		this.setAdminID(adminID);
-		this.setPassword(password);
-	}
-
+	
+	
 }
