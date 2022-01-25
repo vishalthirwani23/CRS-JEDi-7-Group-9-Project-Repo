@@ -1,13 +1,19 @@
-/**
- * 
- */
 package com.flipkart.dao;
+
+import java.sql.SQLException;
+
+
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
-import com.flipkart.constant.NotificationType;
 
+/**
+ *
+ * Interface for Notification Dao Operations Used for adding the notification to
+ * the database
+ *
+ */
 public interface NotificationDaoInterface {
-	
+
 	/**
 	 * Send Notification using SQL commands
 	 * 
@@ -18,6 +24,8 @@ public interface NotificationDaoInterface {
 	 * @param cardNumber:	 Card Number
 	 * @param cvv:	     	 Cvv
 	 * @return notification id for the record added in the database
+	 * @throws SQLException If Sql Error comes up
 	 */
-	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv);
+	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv)
+			throws SQLException;
 }

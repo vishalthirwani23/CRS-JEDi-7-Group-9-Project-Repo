@@ -1,6 +1,9 @@
 package com.flipkart.business;
 
+import java.sql.SQLException;
 import java.util.UUID;
+
+
 
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
@@ -16,6 +19,7 @@ public class NotificationOperation implements NotificationInterface {
 
 	private static volatile NotificationOperation instance = null;
 	NotificationDaoInterface notificationDaoInterface = NotificationDaoOperation.getInstance();
+	
 
 	private NotificationOperation() {
 
@@ -47,9 +51,13 @@ public class NotificationOperation implements NotificationInterface {
 	@Override
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv) {
 		int notificationId = 0;
+		try {
 
 			notificationId = notificationDaoInterface.sendNotification(type, studentId, modeOfPayment, amount, cardNumber, cvv);
 
+		} catch (SQLException ex) {
+			System.out.println("Error occurred " + ex.getMessage());
+		}
 		return notificationId;
 	}
 
