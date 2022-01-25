@@ -1,10 +1,9 @@
 package com.flipkart.application;
 
 import java.util.Scanner;
+import com.flipkart.constant.NotificationType;
 
 import com.flipkart.business.*;
-//import com.flipkart.constant.Gender;
-//import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 
 
@@ -171,6 +170,34 @@ public class CRSApplication {
      */
     public void registerStudent() {
 
+    }
+    /**
+     * Method to help Student register themselves, pending admin approval
+     */
+    public void registerStudent() {
+        Scanner sc = new Scanner(System.in);
+
+        String userId, name, password;
+      
+      
+        try {
+            //input all the student details
+            System.out.println("Student Registration Portal");
+            System.out.println("Name:");
+            name = sc.nextLine();
+            System.out.println("Email:");
+            userId = sc.next();
+            System.out.println("Password:");
+            password = sc.next();
+
+            int newStudentId = studentInterface.register(name, userId, password);
+            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
+
+        } catch (Exception ex) {
+        	System.out.println("Something went wrong! not registered. Please try again");
+            return;
+        }
+        System.out.println("Student Successfully Registered!");
     }
 
     /**
