@@ -1,7 +1,7 @@
 package com.flipkart.business;
 
 import com.flipkart.dao.UserDaoInterface;
-//import com.flipkart.dao.UserDaoOperation;
+import com.flipkart.dao.UserDaoOperation;
 
 
 /**
@@ -11,7 +11,7 @@ import com.flipkart.dao.UserDaoInterface;
 public class UserOperation implements UserInterface {
 
 	private static volatile UserOperation instance = null;
-	//UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
 
 	private UserOperation() {
 
@@ -39,6 +39,7 @@ public class UserOperation implements UserInterface {
 	 * @param newPassword New password
 	 * @return boolean indicating if the password is updated successfully
 	 */
+	
 	@Override
 	public boolean updatePassword(String userID, String newPassword) {
 		return userDaoInterface.updatePassword(userID, newPassword);
@@ -59,7 +60,8 @@ public class UserOperation implements UserInterface {
 
 		}
 	}
-
+	
+	
 	/**
 	 * Method to get role of a specific User
 	 * 
