@@ -7,10 +7,7 @@ import com.flipkart.business.*;
 import com.flipkart.constant.Role;
 
 
-/**
- * This class is used as the main entry point of the application
- * In main menu to login, register are displayed
- */
+
 public class CRSApplication {
 
     static boolean loggedin = false;
@@ -55,9 +52,6 @@ public class CRSApplication {
         
     }
 
-    /**
-     * Method to Create Main Menu
-     */
     public static void createMainMenu() {
        
         
@@ -74,9 +68,7 @@ public class CRSApplication {
     }
 
 
-    /**
-     * Method for Login functionality
-     */
+
     public void loginUser() {
 
         Scanner sc = new Scanner(System.in);
@@ -137,9 +129,7 @@ public class CRSApplication {
         
     }
 
-    /**
-     * Method to Register Admin
-     */
+  
     public void registerAdmin() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter root password");
@@ -165,15 +155,11 @@ public class CRSApplication {
        
             System.out.println("Administrative Account Successfully Created!");
     }
-    /**
-     * Method to help Student register themselves, pending admin approval
-     */
+   
     public void registerStudent() {
 
     }
-    /**
-     * Method to help Student register themselves, pending admin approval
-     */
+ 
     public void registerStudent() {
         Scanner sc = new Scanner(System.in);
 
@@ -200,9 +186,7 @@ public class CRSApplication {
         System.out.println("Student Successfully Registered!");
     }
 
-    /**
-     * Method to update password of User
-     */
+  
     public void updatePassword() {
         Scanner sc = new Scanner(System.in);
         String userId, newPassword, password;

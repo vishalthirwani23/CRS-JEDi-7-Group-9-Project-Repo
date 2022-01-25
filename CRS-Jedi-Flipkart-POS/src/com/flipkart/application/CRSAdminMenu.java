@@ -18,9 +18,7 @@ import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
  
 
-/**
- * Class that display Admin Client Menu
- */
+
 public class CRSAdminMenu {
 
 
@@ -28,9 +26,7 @@ public class CRSAdminMenu {
     Scanner scanner = new Scanner(System.in);
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
-    /**
-     * Method to Create Admin Menu
-     */
+
     public void createMenu() {
 
         while (CRSApplication.loggedin) {
@@ -82,9 +78,7 @@ public class CRSAdminMenu {
         }
     }
 
-    /**
-     * Method to assign Course to a Professor
-     */
+
     private void assignCourseToProfessor() {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
         System.out.println("List of Professors Available");
@@ -111,9 +105,7 @@ public class CRSAdminMenu {
 	    
     }
 
-    /**
-     * Method to add Professor to DB
-     */
+
     private void addProfessor() {
 
         Professor professor = new Professor();
@@ -146,9 +138,7 @@ public class CRSAdminMenu {
  
     }
 
-    /**
-     * Method to approve a Student using Student's ID
-     */
+
     private void approveStudent() {
 
         List<Student> studentList = viewPendingAdmissions();

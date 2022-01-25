@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.flipkart.application;
 
 /**
@@ -23,13 +20,6 @@ import com.flipkart.business.ProfessorOperation;
 import com.flipkart.business.RegistrationInterface;
 import com.flipkart.business.RegistrationOperation;
 
-
-
-/**
- *
- *  The class displays the menu for student client
- *
- */
 public class StudentCRSMenu {
     Scanner sc = new Scanner(System.in);
     RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
@@ -97,11 +87,7 @@ public class StudentCRSMenu {
     }
 
 
-    /**
-     * Select course for registration
-     * @param studentId student id
-     * @param studentId
-     * */
+
     private void registerCourses(int studentId)
     {
         if(is_registered)
@@ -194,13 +180,7 @@ public class StudentCRSMenu {
         }
     }
 
-    /**
-     * Method to check if student is already registered
-     *
-     * @param studentId student id
-     * @param studentId
-     * @return Registration Status
-     */
+   
     private boolean getRegistrationStatus(int studentId)
     {
         try
@@ -214,12 +194,7 @@ public class StudentCRSMenu {
         return false;
     }
 
-    /**
-     * Drop Course
-     *
-     * @param studentId student id
-     * @param studentId
-     */
+
     private void dropCourse(int studentId)
     {
         if(is_registered)
@@ -251,14 +226,9 @@ public class StudentCRSMenu {
         }
     }
 
-    /**
-     * View all available Courses
-     *
-     * @param studentId student id
-     * @param studentId
-     * @return List of available Courses
-     */
+    
     private List<Course> viewCourse(int studentId)
+
     {
     	System.out.println("List of Available Courses");
         List<Course> course_available=null;
@@ -288,14 +258,8 @@ public class StudentCRSMenu {
         
         return course_available;
     }
+    
 
-    /**
-     * View Registered Courses
-     *
-     * @param studentId student id
-     * @param studentId
-     * @return List of Registered Courses
-     */
     private List<Course> viewRegisteredCourse(int studentId)
     {
     	System.out.println("List of Registered Courses");
@@ -328,12 +292,7 @@ public class StudentCRSMenu {
         return course_registered;
     }
 
-    /**
-     * View grade card for particular student
-     *
-     * @param studentId student id
-     * @param studentId
-     */
+
     private void viewGradeCard(int studentId) {
 
     	System.out.println("GRADE CARD");
@@ -398,12 +357,7 @@ public class StudentCRSMenu {
             return gradeStrToScore.get(grade);
         return 0;
     }
-    /**
-     * Make Payment for selected courses.
-     * Student is provided with an option to pay the fees and select the mode of payment.
-     *
-     * @param studentId
-     */
+
     private void make_payment(int studentId)
     {
 

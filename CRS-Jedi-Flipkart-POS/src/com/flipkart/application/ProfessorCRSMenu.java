@@ -17,9 +17,7 @@ import com.flipkart.business.ProfessorOperation;
 import com.flipkart.validator.ProfessorValidator;
 
 
-/**
- * Class that display Professor Client Menu
- */
+
 public class ProfessorCRSMenu {
 
 
