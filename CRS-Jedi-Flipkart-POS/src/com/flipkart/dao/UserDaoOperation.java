@@ -1,3 +1,4 @@
+
 package com.flipkart.dao;
 
 import java.sql.Connection;
@@ -5,10 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
 
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtils;
 
 public class UserDaoOperation implements UserDaoInterface {
@@ -44,7 +43,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			else
 				return false;
 		} catch (SQLException e) {
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		} finally {
 			try {
 				connection.close();
@@ -65,7 +64,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (!resultSet.next())
-				throw new UserNotFoundException(userId);
+				throw new Exception(userId);
 			else if (password.equals(resultSet.getString("password"))) {
 				return true;
 			} else {
@@ -73,7 +72,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			}
 
 		} catch (SQLException ex) {
-			logger.info("Something went wrong, please try again! " + ex.getMessage());
+			System.err.println("Something went wrong, please try again! " + ex.getMessage());
 		} finally {
 			try {
 				connection.close();
@@ -102,7 +101,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e.getMessage());
+			System.err.println(e.getMessage());
 		} finally {
 			try {
 				connection.close();
@@ -112,5 +111,4 @@ public class UserDaoOperation implements UserDaoInterface {
 		}
 		return null;
 	}
-
 }
