@@ -16,14 +16,9 @@ import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
-import 
-/*
-import com.flipkart.utils.StringUtils; 
-*/
+ 
 
-/**
- * Class that display Admin Client Menu
- */
+
 public class CRSAdminMenu {
 
 
@@ -31,9 +26,7 @@ public class CRSAdminMenu {
     Scanner scanner = new Scanner(System.in);
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
-    /**
-     * Method to Create Admin Menu
-     */
+
     public void createMenu() {
 
         while (CRSApplication.loggedin) {
@@ -85,9 +78,7 @@ public class CRSAdminMenu {
         }
     }
 
-    /**
-     * Method to assign Course to a Professor
-     */
+
     private void assignCourseToProfessor() {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
         System.out.println("List of Professors Available");
@@ -114,9 +105,7 @@ public class CRSAdminMenu {
 	    
     }
 
-    /**
-     * Method to add Professor to DB
-     */
+
     private void addProfessor() {
 
         Professor professor = new Professor();
@@ -149,9 +138,7 @@ public class CRSAdminMenu {
  
     }
 
-    /**
-     * Method to approve a Student using Student's ID
-     */
+
     private void approveStudent() {
 
         List<Student> studentList = viewPendingAdmissions();
@@ -168,23 +155,39 @@ public class CRSAdminMenu {
 
     }
 
-    /**
-     * Method to delete Course from catalogue
-     *
-     * @throws CourseNotFoundException
-     */
+    private void approveStudent() {
+
+        List<Student> studentList = viewPendingAdmissions();
+        if (studentList.size() == 0) {
+            return;
+        }
+        System.out.println("Approve Student Portal");
+        System.out.println("Enter Student's ID:");
+        int studentUserIdApproval = scanner.nextInt();
+
+        try {
+            adminOperation.approveStudent(studentUserIdApproval, studentList);
+            //send notification from system
+            notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
+
+        } catch (Exception e) {
+            
+        }
+    }
     private void deleteCourse() {
         System.out.println("Delete Course Portal");
         List<Course> courseList = viewCoursesInCatalogue();
         System.out.println("Enter Course Code:");
         String courseCode = scanner.next();
-
-	adminOperation.deleteCourse(courseCode, courseList);
+        try {
+            adminOperation.deleteCourse(courseCode, courseList);
+        } catch (Exception e) {
+           
+        }
+	
     }
 
-    /**
-     * Method to add Course to catalogue
-     */
+
     private void addCourseToCatalogue() {
         System.out.println("Add Course to Catalogue Portal");
         List<Course> courseList = viewCoursesInCatalogue();
@@ -194,18 +197,18 @@ public class CRSAdminMenu {
 
         System.out.println("Enter Course Name:");
         String courseName = scanner.next();
-
         Course course = new Course(courseCode, courseName, null, 10);
+        try {
+        	adminOperation.addCourse(course, courseList);
+        	 
+        }catch(Exception e)
+        {
+        	
+        }
 	
-	adminOperation.addCourse(course, courseList);
- 
     }
 
-    /**
-     * Method to display courses in catalogue
-     *
-     * @return List of courses in catalogue
-     */
+
     private List<Course> viewCoursesInCatalogue() {
         List<Course> courseList = adminOperation.viewCourses();
         if (courseList.size() == 0) {

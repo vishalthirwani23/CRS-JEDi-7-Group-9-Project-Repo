@@ -1,17 +1,13 @@
 package com.flipkart.application;
 
 import java.util.Scanner;
+import com.flipkart.constant.NotificationType;
 
 import com.flipkart.business.*;
-//import com.flipkart.constant.Gender;
-//import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 
 
-/**
- * This class is used as the main entry point of the application
- * In main menu to login, register are displayed
- */
+
 public class CRSApplication {
 
     static boolean loggedin = false;
@@ -56,9 +52,6 @@ public class CRSApplication {
         
     }
 
-    /**
-     * Method to Create Main Menu
-     */
     public static void createMainMenu() {
        
         
@@ -75,9 +68,7 @@ public class CRSApplication {
     }
 
 
-    /**
-     * Method for Login functionality
-     */
+
     public void loginUser() {
 
         Scanner sc = new Scanner(System.in);
@@ -138,9 +129,7 @@ public class CRSApplication {
         
     }
 
-    /**
-     * Method to Register Admin
-     */
+  
     public void registerAdmin() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter root password");
@@ -166,16 +155,38 @@ public class CRSApplication {
        
             System.out.println("Administrative Account Successfully Created!");
     }
-    /**
-     * Method to help Student register themselves, pending admin approval
-     */
+   
     public void registerStudent() {
 
     }
+ 
+    public void registerStudent() {
+        Scanner sc = new Scanner(System.in);
 
-    /**
-     * Method to update password of User
-     */
+        String userId, name, password;
+      
+      
+        try {
+            //input all the student details
+            System.out.println("Student Registration Portal");
+            System.out.println("Name:");
+            name = sc.nextLine();
+            System.out.println("Email:");
+            userId = sc.next();
+            System.out.println("Password:");
+            password = sc.next();
+
+            int newStudentId = studentInterface.register(name, userId, password);
+            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
+
+        } catch (Exception ex) {
+        	System.out.println("Something went wrong! not registered. Please try again");
+            return;
+        }
+        System.out.println("Student Successfully Registered!");
+    }
+
+  
     public void updatePassword() {
         Scanner sc = new Scanner(System.in);
         String userId, newPassword, password;
