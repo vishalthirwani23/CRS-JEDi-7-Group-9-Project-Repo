@@ -1,7 +1,10 @@
 package com.flipkart.dao;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.flipkart.exception.*;
 
 
 import com.flipkart.bean.Course;
@@ -9,7 +12,8 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
-import com.mysql.jdbc.PreparedStatement;
+import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.utils.DBUtils;
 
 
 public class AdminDaoOperation implements AdminDaoInterface{
@@ -30,74 +34,316 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		return instance;
 	}
 	
-	@Override
-	public int addAdmin(User admin) {
-		
+	Connection connection = DBUtils.getConnection();
+
+	public int addAdmin(User admin) throws Exception {
+		Connection connection = DBUtils.getConnection();
 		int adminId = 0;
-		
+		try {
+			// open db connection
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY,
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, admin.getUserId());
+			preparedStatement.setString(2, admin.getName());
+			preparedStatement.setString(3, admin.getPassword());
+			preparedStatement.setString(4, admin.getRole().toString());
+			preparedStatement.setString(5, admin.getGender().toString());
+			preparedStatement.setString(6, admin.getAddress());
+			preparedStatement.setString(7, admin.getCountry());
+			int rowsAffected = preparedStatement.executeUpdate();
+			ResultSet results = preparedStatement.getGeneratedKeys();
+			if (results.next())
+				adminId = results.getInt(1);
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+			throw new AdminAccountNotCreatedException();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage() + "SQL error");
+				e.printStackTrace();
+			}
+		}
 		return adminId;
 	}
 
-	@Override
-	public void deleteCourse(String courseCode) {
+	public void deleteCourse(String courseCode) throws Exception{
 		
-		System.out.println("Course deleted");
+		statement = null;
+		try {
+			String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
+			statement = connection.prepareStatement(sql);
+			
+			statement.setString(1,courseCode);
+			int row = statement.executeUpdate();
+
+			System.out.println(row + " entries deleted.");
+			if(row == 0) {
+				System.out.println(courseCode + " not in catalog!");
+				throw new Exception();
+			}
+			System.out.println("Course with courseCode: " + courseCode + " deleted.");
+
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			throw new Exception();
+		}
 		
 	}
 
-	@Override
-	public void addCourse(Course course) {
+	public void addCourse(Course course) throws Exception{
 		
+		statement = null;
+		try {
+			
+			String sql = SQLQueriesConstants.ADD_COURSE_QUERY;
+			statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, course.getCourseCode());
+			statement.setString(2, course.getCourseName());
+			
+			statement.setInt(3, 1);
+			int row = statement.executeUpdate();
+
+			System.out.println(row + " course added");
+			if(row == 0) {
+				System.out.println("Course with courseCode: " + course.getCourseCode() + "not added to catalog.");
+				throw new Exception();
+			}
+			System.out.println("Course with courseCode: " + course.getCourseCode() + " is added to catalog.");
+			
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			throw new Exception();
+			
+		}
 		
-		System.out.println("New course added");
 	}
 
-	
+	public List<Student> viewPendingAdmissions() {
+		
+		statement = null;
+		List<Student> userList = new ArrayList<Student>();
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_PENDING_ADMISSION_QUERY;
+			statement = connection.prepareStatement(sql);
+			ResultSet resultSet = statement.executeQuery();
 
-	@Override
-	public void approveStudent(int studentId) {
+			while(resultSet.next()) {
+				
+				Student user = new Student();
+				user.setUserId(resultSet.getString(1));
+				user.setName(resultSet.getString(2));
+				user.setPassword(resultSet.getString(3));
+				user.setRole(Role.stringToName(resultSet.getString(4)));
+				user.setGender(Gender.stringToGender( resultSet.getString(5)));
+				user.setAddress(resultSet.getString(6));
+				user.setCountry(resultSet.getString(7));
+				user.setStudentId(resultSet.getInt(8));
+				userList.add(user);
+				
+			}
+			System.out.println(userList.size() + " students have pending-approval.");
+			
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+		}
 		
+		return userList;
 		
-		System.out.println("student approved");
 	}
 
-	@Override
-	public void addUser(User user) {
+	public void approveStudent(int studentId) throws Exception {
 		
-		System.out.println("user added");
+		statement = null;
+		try {
+			String sql = SQLQueriesConstants.APPROVE_STUDENT_QUERY;
+			statement = connection.prepareStatement(sql);
+			
+			statement.setInt(1,studentId);
+			int row = statement.executeUpdate();
+			
+			logger.info(row + " student approved.");
+			if(row == 0) {
+				//logger.error("Student with studentId: " + studentId + " not found.");
+				throw new Exception();
+			}
+			
+			//logger.info("Student with studentId: " + studentId + " approved by admin.");
+			
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			
+		}
 		
 	}
 
-	@Override
-	public void addProfessor(Professor professor) {
+	public void addUser(User user) throws Exception{
 		
-		System.out.println("professor added");
+		statement = null;
+		try {
+			
+			String sql = SQLQueriesConstants.ADD_USER_QUERY;
+			statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, user.getUserId());
+			statement.setString(2, user.getName());
+			statement.setString(3, user.getPassword());
+			statement.setString(4, user.getRole().toString());
+			statement.setString(5, user.getGender().toString());
+			statement.setString(6, user.getAddress());
+			statement.setString(7, user.getCountry());
+			int row = statement.executeUpdate();
+
+			System.out.println(row + " user added.");
+			if(row == 0) {
+				System.out.println("User with userId: " + user.getUserId() + " not added.");
+				throw new Exception();
+			}
+			System.out.println("User with userId: " + user.getUserId() + " added.");
+			
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			throw new Exception();
+		}
 		
 	}
-	
-	@Override
-	public void assignCourse(String courseCode, String professorId) {
+
+	public void addProfessor(Professor professor) throws UserIdAlreadyInUseException, ProfessorNotAddedException {
 		
-		System.out.println("course assigned");
+		try {
+			
+			this.addUser(professor);
+			
+		}catch (UserNotAddedException e) {
+
+			System.out.println(e.getMessage());
+			throw new Exception();
+			
+		}catch (UserIdAlreadyInUseException e) {
+			System.out.println(e.getMessage());
+			throw Exception;
+			
+		}
+		
+		
+		statement = null;
+		try {
+			
+			String sql = SQLQueriesConstants.ADD_PROFESSOR_QUERY;
+			statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, professor.getUserId());
+			statement.setString(2, professor.getDepartment());
+			statement.setString(3, professor.getDesignation());
+			int row = statement.executeUpdate();
+
+			System.out.println(row + " professor added.");
+			if(row == 0) {
+				System.out.println("Professor with professorId: " + professor.getUserId() + " not added.");
+				throw new Exception();
+			}
+			System.out.println("Professor with professorId: " + professor.getUserId() + " added.");
+			
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			throw new Exception();
+			
+		} 
+		
+	}
+
+	public void assignCourse(String courseCode, String professorId) throws Exception{
+		
+		statement = null;
+		try {
+			String sql = SQLQueriesConstants.ASSIGN_COURSE_QUERY;
+			statement = connection.prepareStatement(sql);
+			
+			statement.setString(1,professorId);
+			statement.setString(2,courseCode);
+			int row = statement.executeUpdate();
+
+			System.out.println(row + " course assigned.");
+			if(row == 0) {
+				System.out.println(courseCode + " not found");
+				throw new Exception();
+			}
+			System.out.println("Course with courseCode: " + courseCode + " is assigned to professor with professorId: " + professorId + ".");
+
+		
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			throw new Exception();
+			
+		}
 		
 	}
 	
 	public List<Course> viewCourses(int catalogId) {
 		
-		
+		statement = null;
 		List<Course> courseList = new ArrayList<>();
-		
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, catalogId);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Course course = new Course();
+				course.setCourseCode(resultSet.getString(1));
+				course.setCourseName(resultSet.getString(2));
+				course.setInstructorId(resultSet.getString(3));
+				courseList.add(course);
+				
+			}
+			System.out.println(courseList.size() + " courses in catalogId: " + catalogId + ".");
+			
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			
+		}
 		
 		return courseList; 
 		
 	}
 	
-	@Override
 	public List<Professor> viewProfessors() {
 		
-		
+		statement = null;
 		List<Professor> professorList = new ArrayList<>();
-		
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_PROFESSOR_QUERY;
+			statement = connection.prepareStatement(sql);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				Professor professor = new Professor();
+				professor.setUserId(resultSet.getString(1));
+				professor.setName(resultSet.getString(2));
+				professor.setGender(Gender.stringToGender(resultSet.getString(3)));
+				professor.setDepartment(resultSet.getString(4));
+				professor.setDesignation(resultSet.getString(5));
+				professor.setAddress(resultSet.getString(6));
+				professor.setCountry(resultSet.getString(7));
+				professor.setRole(Role.PROFESSOR);
+				professor.setPassword("*********");
+				professorList.add(professor);
+				
+			}
+			System.out.println(professorList.size() + " professors in the institute.");
+			
+		}catch(SQLException se) {
+			System.out.println(se.getMessage());
+			
+		}
 		return professorList;
 	}
 }

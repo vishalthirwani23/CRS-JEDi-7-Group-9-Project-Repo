@@ -1,14 +1,12 @@
-/**
- * 
- */
 package com.flipkart.business;
-
-import java.util.Map;
-
 /**
  * @author venkat.karthik
  *
  */
+
+import java.util.Map;
+
+
 public class ReportCardOperation implements ReportCardInterFace {
 	public Double calculateGrade(Map<courseName, Grade> coursesTaken) {
 		int points = 0;
