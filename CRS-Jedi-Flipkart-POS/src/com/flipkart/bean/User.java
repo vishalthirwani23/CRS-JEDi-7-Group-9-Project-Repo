@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-import com.flipkart.constant.Gender;
+
 import com.flipkart.constant.Role;
 
 /**
@@ -23,15 +23,12 @@ public abstract class User {
 	 * @param address:  user's address
 	 * @param country:  user's country
 	 */
-	public User(String userId, String name, Role role, String password, Gender gender, String address, String country) {
-		super();
+	public User(String userId, String name, Role role, String password) {
 		this.userId = userId;
 		this.name = name;
 		this.role = role;
 		this.password = password;
-		this.gender = gender;
-		this.address = address;
-		this.country = country;
+		
 	}
 
 	

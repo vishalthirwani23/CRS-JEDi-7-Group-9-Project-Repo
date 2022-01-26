@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-import java.util.Date;
+
 
 /**
  * Professor Class
