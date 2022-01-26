@@ -56,7 +56,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				adminId = results.getInt(1);
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
-			throw new AdminAccountNotCreatedException();
+			//throw new AdminAccountNotCreatedException();
 		} finally {
 			try {
 				connection.close();
@@ -68,14 +68,14 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		return adminId;
 	}
 
-	public void deleteCourse(String courseCode) throws Exception{
+	public void deleteCourse(int courseCode) throws Exception{
 		
 		statement = null;
 		try {
 			String sql = SQLQueriesConstants.DELETE_COURSE_QUERY;
 			statement = connection.prepareStatement(sql);
 			
-			statement.setString(1,courseCode);
+			statement.setInt(1,courseCode);
 			int row = statement.executeUpdate();
 
 			System.out.println(row + " entries deleted.");
@@ -100,7 +100,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			String sql = SQLQueriesConstants.ADD_COURSE_QUERY;
 			statement = connection.prepareStatement(sql);
 			
-			statement.setString(1, course.getCourseCode());
+			statement.setInt(1, course.getCourseCode());
 			statement.setString(2, course.getCourseName());
 			
 			statement.setInt(3, 1);
@@ -138,9 +138,6 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				user.setName(resultSet.getString(2));
 				user.setPassword(resultSet.getString(3));
 				user.setRole(Role.stringToName(resultSet.getString(4)));
-				user.setGender(Gender.stringToGender( resultSet.getString(5)));
-				user.setAddress(resultSet.getString(6));
-				user.setCountry(resultSet.getString(7));
 				user.setStudentId(resultSet.getInt(8));
 				userList.add(user);
 				
@@ -165,9 +162,9 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setInt(1,studentId);
 			int row = statement.executeUpdate();
 			
-			logger.info(row + " student approved.");
+			System.out.println(row + " student approved.");
 			if(row == 0) {
-				//logger.error("Student with studentId: " + studentId + " not found.");
+				System.out.println("Student with studentId: " + studentId + " not found.");
 				throw new Exception();
 			}
 			
@@ -192,9 +189,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPassword());
 			statement.setString(4, user.getRole().toString());
-			statement.setString(5, user.getGender().toString());
-			statement.setString(6, user.getAddress());
-			statement.setString(7, user.getCountry());
+			
 			int row = statement.executeUpdate();
 
 			System.out.println(row + " user added.");
@@ -296,7 +291,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			while(resultSet.next()) {
 				
 				Course course = new Course();
-				course.setCourseCode(resultSet.getString(1));
+				course.setCourseCode(resultSet.getInt(1));
 				course.setCourseName(resultSet.getString(2));
 				course.setInstructorId(resultSet.getString(3));
 				courseList.add(course);
@@ -328,11 +323,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				Professor professor = new Professor();
 				professor.setUserId(resultSet.getString(1));
 				professor.setName(resultSet.getString(2));
-				professor.setGender(Gender.stringToGender(resultSet.getString(3)));
+				
 				professor.setDepartment(resultSet.getString(4));
 				professor.setDesignation(resultSet.getString(5));
-				professor.setAddress(resultSet.getString(6));
-				professor.setCountry(resultSet.getString(7));
+				
 				professor.setRole(Role.PROFESSOR);
 				professor.setPassword("*********");
 				professorList.add(professor);

@@ -6,7 +6,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-import com.flipkart.exception.*;
+import com.flipkart.exceptions.*;
 
 
 public interface AdminDaoInterface {
@@ -14,7 +14,7 @@ public interface AdminDaoInterface {
 
 	public int addAdmin(User admin) throws Exception;
 
-	public void deleteCourse(String courseCode) throws Exception;
+	public void deleteCourse(int courseCode) throws Exception;
 
 	public void addCourse(Course course) throws Exception;
 
@@ -24,7 +24,7 @@ public interface AdminDaoInterface {
 
 	public void addUser(User user) throws Exception;
 
-	public void assignCourse(String courseCode, String professorId)
+	public void assignCourse(int courseCode, String professorId)
 			throws Exception;
 
 	public List<Course> viewCourses(int catalogId);
