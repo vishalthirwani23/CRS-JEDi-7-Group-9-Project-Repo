@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.flipkart.dao;
 
 import java.sql.Connection;
@@ -8,21 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 import com.flipkart.constant.SQLQueriesConstants;
-
-import com.flipkart.constant.NotificationType;
-import com.flipkart.bean.User;
-
 import com.flipkart.utils.DBUtils;
 
-
-/**
- * @author venkat.karthik
- *
- */
-public class UserDaoOperation  implements UserDaoInterface {
-
+public class UserDaoOperation implements UserDaoInterface {
 	private static volatile UserDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
 	private UserDaoOperation() {
 
@@ -37,8 +27,7 @@ public class UserDaoOperation  implements UserDaoInterface {
 		}
 		return instance;
 	}
-	
-	
+
 	@Override
 	public boolean updatePassword(String userId, String newPassword) {
 		Connection connection = DBUtils.getConnection();
@@ -54,7 +43,7 @@ public class UserDaoOperation  implements UserDaoInterface {
 			else
 				return false;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		} finally {
 			try {
 				connection.close();
@@ -64,10 +53,9 @@ public class UserDaoOperation  implements UserDaoInterface {
 		}
 		return false;
 	}
-	
-	
+
 	@Override
-	public boolean verifyCredentials(String userId, String password) {
+	public boolean verifyCredentials(String userId, String password) throws UserNotFoundException {
 		Connection connection = DBUtils.getConnection();
 		try {
 			// open db connection
@@ -76,7 +64,7 @@ public class UserDaoOperation  implements UserDaoInterface {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (!resultSet.next())
-				System.out.println(userId + " User not found");
+				throw new Exception(userId);
 			else if (password.equals(resultSet.getString("password"))) {
 				return true;
 			} else {
@@ -84,7 +72,7 @@ public class UserDaoOperation  implements UserDaoInterface {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println("Something went wrong, please try again! " + ex.getMessage());
+			System.err.println("Something went wrong, please try again! " + ex.getMessage());
 		} finally {
 			try {
 				connection.close();
@@ -94,15 +82,12 @@ public class UserDaoOperation  implements UserDaoInterface {
 		}
 		return false;
 	}
-	
-	
-	
-	
+
+	@Override
 	public boolean updatePassword(String userID) {
-		System.out.println("Enter password!!!");
 		return false;
 	}
-	
+
 	@Override
 	public String getRole(String userId) {
 		Connection connection = DBUtils.getConnection();
@@ -116,7 +101,7 @@ public class UserDaoOperation  implements UserDaoInterface {
 			}
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		} finally {
 			try {
 				connection.close();
@@ -126,6 +111,4 @@ public class UserDaoOperation  implements UserDaoInterface {
 		}
 		return null;
 	}
-
-	
 }
