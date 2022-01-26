@@ -2,6 +2,7 @@
  * 
  */
 package com.flipkart.dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +19,6 @@ import com.flipkart.constant.Grade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.exception.CourseLimitExceedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.exception.SeatNotAvailableException;
 import com.flipkart.utils.DBUtils;
 
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
@@ -83,11 +81,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			return count;
 
 		} catch (SQLException se) {
-
 			System.err.println(se.getMessage());
-
 		} catch (Exception e) {
-
 			System.err.println(e.getMessage());
 		} finally {
 			stmt.close();
@@ -329,3 +324,4 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	}
 
 }
+

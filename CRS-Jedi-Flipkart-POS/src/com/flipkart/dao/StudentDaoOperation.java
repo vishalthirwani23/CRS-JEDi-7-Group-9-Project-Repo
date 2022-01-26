@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstants;
+
 import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
 
@@ -34,6 +35,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public int addStudent(Student student) throws Exception {
+
 		Connection connection = DBUtils.getConnection();
 		int studentId = 0;
 		try {
@@ -43,7 +45,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			preparedStatement.setString(2, student.getName());
 			preparedStatement.setString(3, student.getPassword());
 			preparedStatement.setString(4, student.getRole().toString());
-			
+
 			int rowsAffected = preparedStatement.executeUpdate();
 			if (rowsAffected == 1) {
 				// add the student record
@@ -64,6 +66,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 			throw new Exception(student.getName());
+
 		} finally {
 			try {
 				connection.close();
@@ -112,5 +115,6 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 		return false;
 	}
-
+  
 }
+

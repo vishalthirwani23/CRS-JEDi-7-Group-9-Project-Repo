@@ -1,3 +1,4 @@
+
 package com.flipkart.dao;
 
 import java.sql.SQLException;
@@ -7,6 +8,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
+
 
 //Interface for Registration DAO Operation
  
@@ -54,6 +56,3 @@ public interface RegistrationDaoInterface {
 
 	//Method to set student registration status
 	
-	public void setRegistrationStatus(int studentId) throws SQLException;
-
-}

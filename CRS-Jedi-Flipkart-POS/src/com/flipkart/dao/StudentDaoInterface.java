@@ -1,9 +1,9 @@
 
 package com.flipkart.dao;
-import java.sql.SQLException;
 
+import java.sql.SQLException;
 import com.flipkart.bean.Student;
-import com.flipkart.exception.StudentNotRegisteredException;
+
 
 //Interface for Student Operations
 
@@ -21,3 +21,4 @@ public interface StudentDaoInterface {
 	
 	public boolean isApproved(int studentId);
 }
+
