@@ -2,7 +2,7 @@ package com.flipkart.application;
 
 import java.util.Scanner;
 import com.flipkart.constant.NotificationType;
-
+import com.flipkart.constant.Role;
 import com.flipkart.business.*;
 
 
@@ -16,7 +16,7 @@ public class CRSApplication {
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
     AdminInterface adminInterface = AdminOperation.getInstance();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         CRSApplication crsApplication = new CRSApplication();
         int userInput;
@@ -69,7 +69,7 @@ public class CRSApplication {
 
 
 
-    public void loginUser() {
+    public void loginUser() throws Exception {
 
         Scanner sc = new Scanner(System.in);
 
@@ -130,7 +130,7 @@ public class CRSApplication {
     }
 
   
-    public void registerAdmin() {
+    public void registerAdmin() throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter root password");
         String rt_pwd = sc.nextLine();
@@ -156,15 +156,13 @@ public class CRSApplication {
             System.out.println("Administrative Account Successfully Created!");
     }
    
-    public void registerStudent() {
 
-    }
  
     public void registerStudent() {
         Scanner sc = new Scanner(System.in);
 
-        String userId, name, password;
-      
+        String userId, name, password, branch;
+        int batch;
       
         try {
             //input all the student details
@@ -175,8 +173,12 @@ public class CRSApplication {
             userId = sc.next();
             System.out.println("Password:");
             password = sc.next();
+            System.out.println("Batch:");
+            batch = sc.nextInt();
+            System.out.println("Branch:");
+            branch = sc.next();
 
-            int newStudentId = studentInterface.register(name, userId, password);
+            int newStudentId = studentInterface.register(name, userId, password, batch, branch);
             notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
 
         } catch (Exception ex) {
@@ -187,7 +189,7 @@ public class CRSApplication {
     }
 
   
-    public void updatePassword() {
+    public void updatePassword() throws Exception {
         Scanner sc = new Scanner(System.in);
         String userId, newPassword, password;
    
