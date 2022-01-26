@@ -10,7 +10,6 @@ public class Notification {
 	private int studentId;
 	private NotificationType type;
 	private String referenceId;
-
 	/**
 	 * Parameterized constructor
 	 * 

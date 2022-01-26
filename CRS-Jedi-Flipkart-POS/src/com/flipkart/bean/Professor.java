@@ -1,57 +1,49 @@
-/**
- * 
- */
 package com.flipkart.bean;
 
-import com.flipkart.constant.Role;
+
 
 /**
- * @author Dell
- *
+ * Professor Class
  */
-public class Professor extends User{
-	
-	private String course;
+public class Professor extends User {
+	private String department;
+	private String designation;
+
+	/**
+	 * Constructor
+	 */
 	public Professor() {
-		// to be used as a data structure.
-	}
-	public void setcourse(String course)
-	{
-		this.course=course;
-	}
-	public String getcourse() {
-		return course;
 	}
 
-	
-	public Professor(String userName, String userId,  String password, String mobileNo, String emailID, String role, String course) {
-		//super(userName, userId, password, mobileNo, emailID, role);
-		this.setcourse(course);
-	
-	}
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * 
+	 * @return: get the designation
+	 */
 	public String getDesignation() {
-		// TODO Auto-generated method stub
-		return null;
+		return designation;
 	}
-	public void setName(String professorName) {
-		// TODO Auto-generated method stub
-		
-	}
+
+	/**
+	 * 
+	 * @param designation: get the designation
+	 */
 	public void setDesignation(String designation) {
-		// TODO Auto-generated method stub
-		
+		this.designation = designation;
 	}
+
+	/**
+	 * 
+	 * @return department
+	 */
+	public String getDepartment() {
+		return department;
+	}
+
+	/**
+	 * 
+	 * @param department: department for the professor
+	 */
 	public void setDepartment(String department) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setRole(Role stringToName) {
-		// TODO Auto-generated method stub
-		
+		this.department = department;
 	}
 }
-;

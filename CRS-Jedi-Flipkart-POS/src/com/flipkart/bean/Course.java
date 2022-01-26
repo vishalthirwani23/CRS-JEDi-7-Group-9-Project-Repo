@@ -3,82 +3,108 @@
  */
 package com.flipkart.bean;
 
-import java.util.List;
 
 /**
  * @author User
  *
  */
 public class Course {
-	private String courseID;
-	private String coursename;
-	private String instructorID;
-	private Integer totalSeats;
-	private Integer availableSeats;
-	private Integer offeredSemester;
+	private String courseCode;
+	private String courseName;
+	private String instructorId;
+	private int seats = 10;
 	
 	
 	public Course() {
-		// TODO Auto-generated constructor stub
-		courseID=null;
-		coursename=null;
-		instructorID=null;
-		
-		totalSeats=-1;
-		availableSeats=-1;
-		offeredSemester=-1;
-		
+
 	}
-	public String getCourseID() {
-		return courseID;
+
+	/**
+	 * Parameterized constructor
+	 *
+	 * @param courseCode:   course code
+	 * @param courseName:   course name
+	 * @param instructorId: instructor user id
+	 * @param seats:        seats available
+	 */
+	public Course(String courseCode, String courseName, String instructorId, int seats) {
+		super();
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.setInstructorId(instructorId);
+		this.seats = seats;
 	}
-	public void setCourseID(String courseID) {
-		this.courseID = courseID;
+
+	/**
+	 * Method to get Course Code
+	 *
+	 * @return Course Code
+	 */
+	public String getCourseCode() {
+		return courseCode;
 	}
-	public String getCoursename() {
-		return coursename;
+
+	/**
+	 * Method to set Course Code
+	 *
+	 * @param courseCode Course code of Course
+	 */
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
 	}
-	public void setCoursename(String coursename) {
-		this.coursename = coursename;
+
+	/**
+	 * Method to get Course Name
+	 *
+	 * @return Course Name
+	 */
+	public String getCourseName() {
+		return courseName;
 	}
-	public String getInstructorID() {
-		return instructorID;
+
+	/**
+	 * Method to set Course Name
+	 *
+	 * @param courseName Course Name of Course
+	 */
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
-	public void setInstructorID(String instructorID) {
-		this.instructorID = instructorID;
+
+	/**
+	 * Method to get available seats
+	 * 
+	 * @return Seats available
+	 */
+	public int getSeats() {
+		return seats;
 	}
-	public Integer getTotalSeats() {
-		return totalSeats;
+
+	/**
+	 * Method to set available seats
+	 * 
+	 * @param seats: seats available
+	 */
+	public void setSeats(int seats) {
+		this.seats = seats;
 	}
-	public void setTotalSeats(Integer totalSeats) {
-		this.totalSeats = totalSeats;
-	}
-	public Integer getAvailableSeats() {
-		return availableSeats;
-	}
-	public void setAvailableSeats(Integer availableSeats) {
-		this.availableSeats = availableSeats;
-	}
-	public Integer getOfferedSemester() {
-		return offeredSemester;
-	}
-	public void setOfferedSemester(Integer offeredSemester) {
-		this.offeredSemester = offeredSemester;
-	}
-	public int getCourseCode() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int getCourseName() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
+	/**
+	 * Method to get Instructor Id of professor teaching the course
+	 * 
+	 * @return Instructor Id
+	 */
 	public String getInstructorId() {
-		// TODO Auto-generated method stub
-		return null;
+		return instructorId;
 	}
-	
-	
-	
+
+	/**
+	 * Method to set Instructor Id of professor teaching the course
+	 * 
+	 * @param instructorId: instructor user id
+	 */
+	public void setInstructorId(String instructorId) {
+		this.instructorId = instructorId;
+	}
 
 }
