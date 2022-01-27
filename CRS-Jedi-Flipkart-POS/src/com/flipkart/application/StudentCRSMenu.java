@@ -27,7 +27,7 @@ public class StudentCRSMenu {
     NotificationInterface notificationInterface=NotificationOperation.getInstance();
     private boolean is_registered;
 
-    public void create_menu(int studentId)
+    public void create_menu(int studentId) throws Exception
     {
 
         is_registered = getRegistrationStatus(studentId);
@@ -88,7 +88,7 @@ public class StudentCRSMenu {
 
 
 
-    private void registerCourses(int studentId)
+    private void registerCourses(int studentId) throws Exception
     {
         if(is_registered)
         {
@@ -109,9 +109,9 @@ public class StudentCRSMenu {
 
                 System.out.println("Enter Course Code : " + (count+1));
                 System.out.println("Enter 0 to exit");
-                String courseCode = sc.next();
+                int courseCode = sc.nextInt();
 
-                if (courseCode.equals("0")){
+                if (courseCode==0){
                     break;
                 }
 
@@ -145,7 +145,7 @@ public class StudentCRSMenu {
 
     }
 
-    private void addCourse(int studentId)
+    private void addCourse(int studentId) throws Exception
     {
         if(is_registered)
         {
@@ -159,7 +159,7 @@ public class StudentCRSMenu {
             try
             {
                 System.out.println("Enter Course Code : " );
-                String courseCode = sc.next();
+                int courseCode = sc.nextInt();
                 if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
                 {
                 	System.out.println(" You have successfully registered for Course : " + courseCode);
@@ -206,7 +206,7 @@ public class StudentCRSMenu {
                 return;
 
             System.out.println("Enter the Course Code : ");
-            String courseCode = sc.next();
+            int courseCode = sc.nextInt();
 
             try
             {
