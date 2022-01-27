@@ -136,7 +136,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				user.setName(resultSet.getString(2));
 				user.setPassword(resultSet.getString(3));
 				user.setRole(Role.stringToName(resultSet.getString(4)));
-				user.setStudentId(resultSet.getInt(8));
+				user.setStudentId(resultSet.getInt(4));
 				userList.add(user);
 				
 			}
@@ -322,8 +322,8 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				professor.setUserId(resultSet.getString(1));
 				professor.setName(resultSet.getString(2));
 				
-				professor.setDepartment(resultSet.getString(4));
-				professor.setDesignation(resultSet.getString(5));
+				professor.setDepartment(resultSet.getString(3));
+				professor.setDesignation(resultSet.getString(4));
 				
 				professor.setRole(Role.PROFESSOR);
 				professor.setPassword("*********");
