@@ -20,7 +20,7 @@ public interface AdminInterface {
 
 	public int register(String name, String userID, String password) throws Exception;
 
-	public void deleteCourse(String courseCode, List<Course> courseList)
+	public void deleteCourse(int courseCode, List<Course> courseList)
 			throws Exception;
 
 	public void addCourse(Course course, List<Course> courseList) throws Exception;
@@ -31,7 +31,7 @@ public interface AdminInterface {
 
 	public void addProfessor(Professor professor) throws Exception;
 
-	public void assignCourse(String courseCode, String professorId)
+	public void assignCourse(int courseCode, String professorId)
 			throws Exception;
 
 	public List<Course> viewCourses(int catalogId);

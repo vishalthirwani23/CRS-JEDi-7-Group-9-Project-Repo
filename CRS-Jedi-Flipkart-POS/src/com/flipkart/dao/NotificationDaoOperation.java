@@ -16,7 +16,6 @@ import com.flipkart.utils.DBUtils;
 
 public class NotificationDaoOperation implements NotificationDaoInterface {
 	private static volatile NotificationDaoOperation instance = null;
-	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
 	private NotificationDaoOperation() {
 

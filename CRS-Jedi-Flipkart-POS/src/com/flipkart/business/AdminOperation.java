@@ -43,7 +43,7 @@ public class AdminOperation implements AdminInterface {
 		return adminId;
 	}
 
-	public void deleteCourse(String dropCourseCode, List<Course> courseList)
+	public void deleteCourse(int dropCourseCode, List<Course> courseList)
 			throws Exception{
 
 		if (!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
@@ -102,7 +102,7 @@ public class AdminOperation implements AdminInterface {
 
 	}
 
-	public void assignCourse(String courseCode, String professorId)
+	public void assignCourse(int courseCode, String professorId)
 			throws Exception {
 
 		try {

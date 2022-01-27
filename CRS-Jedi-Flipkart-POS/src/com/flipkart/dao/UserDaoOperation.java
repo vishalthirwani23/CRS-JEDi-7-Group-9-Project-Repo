@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.utils.DBUtils;
 
 public class UserDaoOperation implements UserDaoInterface {
 	private static volatile UserDaoOperation instance = null;
-	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
 	private UserDaoOperation() {
 
@@ -64,7 +64,7 @@ public class UserDaoOperation implements UserDaoInterface {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (!resultSet.next())
-				throw new Exception(userId);
+				throw new UserNotFoundException(userId);
 			else if (password.equals(resultSet.getString("password"))) {
 				return true;
 			} else {
