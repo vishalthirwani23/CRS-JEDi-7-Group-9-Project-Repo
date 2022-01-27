@@ -32,7 +32,7 @@ public class ProfessorOperation implements ProfessorInterface {
 		return instance;
 	}
 
-	public boolean addGrade(int studentId, String courseCode, String grade) throws Exception {
+	public boolean addGrade(int studentId, int courseCode, String grade) throws Exception {
 		try {
 			professorDAOInterface.addGrade(studentId, courseCode, grade);
 		} catch (Exception ex) {

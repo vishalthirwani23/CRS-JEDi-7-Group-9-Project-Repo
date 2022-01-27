@@ -27,7 +27,7 @@ public class StudentCRSMenu {
     NotificationInterface notificationInterface=NotificationOperation.getInstance();
     private boolean is_registered;
 
-    public void create_menu(int studentId)
+    public void create_menu(int studentId) throws Exception
     {
 
         is_registered = getRegistrationStatus(studentId);
@@ -88,7 +88,7 @@ public class StudentCRSMenu {
 
 
 
-    private void registerCourses(int studentId)
+    private void registerCourses(int studentId) throws Exception
     {
         if(is_registered)
         {
@@ -145,7 +145,7 @@ public class StudentCRSMenu {
 
     }
 
-    private void addCourse(int studentId)
+    private void addCourse(int studentId) throws Exception
     {
         if(is_registered)
         {
