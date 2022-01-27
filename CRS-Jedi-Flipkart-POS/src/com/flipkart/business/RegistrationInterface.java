@@ -13,10 +13,10 @@ import com.flipkart.bean.StudentGrade;
 
 public interface RegistrationInterface {
 
-	public boolean addCourse(String courseCode, int studentId, List<Course> courseList)
+	public boolean addCourse(int courseCode, int studentId, List<Course> courseList)
 			throws Exception;
 
-	public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList)
+	public boolean dropCourse(int courseCode, int studentId, List<Course> registeredCourseList)
 			throws Exception;
 
 	public List<Course> viewCourses(int studentId) throws SQLException;
