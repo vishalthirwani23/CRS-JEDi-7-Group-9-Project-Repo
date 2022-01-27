@@ -44,7 +44,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 			ResultSet results = statement.executeQuery();
 			while (results.next()) {
-				courseList.add(new Course(results.getString("courseCode"), results.getString("courseName"),
+				courseList.add(new Course(results.getInt("courseCode"), results.getString("courseName"),
 						results.getString("professorId"), results.getInt("seats")));
 			}
 		} catch (SQLException e) {
@@ -89,13 +89,13 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 
-	public Boolean addGrade(int studentId, String courseCode, String grade) {
+	public Boolean addGrade(int studentId, int courseCode, String grade) {
 		Connection connection = DBUtils.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.ADD_GRADE);
 
 			statement.setString(1, grade);
-			statement.setString(2, courseCode);
+			statement.setInt(2, courseCode);
 			statement.setInt(3, studentId);
 
 			int row = statement.executeUpdate();

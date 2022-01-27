@@ -17,7 +17,7 @@ public class DBUtils {
     static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static String DB_URL = "jdbc:mysql://localhost/test";
     static String USER = "root";
-    static String PASS = "root";
+    static String PASS = "arunesh1";
 
 //    static {
 //        try {
@@ -26,8 +26,8 @@ public class DBUtils {
 //            e.printStackTrace();
 //        }
 //        DB_URL = prop.getProperty("url");
-//        USER = prop.getProperty("user");
-//        PASS = prop.getProperty("password");
+//        USER = prop.getProperty("root");
+//        PASS = prop.getProperty("arunesh1");
 //    }
 
     

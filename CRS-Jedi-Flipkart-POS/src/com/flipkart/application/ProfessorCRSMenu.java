@@ -111,8 +111,8 @@ public class ProfessorCRSMenu {
     	System.out.println("Student Courses Data \n");
         Scanner sc=new Scanner(System.in);
 
-        int studentId;
-        String courseCode,grade;
+        int studentId,courseCode;
+        String grade;
         try
         {
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
@@ -128,7 +128,7 @@ public class ProfessorCRSMenu {
             System.out.println("Enter student id");
             studentId=sc.nextInt();
             System.out.println("Enter course code");
-            courseCode=sc.next();
+            courseCode=sc.nextInt();
             System.out.println("Enter grade");
             grade=sc.next();
             if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))

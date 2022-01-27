@@ -16,11 +16,11 @@ public interface RegistrationDaoInterface {
 
 	// Method to add course in database
 
-	public boolean addCourse(String courseCode, int studentId) throws SQLException;
+	public boolean addCourse(int courseCode, int studentId) throws SQLException;
 
 	//Drop Course selected by student
 	
-	public boolean dropCourse(String courseCode, int studentId) throws SQLException;
+	public boolean dropCourse(int courseCode, int studentId) throws SQLException;
 
 	//Method to get the list of courses available from course catalogue
 	
@@ -40,7 +40,7 @@ public interface RegistrationDaoInterface {
 
 	// Check if seat is available for that particular course
 	
-	public boolean seatAvailable(String courseCode) throws SQLException;
+	public boolean seatAvailable(int courseCode) throws SQLException;
 
 	// Method to get the list of courses registered by the student Number of
 	 
@@ -48,11 +48,15 @@ public interface RegistrationDaoInterface {
 
 	//Method checks if the student is registered for that course
 	 
-	public boolean isRegistered(String courseCode, int studentId) throws SQLException;
+	public boolean isRegistered(int courseCode, int studentId) throws SQLException;
 
 	//Method to get student registration status
 	 
 	public boolean getRegistrationStatus(int studentId) throws SQLException;
 
 	//Method to set student registration status
+	
+	public void setRegistrationStatus(int studentId) throws SQLException;
+	
+}
 	
