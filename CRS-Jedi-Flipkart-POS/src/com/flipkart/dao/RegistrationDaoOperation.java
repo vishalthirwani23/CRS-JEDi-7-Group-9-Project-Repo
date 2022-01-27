@@ -206,7 +206,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				String courseCode = rs.getString("courseCode");
+				int courseCode = rs.getInt("courseCode");
 				String courseName = rs.getString("courseName");
 				String grade = rs.getString("grade");
 				StudentGrade obj = new StudentGrade(courseCode, courseName, grade);

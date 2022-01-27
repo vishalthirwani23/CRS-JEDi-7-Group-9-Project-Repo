@@ -1,9 +1,5 @@
 package com.flipkart.application;
 
-/**
- * @author jayant
- *
- */
 import java.sql.SQLException;
 import java.util.*;
 import java.util.Scanner;
@@ -111,7 +107,7 @@ public class StudentCRSMenu {
                 System.out.println("Enter 0 to exit");
                 int courseCode = sc.nextInt();
 
-                if (courseCode==0){
+                if (courseCode == 0){
                     break;
                 }
 
