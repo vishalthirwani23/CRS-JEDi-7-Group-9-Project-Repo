@@ -17,6 +17,8 @@ public interface AdminDaoInterface {
 	public void deleteCourse(int courseCode) throws Exception;
 
 	public void addCourse(Course course) throws Exception;
+	
+	public List<Student> viewPendingAdmissions() ;
 
 	public void approveStudent(int studentId) throws Exception;
 

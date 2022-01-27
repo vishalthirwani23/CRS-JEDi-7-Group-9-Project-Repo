@@ -33,7 +33,7 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 
-	public boolean addCourse(String courseCode, int studentId, List<Course> availableCourseList)
+	public boolean addCourse(int courseCode, int studentId, List<Course> availableCourseList)
 			throws Exception {
 
 		if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6) {
@@ -43,14 +43,14 @@ public class RegistrationOperation implements RegistrationInterface {
 		} else if (!registrationDaoInterface.seatAvailable(courseCode)) {
 			throw new Exception();
 		} else if (!StudentValidator.isValidCourseCode(courseCode, availableCourseList)) {
-			throw new Exception(courseCode);
+			throw new Exception();
 		}
 
 		return registrationDaoInterface.addCourse(courseCode, studentId);
 
 	}
 
-	public boolean dropCourse(String courseCode, int studentId, List<Course> registeredCourseList)
+	public boolean dropCourse(int courseCode, int studentId, List<Course> registeredCourseList)
 			throws Exception {
 		if (!StudentValidator.isRegistered(courseCode, studentId, registeredCourseList)) {
 			throw new Exception();

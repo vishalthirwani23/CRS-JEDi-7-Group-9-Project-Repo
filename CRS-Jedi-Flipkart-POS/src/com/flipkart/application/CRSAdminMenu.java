@@ -25,7 +25,7 @@ public class CRSAdminMenu {
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
 
-    public void createMenu() {
+    public void createMenu() throws Exception {
 
         while (CRSApplication.loggedin) {
 		
@@ -77,7 +77,7 @@ public class CRSAdminMenu {
     }
 
 
-    private void assignCourseToProfessor() {
+    private void assignCourseToProfessor() throws Exception {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
         System.out.println("List of Professors Available");
         System.out.println("ProfessorId Name Designation");
@@ -86,7 +86,7 @@ public class CRSAdminMenu {
         }
         
 
-        List<Course> courseList = adminOperation.viewCourses(); // add viewCourses method in admin
+        List<Course> courseList = adminOperation.viewCourses(1); // add viewCourses method in admin
         System.out.println("List of Courses Available");
         System.out.println("CourseCode CourseName");
         for (Course course : courseList) {
@@ -94,7 +94,7 @@ public class CRSAdminMenu {
         }
      
         System.out.println("Enter Course Code of the course to be assigned:");
-        String courseCode = scanner.next();
+        int courseCode = scanner.nextInt();
 
         System.out.println("Enter Professor's User Id:");
         String userId = scanner.next();
@@ -104,7 +104,7 @@ public class CRSAdminMenu {
     }
 
 
-    private void addProfessor() {
+    private void addProfessor() throws Exception {
 
         Professor professor = new Professor();
         System.out.println("Add Professor Portal");
@@ -137,25 +137,10 @@ public class CRSAdminMenu {
     }
 
 
-    private void approveStudent() {
-
-        List<Student> studentList = viewPendingAdmissions();
-        if (studentList.size() == 0) {
-            return;
-        }
-        System.out.println(("Approve Student Portal");
-        System.out.println("Enter Student's ID:");
-        int studentUserIdApproval = scanner.nextInt();
-
-        adminOperation.approveStudent(studentUserIdApproval, studentList);
-            //send notification from system
-        notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
-
-    }
 
     private void approveStudent() {
 
-        List<Student> studentList = viewPendingAdmissions();
+        List<Student> studentList = adminOperation.viewPendingAdmissions();
         if (studentList.size() == 0) {
             return;
         }
@@ -176,7 +161,7 @@ public class CRSAdminMenu {
         System.out.println("Delete Course Portal");
         List<Course> courseList = viewCoursesInCatalogue();
         System.out.println("Enter Course Code:");
-        String courseCode = scanner.next();
+        int courseCode = scanner.nextInt();
         try {
             adminOperation.deleteCourse(courseCode, courseList);
         } catch (Exception e) {
@@ -191,10 +176,11 @@ public class CRSAdminMenu {
         List<Course> courseList = viewCoursesInCatalogue();
         scanner.nextLine();
         System.out.println("Enter Course Code:");
-        String courseCode = scanner.nextLine();
+        int courseCode = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Enter Course Name:");
-        String courseName = scanner.next();
+        String courseName = scanner.nextLine();
         Course course = new Course(courseCode, courseName, null, 10);
         try {
         	adminOperation.addCourse(course, courseList);
@@ -208,18 +194,18 @@ public class CRSAdminMenu {
 
 
     private List<Course> viewCoursesInCatalogue() {
-        List<Course> courseList = adminOperation.viewCourses();
+        List<Course> courseList = adminOperation.viewCourses(1);
         if (courseList.size() == 0) {
             System.out.println("No course in the catalogue!");
             return courseList;
         }
         System.out.println("Course Catalogue");
-        System.out.println("COURSE CODE COURSE NAME INSTRUCTOR");
+        System.out.println("COURSE CODE  COURSE NAME    INSTRUCTOR");
         for (Course course : courseList) {
             String instructorId = "No Professor";
             if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
                 instructorId = course.getInstructorId();
-            System.out.println(course.getCourseCode()+course.getCourseName()+instructorId);
+            System.out.println("	" + course.getCourseCode() + "	" +course.getCourseName() + "	" +instructorId);
         }
         return courseList;
     }
