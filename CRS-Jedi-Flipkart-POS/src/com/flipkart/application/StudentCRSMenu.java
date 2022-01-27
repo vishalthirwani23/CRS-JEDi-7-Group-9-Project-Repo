@@ -109,9 +109,9 @@ public class StudentCRSMenu {
 
                 System.out.println("Enter Course Code : " + (count+1));
                 System.out.println("Enter 0 to exit");
-                String courseCode = sc.next();
+                int courseCode = sc.nextInt();
 
-                if (courseCode.equals("0")){
+                if (courseCode==0){
                     break;
                 }
 
@@ -159,7 +159,7 @@ public class StudentCRSMenu {
             try
             {
                 System.out.println("Enter Course Code : " );
-                String courseCode = sc.next();
+                int courseCode = sc.nextInt();
                 if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
                 {
                 	System.out.println(" You have successfully registered for Course : " + courseCode);
@@ -206,7 +206,7 @@ public class StudentCRSMenu {
                 return;
 
             System.out.println("Enter the Course Code : ");
-            String courseCode = sc.next();
+            int courseCode = sc.nextInt();
 
             try
             {
