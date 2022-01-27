@@ -80,17 +80,17 @@ public class CRSAdminMenu {
     private void assignCourseToProfessor() throws Exception {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
         System.out.println("List of Professors Available");
-        System.out.println("ProfessorId Name Designation");
+        System.out.println("ProfessorId		Name	Designation");
         for (Professor professor : professorList) {
-            System.out.println(professor.getUserId()+professor.getName()+professor.getDesignation());
+            System.out.println(professor.getUserId() + "	" + professor.getName() + "	" + professor.getDesignation());
         }
         
 
         List<Course> courseList = adminOperation.viewCourses(1); // add viewCourses method in admin
         System.out.println("List of Courses Available");
-        System.out.println("CourseCode CourseName");
+        System.out.println("CourseCode	CourseName");
         for (Course course : courseList) {
-            System.out.println(course.getCourseCode()+course.getCourseName());
+            System.out.println(course.getCourseCode() + "" + course.getCourseName());
         }
      
         System.out.println("Enter Course Code of the course to be assigned:");
@@ -144,6 +144,13 @@ public class CRSAdminMenu {
         if (studentList.size() == 0) {
             return;
         }
+        
+        System.out.println("PENDING STUDENTS");
+        System.out.println("STUDENT ID	NAME USER ID");
+        for (Student stud : studentList) {
+            System.out.println("	" + stud.getStudentId() + "	" +stud.getName() + "	" +stud.getUserId());
+        }
+        
         System.out.println("Approve Student Portal");
         System.out.println("Enter Student's ID:");
         int studentUserIdApproval = scanner.nextInt();
@@ -200,7 +207,7 @@ public class CRSAdminMenu {
             return courseList;
         }
         System.out.println("Course Catalogue");
-        System.out.println("COURSE CODE  COURSE NAME    INSTRUCTOR");
+        System.out.println("COURSE CODE	COURSE NAME	INSTRUCTOR");
         for (Course course : courseList) {
             String instructorId = "No Professor";
             if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
