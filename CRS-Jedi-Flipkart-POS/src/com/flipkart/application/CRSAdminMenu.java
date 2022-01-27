@@ -177,9 +177,10 @@ public class CRSAdminMenu {
         scanner.nextLine();
         System.out.println("Enter Course Code:");
         int courseCode = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Enter Course Name:");
-        String courseName = scanner.next();
+        String courseName = scanner.nextLine();
         Course course = new Course(courseCode, courseName, null, 10);
         try {
         	adminOperation.addCourse(course, courseList);
@@ -199,12 +200,12 @@ public class CRSAdminMenu {
             return courseList;
         }
         System.out.println("Course Catalogue");
-        System.out.println("COURSE CODE COURSE NAME INSTRUCTOR");
+        System.out.println("COURSE CODE  COURSE NAME    INSTRUCTOR");
         for (Course course : courseList) {
             String instructorId = "No Professor";
             if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
                 instructorId = course.getInstructorId();
-            System.out.println(course.getCourseCode()+course.getCourseName()+instructorId);
+            System.out.println("	" + course.getCourseCode() + "	" +course.getCourseName() + "	" +instructorId);
         }
         return courseList;
     }
