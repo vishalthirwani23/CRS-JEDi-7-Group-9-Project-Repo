@@ -12,11 +12,10 @@ import java.util.ArrayList;
 public class ReportCard {
 	
 	private int studentId;
-	private int semester;
-	private HashMap<String,Double> grades = new HashMap<String,Double>();
+	private HashMap<Integer,Double> grades = new HashMap<Integer,Double>();
 	private ArrayList<Integer> courseIDs = new ArrayList<Integer>();
-	
-	
+	private Boolean isVisible;
+	private Double spi;
 	/**
 	 * @return the studentId
 	 */
@@ -29,28 +28,17 @@ public class ReportCard {
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
-	/**
-	 * @return the semester
-	 */
-	public int getSemester() {
-		return semester;
-	}
-	/**
-	 * @param semester the semester to set
-	 */
-	public void setSemester(int semester) {
-		this.semester = semester;
-	}
+
 	/**
 	 * @return the grades
 	 */
-	public HashMap<String, Double> getGrades() {
+	public HashMap<Integer, Double> getGrades() {
 		return grades;
 	}
 	/**
 	 * @param grades the grades to set
 	 */
-	public void setGrades(HashMap<String, Double> grades) {
+	public void setGrades(HashMap<Integer, Double> grades) {
 		this.grades = grades;
 	}
 	/**
@@ -59,12 +47,30 @@ public class ReportCard {
 	public ArrayList<Integer> getCourseIDs() {
 		return courseIDs;
 	}
+	
+	public Double getSpi() {
+		return spi;
+	}
+	
+	public Boolean getIsVisible() {
+		return isVisible;
+	}
+	
+	public void setIsVisible(Boolean isVisible) {
+		this.isVisible = isVisible;
+	} 
+	
+
 	/**
 	 * @param courseIDs the courseIDs to set
 	 */
 	public void setCourseIDs(ArrayList<Integer> courseIDs) {
 		this.courseIDs = courseIDs;
 	}
+	public void setSpi(Double spi) {
+		this.spi = spi;
+	}
+
 
 	
 }

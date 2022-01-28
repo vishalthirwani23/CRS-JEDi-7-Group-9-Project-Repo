@@ -1,17 +1,29 @@
 package com.flipkart.business;
 
+import java.sql.SQLException;
+
+/**
+ * @author venkat.karthik
+ *
+ */
+
 import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.exceptions.*;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.exceptions.StudentNotRegisteredException;
 
 /**
  *
  *
  * Interface for Admin Operations
- * 
+ *
  */
 public interface AdminInterface {
 
@@ -37,7 +49,7 @@ public interface AdminInterface {
 	public int register(String name, String userID, String password) throws AdminAccountNotCreatedException;
 	/**
 	 * Method to Delete Course from Course Catalog
-	 * 
+	 *
 	 * @param courseCode : Course Code
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseNotFoundException If course is not found
@@ -48,18 +60,18 @@ public interface AdminInterface {
 
 	/**
 	 * Method to add Course to Course Catalog
-	 * 
+	 *
 	 * @param course     : Course object storing details of a course
 	 * @param courseList : Courses available in the catalog
 	 * @throws CourseFoundException If course is not found
 	 */
 	public void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
 
-	
+
 
 	/**
 	 * Method to approve a Student
-	 * 
+	 *
 	 * @param studentId : Student ID
 	 * @param studentList List Of Students
 	 * @throws StudentNotFoundForApprovalException If student is not found
@@ -68,7 +80,7 @@ public interface AdminInterface {
 
 	/**
 	 * Method to add Professor to DB
-	 * 
+	 *
 	 * @param professor : Professor Object storing details of a professor
 	 * @throws ProfessorNotAddedException If profesor is not found
 	 * @throws UserIdAlreadyInUseException If user id is already in use
@@ -77,7 +89,7 @@ public interface AdminInterface {
 
 	/**
 	 * Method to assign Course to a Professor
-	 * 
+	 *
 	 * @param courseCode : Course Code
 	 * @param professorId : ID Of Professor
 	 * @throws CourseNotFoundException If course is not found
@@ -88,7 +100,7 @@ public interface AdminInterface {
 
 	/**
 	 * Method to get list of courses in catalog
-	 * 
+	 *
 	 * @param catalogId: Id Of Catalog
 	 * @return List of courses in catalog
 	 */
@@ -96,15 +108,23 @@ public interface AdminInterface {
 
 	/**
 	 * View professor in the institute
-	 * 
+	 *
 	 * @return List of the professors in the institute
 	 */
 	public List<Professor> viewProfessors();
-	
+
 	/**
 	 * Method to view Students yet to be approved by Admin
-	 * 
+	 *
 	 * @return List of Students with pending admissions
 	 */
 	public List<Student> viewPendingAdmissions();
+}
+	/**
+	 * Method to generate report card
+	 *
+	 * @return The ReportCard objecr
+	 */
+	public ReportCard generateReportCard(int studentID) throws SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException;
+
 }

@@ -3,8 +3,7 @@
  */
 package com.flipkart.business;
 
-import java.util.HashMap;
-
+import com.flipkart.bean.ReportCard;
 
 /**
  * @author venkat.karthik
@@ -13,9 +12,10 @@ import java.util.HashMap;
 public interface ReportCardInterface {
 	
 
-	public double getSGPA(int studentId, int semesterId) ;
+	//public double getSGPA(int studentId, int semesterId) ;
 	
 
-	public HashMap<String, Integer> viewCourseGrade(int studentId, int semesterId, int courseId);
+	
+	public Float getSPI(ReportCard RC) ;
 	
 }

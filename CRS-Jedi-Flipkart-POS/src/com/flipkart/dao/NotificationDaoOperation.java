@@ -88,8 +88,7 @@ public class NotificationDaoOperation implements NotificationDaoInterface {
 			statement.setString(2, modeOfPayment.toString());
 			statement.setString(3, referenceId.toString());
 			statement.setDouble(4, amount);
-			statement.setString(5,CardNumber);
-			statement.setString(6,cvv);
+			
 			statement.executeUpdate();
 			// check if record is added
 		} catch (SQLException ex) {

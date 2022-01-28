@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 
 import java.util.*;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -13,6 +12,9 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
 import com.flipkart.exceptions.CourseLimitExceedException;
 import com.flipkart.exceptions.CourseNotFoundException;
 import com.flipkart.exceptions.SeatNotAvailableException;
@@ -22,6 +24,8 @@ import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 import com.flipkart.business.RegistrationInterface;
 import com.flipkart.business.RegistrationOperation;
+import com.flipkart.business.StudentOperation;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.exceptions.CourseNotFoundException;
 
 public class StudentCRSMenu {
@@ -38,7 +42,7 @@ public class StudentCRSMenu {
      *
      * @param studentId student id
      */
-    public void create_menu(int studentId) 
+    public void create_menu(int studentId)
     {
 
         is_registered = getRegistrationStatus(studentId);
@@ -50,9 +54,9 @@ public class StudentCRSMenu {
                     "3. Drop Course from Semester\n"+
                     "4. View Available Courses\n"+
                     "5. View Registered Courses\n"+
-                    "6. View Semester Grade Card\n"+
+                    "6. View Grade Card\n"+
                     "7. Pay Fees for Courses\n"+
-                    "8. Logout\n");
+                    "8. Logout \n");
 
      
 
@@ -391,7 +395,6 @@ public class StudentCRSMenu {
         }
        
     }
-
     private static Map<String, Integer> gradeStrToScore;
 
     static {
@@ -460,7 +463,7 @@ public class StudentCRSMenu {
                 	System.out.println("Invalid Input");
                 else
                 {
-                    System.out.println("Please Enter The 16 digit Card Number:");
+                    System.out.println("Please Enter The Card Number:");
                     String cardNumber = sc.nextLine();
 
                     System.out.println("Please Enter your CVV Number");
