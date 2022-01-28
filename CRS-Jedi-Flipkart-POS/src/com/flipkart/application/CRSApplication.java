@@ -5,6 +5,8 @@ import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.business.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -87,7 +89,12 @@ public class CRSApplication {
             //true->role->student->approved
             if (loggedin) {
                 
+            	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
+                LocalDateTime myDateObj = LocalDateTime.now();
+
+                String formattedDate = myDateObj.format(myFormatObj);
+                System.out.println(formattedDate);
 
                 System.out.println("Welcome "+userId);
                 String role = userInterface.getRole(userId);
