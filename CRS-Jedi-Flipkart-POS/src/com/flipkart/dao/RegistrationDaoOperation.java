@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Notification;
@@ -24,6 +25,7 @@ import com.flipkart.utils.DBUtils;
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 	private static volatile RegistrationDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(RegistrationDaoOperation.class);
 	private PreparedStatement stmt = null;
 
 	private RegistrationDaoOperation() {
@@ -55,7 +57,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			stmt.close();
 			conn.close();
@@ -81,9 +83,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			return count;
 
 		} catch (SQLException se) {
-			System.err.println(se.getMessage());
+			logger.error(se.getMessage());
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			stmt.close();
 			conn.close();
@@ -105,7 +107,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			stmt.close();
 			conn.close();
@@ -131,8 +133,8 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 				check = true;
 			}
 		} catch (Exception e) {
-			System.err.println(e.getClass());
-			System.err.println(e.getMessage());
+			logger.error(e.getClass());
+			logger.error(e.getMessage());
 		} finally {
 			stmt.close();
 			conn.close();
@@ -161,7 +163,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 			return true;
 		} catch (Exception e) {
-			System.err.println("Exception found" + e.getMessage());
+			logger.error("Exception found" + e.getMessage());
 		} finally {
 
 			stmt.close();
@@ -183,10 +185,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			rs.next();
 			fee = rs.getDouble(1);
 		} catch (SQLException e) {
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getMessage());
+			logger.error(e.getErrorCode());
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			stmt.close();
 			conn.close();
@@ -213,9 +215,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 				grade_List.add(obj);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			stmt.close();
 			conn.close();
@@ -244,9 +246,9 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			}
 
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			stmt.close();
 			conn.close();
@@ -273,7 +275,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 
 		} finally {
 			stmt.close();
@@ -295,7 +297,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			status = rs.getBoolean(1);
 
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 
 		} finally {
 			stmt.close();
@@ -314,7 +316,7 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 
 		} finally {
 			stmt.close();

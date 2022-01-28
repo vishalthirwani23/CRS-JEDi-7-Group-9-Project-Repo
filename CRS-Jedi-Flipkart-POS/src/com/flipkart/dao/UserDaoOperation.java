@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.exceptions.UserNotFoundException;
@@ -13,6 +14,8 @@ import com.flipkart.utils.DBUtils;
 
 public class UserDaoOperation implements UserDaoInterface {
 	private static volatile UserDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
+
 
 	private UserDaoOperation() {
 
@@ -43,12 +46,12 @@ public class UserDaoOperation implements UserDaoInterface {
 			else
 				return false;
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return false;
@@ -72,12 +75,12 @@ public class UserDaoOperation implements UserDaoInterface {
 			}
 
 		} catch (SQLException ex) {
-			System.err.println("Something went wrong, please try again! " + ex.getMessage());
+			logger.error("Something went wrong, please try again! " + ex.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return false;
@@ -101,12 +104,12 @@ public class UserDaoOperation implements UserDaoInterface {
 			}
 
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return null;
