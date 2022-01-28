@@ -119,7 +119,7 @@ public interface AdminInterface {
 	 * @return List of Students with pending admissions
 	 */
 	public List<Student> viewPendingAdmissions();
-}
+
 	/**
 	 * Method to generate report card
 	 *

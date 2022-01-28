@@ -28,7 +28,7 @@ import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.validator.AdminValidator;
 
 public class AdminOperation implements AdminInterface {
-	private static Logger logger = Logger.getLogger(AdminOperation.class);)
+	private static Logger logger = Logger.getLogger(AdminOperation.class);
 	private static volatile AdminOperation instance = null;
 
 	private AdminOperation() {

@@ -273,10 +273,28 @@ public class CRSAdminMenu {
     }
 
 
-    private void generateReportCard() throws SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
+    private void generateReportCard() {
 		System.out.println("\n\nGENERATE REPORT PORTAL\n\n");
 		System.out.println("Enter Student Id :");
-		adminOperation.generateReportCard(scanner.nextInt());
+		try {
+			adminOperation.generateReportCard(scanner.nextInt());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+        	logger.error(e.getMessage());
+
+		} catch (StudentNotRegisteredException e) {
+			// TODO Auto-generated catch block
+        	logger.error(e.getMessage());
+		} catch (GradeNotAddedException e) {
+			// TODO Auto-generated catch block
+        	logger.error(e.getMessage());
+		} catch (StudentNotApprovedException e) {
+			// TODO Auto-generated catch block
+        	logger.error(e.getMessage());
+		} catch (FeesPendingException e) {
+			// TODO Auto-generated catch block
+        	logger.error(e.getMessage());
+		}
 		System.out.println("\nReport Card Generated/n");
 	}
 }

@@ -38,12 +38,6 @@ public interface AdminDaoInterface {
 	 */
 	public void addCourse(Course course) throws CourseFoundException;
 	
-	/**
-	 * Fetch Students yet to approved using SQL commands
-	 *
-	 * @return List of Students yet to approved
-	 */
-	public List<Student> viewPendingAdmissions() ;
 
 	/**
 	 * Approve Student using SQL commands

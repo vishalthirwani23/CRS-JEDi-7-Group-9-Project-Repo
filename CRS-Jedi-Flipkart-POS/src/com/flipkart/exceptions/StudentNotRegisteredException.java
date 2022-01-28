@@ -2,7 +2,7 @@ package com.flipkart.exceptions;
 
 public class StudentNotRegisteredException extends Exception {
 	private int studentId;
-
+	private String studentName;
 	/**
 	 * Constructor
 	 * 
