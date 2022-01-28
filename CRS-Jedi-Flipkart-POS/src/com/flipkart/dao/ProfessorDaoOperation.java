@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
@@ -17,6 +18,7 @@ import com.flipkart.utils.DBUtils;
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
 	private ProfessorDaoOperation() {
 
@@ -48,13 +50,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 						results.getString("professorId"), results.getInt("seats")));
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return courseList;
@@ -76,13 +77,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 						results.getString("courseName"), results.getInt("studentId")));
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return enrolledStudents;
@@ -105,13 +105,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			else
 				return false;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 		return false;
@@ -131,12 +130,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			prof_Name = rs.getString(1);
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			}
 		}
 

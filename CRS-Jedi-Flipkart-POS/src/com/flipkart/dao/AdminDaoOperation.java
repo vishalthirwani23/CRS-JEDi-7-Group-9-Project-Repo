@@ -4,21 +4,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.exceptions.*;
 
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
+import com.flipkart.business.ReportCardOperation;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.constant.*;
 import com.flipkart.utils.DBUtils;
 
 
 public class AdminDaoOperation implements AdminDaoInterface{
 
 	private static volatile AdminDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 	private PreparedStatement statement = null;
 
 	private AdminDaoOperation(){}
@@ -36,7 +42,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	
 	Connection connection = DBUtils.getConnection();
 
-	public int addAdmin(User admin) throws Exception {
+	public int addAdmin(User admin) throws AdminAccountNotCreatedException {
 		Connection connection = DBUtils.getConnection();
 		int adminId = 0;
 		try {
@@ -53,20 +59,19 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			if (results.next())
 				adminId = results.getInt(1);
 		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
-			//throw new AdminAccountNotCreatedException();
+			logger.error(ex.getMessage());
+			throw new AdminAccountNotCreatedException();
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage() + "SQL error");
-				e.printStackTrace();
+				logger.error(e.getMessage() + "SQL error");
 			}
 		}
 		return adminId;
 	}
 
-	public void deleteCourse(int courseCode) throws Exception{
+	public void deleteCourse(int courseCode) throws CourseNotFoundException, CourseNotDeletedException{
 		
 		statement = null;
 		try {
@@ -76,21 +81,21 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setInt(1,courseCode);
 			int row = statement.executeUpdate();
 
-			System.out.println(row + " entries deleted.");
+			logger.info(row + " entries deleted.");
 			if(row == 0) {
-				System.out.println(courseCode + " not in catalog!");
-				throw new Exception();
+				logger.error(courseCode + " not in catalog!");
+				throw new CourseNotFoundException(courseCode);
 			}
-			System.out.println("Course with courseCode: " + courseCode + " deleted.");
+			logger.info("Course with courseCode: " + courseCode + " deleted.");
 
 		}catch(SQLException se) {
 			System.out.println(se.getMessage());
-			throw new Exception();
+			throw new CourseNotDeletedException(courseCode);
 		}
 		
 	}
 
-	public void addCourse(Course course) throws Exception{
+	public void addCourse(Course course) throws CourseFoundException{
 		
 		statement = null;
 		try {
@@ -106,14 +111,14 @@ public class AdminDaoOperation implements AdminDaoInterface{
 
 			System.out.println(row + " course added");
 			if(row == 0) {
-				System.out.println("Course with courseCode: " + course.getCourseCode() + "not added to catalog.");
-				throw new Exception();
+				logger.error("Course with courseCode: " + course.getCourseCode() + "not added to catalog.");
+				throw new CourseFoundException(course.getCourseCode());
 			}
 			System.out.println("Course with courseCode: " + course.getCourseCode() + " is added to catalog.");
 			
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
-			throw new Exception();
+			logger.error(se.getMessage());
+			throw new CourseFoundException(course.getCourseCode());
 			
 		}
 		
@@ -136,21 +141,22 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				user.setName(resultSet.getString(2));
 				user.setPassword(resultSet.getString(3));
 				user.setRole(Role.stringToName(resultSet.getString(4)));
-				user.setStudentId(resultSet.getInt(4));
+				user.setStudentId(resultSet.getInt(5));
+
 				userList.add(user);
 				
 			}
-			System.out.println(userList.size() + " students have pending-approval.");
+			logger.info(userList.size() + " students have pending-approval.");
 			
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
+			logger.error(se.getMessage());
 		}
 		
 		return userList;
 		
 	}
 
-	public void approveStudent(int studentId) throws Exception {
+	public void approveStudent(int studentId) throws  StudentNotFoundForApprovalException {
 		
 		statement = null;
 		try {
@@ -162,15 +168,14 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			System.out.println(row + " student approved.");
 			if(row == 0) {
-				System.out.println("Student with studentId: " + studentId + " not found.");
-				throw new Exception();
+				//logger.error("Student with studentId: " + studentId + " not found.");
+				throw new StudentNotFoundForApprovalException(studentId);
 			}
 			
 			//logger.info("Student with studentId: " + studentId + " approved by admin.");
 			
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
-			
+			logger.error(se.getMessage());
 		}
 		
 	}
@@ -190,15 +195,15 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 			int row = statement.executeUpdate();
 
-			System.out.println(row + " user added.");
+			logger.info(row + " user added.");
 			if(row == 0) {
-				System.out.println("User with userId: " + user.getUserId() + " not added.");
+				logger.error("User with userId: " + user.getUserId() + " not added.");
 				throw new UserNotAddedException(user.getUserId());
 			}
-			System.out.println("User with userId: " + user.getUserId() + " added.");
+			logger.info("User with userId: " + user.getUserId() + " added.");
 			
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
+			logger.error(se.getMessage());
 			throw new UserIdAlreadyInUseException(user.getUserId());
 		}
 		
@@ -212,11 +217,11 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			
 		}catch (UserNotAddedException e) {
 
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 			throw new ProfessorNotAddedException(professor.getUserId());
 			
 		}catch (UserIdAlreadyInUseException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 			throw e;
 			
 		}
@@ -233,22 +238,22 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setString(3, professor.getDesignation());
 			int row = statement.executeUpdate();
 
-			System.out.println(row + " professor added.");
+			logger.info(row + " professor added.");
 			if(row == 0) {
-				System.out.println("Professor with professorId: " + professor.getUserId() + " not added.");
+				logger.error("Professor with professorId: " + professor.getUserId() + " not added.");
 				throw new ProfessorNotAddedException(professor.getUserId());
 			}
 			System.out.println("Professor with professorId: " + professor.getUserId() + " added.");
 			
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
+			logger.error(se.getMessage());
 			throw new UserIdAlreadyInUseException(professor.getUserId());
 			
 		} 
 		
 	}
 
-	public void assignCourse(int courseCode, String professorId) throws Exception{
+	public void assignCourse(int courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException{
 		
 		statement = null;
 		try {
@@ -259,17 +264,17 @@ public class AdminDaoOperation implements AdminDaoInterface{
 			statement.setInt(2,courseCode);
 			int row = statement.executeUpdate();
 
-			System.out.println(row + " course assigned.");
+			logger.info(row + " course assigned.");
 			if(row == 0) {
-				System.out.println(courseCode + " not found");
-				throw new Exception();
+				logger.error(courseCode + " not found");
+				throw new CourseNotFoundException(courseCode);
 			}
-			System.out.println("Course with courseCode: " + courseCode + " is assigned to professor with professorId: " + professorId + ".");
+			logger.info("Course with courseCode: " + courseCode + " is assigned to professor with professorId: " + professorId + ".");
 
 		
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
-			throw new Exception();
+			logger.error(se.getMessage());
+			throw new UserNotFoundException(professorId);
 			
 		}
 		
@@ -295,10 +300,10 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				courseList.add(course);
 				
 			}
-			System.out.println(courseList.size() + " courses in catalogId: " + catalogId + ".");
+			logger.info(courseList.size() + " courses in catalogId: " + catalogId + ".");
 			
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
+			logger.error(se.getMessage());
 			
 		}
 		
@@ -330,12 +335,43 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				professorList.add(professor);
 				
 			}
-			System.out.println(professorList.size() + " professors in the institute.");
+			logger.info(professorList.size() + " professors in the institute.");
 			
 		}catch(SQLException se) {
-			System.out.println(se.getMessage());
+			logger.error(se.getMessage());
 			
 		}
 		return professorList;
+	}
+
+	public ReportCard generateReportCard(int studentID) throws StudentNotRegisteredException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
+
+		Connection connection = DBUtils.getConnection();
+		ReportCard R = new ReportCard();
+
+		try {
+
+
+				StudentDaoOperation sdo = StudentDaoOperation.getInstance();
+				R = sdo.viewReportCard(studentID);
+				ReportCardOperation report = new ReportCardOperation();
+				PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_SPI);
+				statement.setInt(1, studentID);
+				ResultSet rs = statement.executeQuery();
+				rs.next();
+				double spi = rs.getDouble(1);
+
+
+				PreparedStatement statement1 = connection.prepareStatement(SQLQueriesConstants.GENERATE_REPORT_CARD);
+				statement1.setDouble(1, spi);
+				statement1.setInt(2, studentID);
+
+				statement1.executeUpdate();
+
+
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+		}
+		return R;
 	}
 }

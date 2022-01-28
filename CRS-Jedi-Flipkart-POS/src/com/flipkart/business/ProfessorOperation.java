@@ -1,6 +1,7 @@
 package com.flipkart.business;
 
 import com.flipkart.dao.ProfessorDaoOperation;
+import com.flipkart.exceptions.GradeNotAddedException;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.bean.EnrolledStudent;
 /**
@@ -32,11 +33,11 @@ public class ProfessorOperation implements ProfessorInterface {
 		return instance;
 	}
 
-	public boolean addGrade(int studentId, int courseCode, String grade) throws Exception {
+	public boolean addGrade(int studentId, int courseCode, String grade) throws GradeNotAddedException {
 		try {
 			professorDAOInterface.addGrade(studentId, courseCode, grade);
 		} catch (Exception ex) {
-			throw new Exception();
+			throw new GradeNotAddedException(studentId);
 		}
 		return true;
 	}

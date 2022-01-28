@@ -11,7 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
+import com.flipkart.application.CRSApplication;
+
 public class DBUtils {
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
+
     static Properties prop = new Properties();
     static InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
 //    static String driver = prop.getProperty("driver");
@@ -34,6 +40,9 @@ public class DBUtils {
     
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    /**
+     * Method to get connection object for accessing Database
+     */
     public static Connection getConnection() {
         Connection connection = null;
         try {
@@ -41,7 +50,7 @@ public class DBUtils {
 
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return connection;
     }

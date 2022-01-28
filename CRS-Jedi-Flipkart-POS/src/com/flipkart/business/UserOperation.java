@@ -6,6 +6,7 @@ package com.flipkart.business;
 
 import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperation;
+import com.flipkart.exceptions.UserNotFoundException;
 
 
 public class UserOperation implements UserInterface {
@@ -32,7 +33,7 @@ public class UserOperation implements UserInterface {
 	}
 
 
-	public boolean verifyCredentials(String userID, String password) throws Exception {
+	public boolean verifyCredentials(String userID, String password) throws UserNotFoundException {
 		try {
 			return userDaoInterface.verifyCredentials(userID, password);
 		} finally {

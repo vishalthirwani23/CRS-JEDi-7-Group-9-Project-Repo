@@ -7,17 +7,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+import java.util.HashMap;
 
 import com.flipkart.bean.Student;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.constant.SQLQueriesConstants;
-
+import com.flipkart.exceptions.StudentNotRegisteredException;
 import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
+
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.ReportCardNotGeneratedException;
 
 
 public class StudentDaoOperation implements StudentDaoInterface {
 
 	private static volatile StudentDaoOperation instance = null;
+	private static Logger logger = Logger.getLogger(StudentOperation.class);
+
 
 	private StudentDaoOperation() {
 
@@ -34,7 +44,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	}
 
 	@Override
-	public int addStudent(Student student) throws Exception {
+	public int addStudent(Student student) throws StudentNotRegisteredException {
 
 		Connection connection = DBUtils.getConnection();
 		int studentId = 0;
@@ -64,15 +74,14 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			}
 
 		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
-			throw new Exception(student.getName());
+			logger.error(ex.getMessage());
+			throw new StudentNotRegisteredException(student.getName());
 
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage() + "SQL error");
-				e.printStackTrace();
+				logger.error(e.getMessage() + "SQL error");
 			}
 		}
 		return studentId;
@@ -91,7 +100,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			}
 
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		return 0;
@@ -110,11 +119,59 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			}
 
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		return false;
 	}
   
+	public ReportCard viewReportCard(int StudentID) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
+
+		Connection connection=DBUtils.getConnection();
+
+		ReportCard R = new ReportCard();
+		R.setStudentId(StudentID);
+
+		try
+		{
+			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.GET_REPORT);
+			preparedStatement.setInt(1, StudentID);
+			ResultSet rs = preparedStatement.executeQuery();
+			HashMap<Integer,Double> grades = new HashMap<Integer, Double>();
+
+			while (rs.next()) {
+
+					if(rs.getInt(4) == 0) {
+						continue;
+					}
+
+					grades.put(rs.getInt(3), (double) rs.getInt(4));
+					System.out.println(rs.getInt(4));
+
+			}
+			if(grades.isEmpty()) throw new ReportCardNotGeneratedException();
+			R.setIsVisible(true);
+			R.setGrades(grades);
+
+			Double spi;
+			PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.GET_SPI);
+			ps.setInt(1, StudentID);
+
+			rs = ps.executeQuery();
+			rs.next();
+			spi = rs.getDouble(1);
+			System.out.println(spi);
+			R.setSpi(spi);
+
+		}
+
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+
+		return R;
+	}
+
 }
 

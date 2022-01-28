@@ -1,12 +1,10 @@
 package com.flipkart.business;
 
-/**
- * @author venkat.karthik
- *
- */
 
 import java.sql.SQLException;
 import java.util.UUID;
+
+import org.apache.log4j.Logger;
 
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
@@ -17,6 +15,7 @@ public class NotificationOperation implements NotificationInterface {
 
 	private static volatile NotificationOperation instance = null;
 	NotificationDaoInterface notificationDaoInterface = NotificationDaoOperation.getInstance();
+	private static Logger logger = Logger.getLogger(NotificationOperation.class);
 
 	private NotificationOperation() {
 
@@ -38,7 +37,7 @@ public class NotificationOperation implements NotificationInterface {
 			notificationId = notificationDaoInterface.sendNotification(type, studentId, modeOfPayment, amount, cardNumber, cvv);
 
 		} catch (SQLException ex) {
-			System.out.println("Error occurred " + ex.getMessage());
+			logger.error("Error occurred " + ex.getMessage());
 		}
 		return notificationId;
 	}

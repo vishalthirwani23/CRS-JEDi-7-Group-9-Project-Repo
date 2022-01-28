@@ -1,13 +1,13 @@
 package com.flipkart.exceptions;
 
 public class CourseFoundException extends Exception {
-	private String courseCode;
+	private int courseCode;
 
 	/***
 	 * Constructor
 	 * @param courseCode Course Code of Course
 	 */
-	public CourseFoundException(String courseCode) {
+	public CourseFoundException(int courseCode) {
 		this.courseCode = courseCode;
 	}
 
@@ -16,7 +16,7 @@ public class CourseFoundException extends Exception {
 	 * 
 	 * @return course code
 	 */
-	public String getCourseCode() {
+	public int getCourseCode() {
 		return courseCode;
 	}
 

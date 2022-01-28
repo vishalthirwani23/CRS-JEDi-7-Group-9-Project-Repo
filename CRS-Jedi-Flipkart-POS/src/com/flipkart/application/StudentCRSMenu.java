@@ -1,29 +1,48 @@
 package com.flipkart.application;
 
 import java.sql.SQLException;
+
+
 import java.util.*;
-import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.exceptions.CourseLimitExceedException;
+import com.flipkart.exceptions.CourseNotFoundException;
+import com.flipkart.exceptions.SeatNotAvailableException;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 import com.flipkart.business.RegistrationInterface;
 import com.flipkart.business.RegistrationOperation;
+import com.flipkart.business.StudentOperation;
+import com.flipkart.bean.ReportCard;
+import com.flipkart.exceptions.CourseNotFoundException;
 
 public class StudentCRSMenu {
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
+
     Scanner sc = new Scanner(System.in);
     RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
     ProfessorInterface professorInterface = ProfessorOperation.getInstance();
     NotificationInterface notificationInterface=NotificationOperation.getInstance();
     private boolean is_registered;
 
-    public void create_menu(int studentId) throws Exception
+    /**
+     * Method to generate Student Menu for course registration, addition, removal and fee payment
+     *
+     * @param studentId student id
+     */
+    public void create_menu(int studentId)
     {
 
         is_registered = getRegistrationStatus(studentId);
@@ -35,9 +54,9 @@ public class StudentCRSMenu {
                     "3. Drop Course from Semester\n"+
                     "4. View Available Courses\n"+
                     "5. View Registered Courses\n"+
-                    "6. View Semester Grade Card\n"+
+                    "6. View Grade Card\n"+
                     "7. Pay Fees for Courses\n"+
-                    "8. Logout\n");
+                    "8. Logout \n");
 
      
 
@@ -84,8 +103,12 @@ public class StudentCRSMenu {
     }
 
 
-
-    private void registerCourses(int studentId) throws Exception
+    /**
+     * Select course for registration
+     * @param studentId student id
+     * @param studentId
+     * */
+    private void registerCourses(int studentId)
     {
         if(is_registered)
         {
@@ -122,9 +145,9 @@ public class StudentCRSMenu {
                     System.err.println("You have already registered for Course : " + courseCode);
                 }
             }
-            catch(SQLException e)
+            catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
             {
-            	System.out.println(e.getMessage());
+                logger.error(e.getMessage());
             }
         }
 
@@ -137,12 +160,17 @@ public class StudentCRSMenu {
         }
         catch (SQLException e)
         {
-        	
+        	logger.error(e.getMessage());
         }
 
     }
 
-    private void addCourse(int studentId) throws Exception
+    /**
+     * Add course for registration
+     *
+     * @param studentId
+     */
+    private void addCourse(int studentId)
     {
         if(is_registered)
         {
@@ -166,9 +194,9 @@ public class StudentCRSMenu {
                 	System.out.println("You have already registered for Course : " + courseCode);
                 }
             }
-            catch( SQLException e)
+            catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
             {
-            	System.out.println(e.getMessage());
+                logger.error(e.getMessage());
             }
         }
         else
@@ -177,7 +205,13 @@ public class StudentCRSMenu {
         }
     }
 
-   
+    /**
+     * Method to check if student is already registered
+     *
+     * @param studentId student id
+     * @param studentId
+     * @return Registration Status
+     */
     private boolean getRegistrationStatus(int studentId)
     {
         try
@@ -186,12 +220,17 @@ public class StudentCRSMenu {
         }
         catch (SQLException e)
         {
-        	System.out.println(e.getMessage());
+        	logger.error(e.getMessage());
         }
         return false;
     }
 
-
+    /**
+     * Drop Course
+     *
+     * @param studentId student id
+     * @param studentId
+     */
     private void dropCourse(int studentId)
     {
         if(is_registered)
@@ -211,9 +250,14 @@ public class StudentCRSMenu {
                 System.out.println("You have successfully dropped Course : " + courseCode);
 
             }
-            catch(Exception e)
+            catch(CourseNotFoundException e)
             {
-            	System.out.println("You have not registered for course : ");
+                logger.error("You have not registered for course : " + e.getCourseCode());
+            }
+            catch (SQLException e)
+            {
+
+                logger.error(e.getMessage());
             }
           
         }
@@ -223,7 +267,13 @@ public class StudentCRSMenu {
         }
     }
 
-    
+    /**
+     * View all available Courses
+     *
+     * @param studentId student id
+     * @param studentId
+     * @return List of available Courses
+     */
     private List<Course> viewCourse(int studentId)
 
     {
@@ -236,13 +286,13 @@ public class StudentCRSMenu {
         catch (SQLException e)
         {
 
-        	System.out.println(e.getMessage());
+        	logger.error(e.getMessage());
         }
 
 
         if(course_available.isEmpty())
         {
-        	System.out.println("NO COURSE AVAILABLE");
+        	logger.error("NO COURSE AVAILABLE");
             return null;
         }
 
@@ -256,7 +306,13 @@ public class StudentCRSMenu {
         return course_available;
     }
     
-
+    /**
+     * View Registered Courses
+     *
+     * @param studentId student id
+     * @param studentId
+     * @return List of Registered Courses
+     */
     private List<Course> viewRegisteredCourse(int studentId)
     {
     	System.out.println("List of Registered Courses");
@@ -268,7 +324,7 @@ public class StudentCRSMenu {
         catch (SQLException e)
         {
 
-        	System.out.println(e.getMessage());
+        	logger.error(e.getMessage());
         }
 
         if(course_registered.isEmpty())
@@ -289,7 +345,12 @@ public class StudentCRSMenu {
         return course_registered;
     }
 
-
+    /**
+     * View grade card for particular student
+     *
+     * @param studentId student id
+     * @param studentId
+     */
     private void viewGradeCard(int studentId) {
 
     	System.out.println("GRADE CARD");
@@ -298,7 +359,7 @@ public class StudentCRSMenu {
             gradeCard = registrationInterface.viewGradeCard(studentId);
         } catch (SQLException e) {
 
-        	System.out.println(e.getMessage());
+        	logger.error(e.getMessage());
         }
 
         if (gradeCard.isEmpty()) {
@@ -334,7 +395,6 @@ public class StudentCRSMenu {
         }
        
     }
-
     private static Map<String, Integer> gradeStrToScore;
 
     static {
@@ -355,6 +415,12 @@ public class StudentCRSMenu {
         return 0;
     }
 
+    /**
+     * Make Payment for selected courses.
+     * Student is provided with an option to pay the fees and select the mode of payment.
+     *
+     * @param studentId
+     */
     private void make_payment(int studentId)
     {
 
@@ -367,7 +433,7 @@ public class StudentCRSMenu {
         catch (SQLException e)
         {
 
-        	System.out.println(e.getMessage());
+        	logger.error(e.getMessage());
         }
 
         if(fee == 0.0)
@@ -397,7 +463,7 @@ public class StudentCRSMenu {
                 	System.out.println("Invalid Input");
                 else
                 {
-                    System.out.println("Please Enter The 16 digit Card Number:");
+                    System.out.println("Please Enter The Card Number:");
                     String cardNumber = sc.nextLine();
 
                     System.out.println("Please Enter your CVV Number");
@@ -410,7 +476,7 @@ public class StudentCRSMenu {
                     catch (Exception e)
                     {
 
-                    	System.out.println(e.getMessage());
+                    	logger.error(e.getMessage());
                     }
                 }
 
