@@ -5,6 +5,11 @@ package com.flipkart.business;
  */
 
 import java.sql.SQLException;
+import com.flipkart.bean.ReportCard;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+
 
 public interface StudentInterface {
 
@@ -14,4 +19,6 @@ public interface StudentInterface {
 	public int getStudentId(String userId);
 
 	public boolean isApproved(int studentId);
+	public ReportCard viewReportCard(int StudentID) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException;
+	
 }

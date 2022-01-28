@@ -4,17 +4,21 @@ package com.flipkart.business;
  *
  */
 
+import java.util.HashMap;
 import java.util.Map;
+import com.flipkart.bean.ReportCard;
 
-
-public class ReportCardOperation implements ReportCardInterFace {
-	public Double calculateGrade(Map<courseName, Grade> coursesTaken) {
-		int points = 0;
-		int number_courses = coursesTaken.size();
-		for(int grade: coursesTaken.valueSet()) {
-			points = points + grade;
+public class ReportCardOperation implements ReportCardInterface {
+	
+	public Float getSPI(ReportCard RC) {
+		HashMap<Integer, Double> grades = RC.getGrades();
+		float sum = 0.0f;
+		int num_courses=0;
+		for (Double g : grades.values()) {
+		    sum += g;
+		    num_courses++;
 		}
-		Double overallGrade = (double) (points/number_courses);
-		return overallGrade;
+		sum=sum/num_courses;
+		return sum;
 	}
 }
