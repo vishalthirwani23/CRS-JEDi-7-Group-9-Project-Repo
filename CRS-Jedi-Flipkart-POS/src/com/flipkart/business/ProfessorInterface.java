@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface ProfessorInterface {
 
-	public boolean addGrade(int studentId, String courseCode, String grade) throws Exception;
+	public boolean addGrade(int studentId, int courseCode, String grade) throws Exception;
 
 	public List<EnrolledStudent> viewEnrolledStudents(String profId) throws SQLException;
 

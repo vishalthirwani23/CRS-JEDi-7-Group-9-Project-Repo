@@ -13,7 +13,7 @@ import com.flipkart.constant.Grade;
  */
 public class StudentGrade {
 
-	private String courseCode;
+	private int courseCode;
 	private String courseName;
 	private String grade;
 
@@ -24,7 +24,7 @@ public class StudentGrade {
 	 * @param courseName: course name
 	 * @param grade:      grade
 	 */
-	public StudentGrade(String courseCode, String courseName, String grade) {
+	public StudentGrade(int courseCode, String courseName, String grade) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.setGrade(grade);
@@ -35,7 +35,7 @@ public class StudentGrade {
 	 * 
 	 * @return Course Code
 	 */
-	public String getCourseCode() {
+	public int getCourseCode() {
 		return courseCode;
 	}
 
@@ -44,7 +44,7 @@ public class StudentGrade {
 	 * 
 	 * @param courseCode: Course Code
 	 */
-	public void setCourseCode(String courseCode) {
+	public void setCourseCode(int courseCode) {
 		this.courseCode = courseCode;
 	}
 

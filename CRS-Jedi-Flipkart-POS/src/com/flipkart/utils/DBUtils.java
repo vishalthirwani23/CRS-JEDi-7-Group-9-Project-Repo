@@ -14,21 +14,21 @@ import java.util.Properties;
 public class DBUtils {
     static Properties prop = new Properties();
     static InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
-    static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static String DB_URL = "jdbc:mysql://localhost/test";
-    static String USER = "root";
-    static String PASS = "root";
+//    static String driver = prop.getProperty("driver");
+    static String DB_URL;
+    static String USER;
+    static String PASS;
 
-//    static {
-//        try {
-//            prop.load(inputStream);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        DB_URL = prop.getProperty("url");
-//        USER = prop.getProperty("user");
-//        PASS = prop.getProperty("password");
-//    }
+    static {
+        try {
+            prop.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DB_URL = prop.getProperty("url");
+        USER = prop.getProperty("user");
+        PASS = prop.getProperty("password");
+    }
 
     
     

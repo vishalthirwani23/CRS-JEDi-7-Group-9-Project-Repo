@@ -33,7 +33,7 @@ public class StudentOperation implements StudentInterface {
 	public int register(String name, String userId, String password, int batch, String branch) throws Exception {
 		int studentId;
 		try {
-			Student newStudent = new Student(userId, name, Role.STUDENT, password, branch, 0, batch, false);
+			Student newStudent = new Student(userId, name, Role.STUDENT, password, branch, 0, batch, false, false);
 			studentId = studentDaoInterface.addStudent(newStudent);
 
 		} catch (Exception ex) {

@@ -1,9 +1,5 @@
 package com.flipkart.application;
 
-/**
- * @author jayant
- *
- */
 import java.sql.SQLException;
 import java.util.*;
 import java.util.Scanner;
@@ -27,20 +23,21 @@ public class StudentCRSMenu {
     NotificationInterface notificationInterface=NotificationOperation.getInstance();
     private boolean is_registered;
 
-    public void create_menu(int studentId)
+    public void create_menu(int studentId) throws Exception
     {
 
         is_registered = getRegistrationStatus(studentId);
         while (CRSApplication.loggedin)
         {
-            System.out.println("Student Access Menu \n\n "+"1 Register for Courses\n"+
-                    "2 Add New Course to Semester\n"+
-                    "3 Drop Course from Semester\n"+
-                    "4 View Available Courses\n"+
-                    "5 View Registered Courses\n"+
-                    "6 View Semester Grade Card\n"+
-                    "7 Pay Fees for Courses\n"+
-                    "8 Logout\n");
+            System.out.println("\n\n  Student Access Menu  \n\n "+
+            		"1. Register for Courses\n"+
+                    "2. Add New Course to Semester\n"+
+                    "3. Drop Course from Semester\n"+
+                    "4. View Available Courses\n"+
+                    "5. View Registered Courses\n"+
+                    "6. View Semester Grade Card\n"+
+                    "7. Pay Fees for Courses\n"+
+                    "8. Logout\n");
 
      
 
@@ -88,16 +85,16 @@ public class StudentCRSMenu {
 
 
 
-    private void registerCourses(int studentId)
+    private void registerCourses(int studentId) throws Exception
     {
         if(is_registered)
         {
-        	System.out.println(" Registration is already completed");
+        	System.out.println("Registration is already completed");
             return;
         }
 
         int count = 0;
-        System.out.println("Course Registration Portal");
+        System.out.println("\n\nCourse Registration Portal  \n\n");
         while(count < 6)
         {
             try
@@ -107,11 +104,11 @@ public class StudentCRSMenu {
                 if(courseList==null)
                     return;
 
-                System.out.println("Enter Course Code : " + (count+1));
+                System.out.println("Enter Course Code : ");
                 System.out.println("Enter 0 to exit");
-                String courseCode = sc.next();
+                int courseCode = sc.nextInt();
 
-                if (courseCode.equals("0")){
+                if (courseCode == 0){
                     break;
                 }
 
@@ -122,7 +119,7 @@ public class StudentCRSMenu {
                 }
                 else
                 {
-                    System.err.println(" You have already registered for Course : " + courseCode);
+                    System.err.println("You have already registered for Course : " + courseCode);
                 }
             }
             catch(SQLException e)
@@ -131,7 +128,7 @@ public class StudentCRSMenu {
             }
         }
 
-        System.out.println("Registration Successful");
+        System.out.println("\nRegistration Successful  \n");
         is_registered = true;
 
         try
@@ -145,11 +142,11 @@ public class StudentCRSMenu {
 
     }
 
-    private void addCourse(int studentId)
+    private void addCourse(int studentId) throws Exception
     {
         if(is_registered)
         {
-        	System.out.println("Add Course Portal for Student");
+        	System.out.println("\nAdd Course Portal for Student  \n");
 
             List<Course> availableCourseList=viewCourse(studentId);
 
@@ -159,14 +156,14 @@ public class StudentCRSMenu {
             try
             {
                 System.out.println("Enter Course Code : " );
-                String courseCode = sc.next();
+                int courseCode = sc.nextInt();
                 if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
                 {
-                	System.out.println(" You have successfully registered for Course : " + courseCode);
+                	System.out.println("You have successfully registered for Course : " + courseCode);
                 }
                 else
                 {
-                	System.out.println(" You have already registered for Course : " + courseCode);
+                	System.out.println("You have already registered for Course : " + courseCode);
                 }
             }
             catch( SQLException e)
@@ -199,14 +196,14 @@ public class StudentCRSMenu {
     {
         if(is_registered)
         {
-        	System.out.println("Drop Course Portal for Student");
+        	System.out.println("\nDrop Course Portal for Student\n");
             List<Course> registeredCourseList=viewRegisteredCourse(studentId);
 
             if(registeredCourseList==null)
                 return;
 
             System.out.println("Enter the Course Code : ");
-            String courseCode = sc.next();
+            int courseCode = sc.nextInt();
 
             try
             {

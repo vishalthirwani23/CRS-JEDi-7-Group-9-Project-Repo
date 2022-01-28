@@ -4,21 +4,21 @@ package com.flipkart.bean;
  * Class for storing details of course Student has taken
  */
 public class EnrolledStudent {
-	private String courseCode;
+	private int courseCode;
 	private String courseName;
 	private int studentId;
 
 	/**
 	 * Method to get Course Code
 	 */
-	public String getCourseCode() {
+	public int getCourseCode() {
 		return courseCode;
 	}
 
 	/**
 	 * Method to set Course Code
 	 */
-	public void setCourseCode(String courseCode) {
+	public void setCourseCode(int courseCode) {
 		this.courseCode = courseCode;
 	}
 
@@ -54,7 +54,7 @@ public class EnrolledStudent {
 	/**
 	 * Parameterized constructor
 	 */
-	public EnrolledStudent(String courseCode, String courseName, int studentId) {
+	public EnrolledStudent(int courseCode, String courseName, int studentId) {
 		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;

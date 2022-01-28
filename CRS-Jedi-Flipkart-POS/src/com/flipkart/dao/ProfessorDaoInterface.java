@@ -11,7 +11,7 @@ public interface ProfessorDaoInterface {
 
 	public List<EnrolledStudent> getEnrolledStudents(String profId);
 
-	public Boolean addGrade(int studentId, String courseCode, String grade);
+	public Boolean addGrade(int studentId, int courseCode, String grade);
 
 	public String getProfessorById(String profId);
 }

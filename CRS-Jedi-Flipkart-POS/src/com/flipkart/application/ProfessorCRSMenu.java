@@ -31,8 +31,11 @@ public class ProfessorCRSMenu {
         int input;
         while(CRSApplication.loggedin)
         {
-           System.out.println("1 Professor Access Menu \n"+"2 View Enrolled Students"+
-                    "\n 3 Add grade for Student"+ "\n 4 Logout");
+        	
+           System.out.println("\n\nProfessor Access Menu \n\n" +  
+           "1. View Enrolled Students \n" + 
+           "2. Add grade for Student \n" + 
+           "3. Logout");
 
             
             //input user
@@ -112,7 +115,8 @@ public class ProfessorCRSMenu {
         Scanner sc=new Scanner(System.in);
 
         int studentId;
-        String courseCode,grade;
+        int courseCode;
+        String grade;
         try
         {
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
@@ -128,7 +132,7 @@ public class ProfessorCRSMenu {
             System.out.println("Enter student id");
             studentId=sc.nextInt();
             System.out.println("Enter course code");
-            courseCode=sc.next();
+            courseCode=sc.nextInt();
             System.out.println("Enter grade");
             grade=sc.next();
             if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
