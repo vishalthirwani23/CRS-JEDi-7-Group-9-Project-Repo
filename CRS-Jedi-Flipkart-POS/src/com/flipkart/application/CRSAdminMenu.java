@@ -3,6 +3,7 @@ package com.flipkart.application;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -11,7 +12,14 @@ import com.flipkart.bean.Student;
 //import com.flipkart.constant.Color;
 //import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
-import com.flipkart.constant.Role; 
+import com.flipkart.constant.Role;
+import com.flipkart.exceptions.CourseFoundException;
+import com.flipkart.exceptions.CourseNotDeletedException;
+import com.flipkart.exceptions.CourseNotFoundException;
+import com.flipkart.exceptions.ProfessorNotAddedException;
+import com.flipkart.exceptions.StudentNotFoundForApprovalException;
+import com.flipkart.exceptions.UserIdAlreadyInUseException;
+import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
 import com.flipkart.business.NotificationInterface;
@@ -19,13 +27,15 @@ import com.flipkart.business.NotificationOperation;
 
 public class CRSAdminMenu {
 
-
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
     AdminInterface adminOperation = AdminOperation.getInstance();
     Scanner scanner = new Scanner(System.in);
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
 
-
-    public void createMenu() throws Exception {
+    /**
+     * Method to Create Admin Menu
+     */
+    public void createMenu(){
 
         while (CRSApplication.loggedin) {
 		
@@ -76,8 +86,10 @@ public class CRSAdminMenu {
         }
     }
 
-
-    private void assignCourseToProfessor() throws Exception {
+    /**
+     * Method to assign Course to a Professor
+     */
+    private void assignCourseToProfessor() {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
         System.out.println("\n\n List of Professors Available \n\n");
         System.out.println("ProfessorId	Name	Designation");
@@ -99,12 +111,21 @@ public class CRSAdminMenu {
         System.out.println("Enter Professor's User Id:");
         String userId = scanner.next();
 	   
-        adminOperation.assignCourse(courseCode, userId); // add assignCourse method in admin
+        try {
+
+            adminOperation.assignCourse(courseCode, userId);
+
+        } catch (CourseNotFoundException | UserNotFoundException e) {
+
+            logger.error(e.getMessage());
+        } // add assignCourse method in admin
 	    
     }
 
-
-    private void addProfessor() throws Exception {
+    /**
+     * Method to add Professor to DB
+     */
+    private void addProfessor() {
 
         Professor professor = new Professor();
         System.out.println("\n\n Add Professor Portal \n\n");
@@ -132,12 +153,17 @@ public class CRSAdminMenu {
 
         professor.setRole(Role.stringToName("Professor"));
 
-        adminOperation.addProfessor(professor);
+        try {
+            adminOperation.addProfessor(professor);
+        } catch (ProfessorNotAddedException | UserIdAlreadyInUseException e) {
+            logger.error(e.getMessage());
+        }
  
     }
 
-
-
+    /**
+     * Method to approve a Student using Student's ID
+     */
     private void approveStudent() {
 
         List<Student> studentList = adminOperation.viewPendingAdmissions();
@@ -161,10 +187,16 @@ public class CRSAdminMenu {
             //send notification from system
             notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null, 0, null, null);
 
-        } catch (Exception e) {
-            
+        } catch (StudentNotFoundForApprovalException e) {
+            logger.error(e.getMessage());
         }
     }
+    
+    /**
+     * Method to delete Course from catalogue
+     *
+     * @throws CourseNotFoundException
+     */
     private void deleteCourse() {
         System.out.println("\n\n Delete Course Portal \n\n");
         List<Course> courseList = viewCoursesInCatalogue();
@@ -172,13 +204,15 @@ public class CRSAdminMenu {
         int courseCode = scanner.nextInt();
         try {
             adminOperation.deleteCourse(courseCode, courseList);
-        } catch (Exception e) {
-           
+        } catch (CourseNotFoundException | CourseNotDeletedException e) {
+        	logger.error(e.getMessage());
         }
 	
     }
 
-
+    /**
+     * Method to add Course to catalogue
+     */
     private void addCourseToCatalogue() {
         System.out.println("\n\n Add Course to Catalogue Portal \n\n");
         List<Course> courseList = viewCoursesInCatalogue();
@@ -193,14 +227,17 @@ public class CRSAdminMenu {
         try {
         	adminOperation.addCourse(course, courseList);
         	 
-        }catch(Exception e)
-        {
-        	
+        }catch (CourseFoundException e) {
+        	logger.error(e.getMessage());
         }
 	
     }
 
-
+    /**
+     * Method to display courses in catalogue
+     *
+     * @return List of courses in catalogue
+     */
     private List<Course> viewCoursesInCatalogue() {
         List<Course> courseList = adminOperation.viewCourses(1);
         if (courseList.size() == 0) {

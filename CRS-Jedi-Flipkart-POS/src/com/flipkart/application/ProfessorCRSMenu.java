@@ -10,19 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
+import com.flipkart.exceptions.GradeNotAddedException;
 import com.flipkart.validator.ProfessorValidator;
-
 
 
 public class ProfessorCRSMenu {
 
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
 
     ProfessorInterface professorInterface=ProfessorOperation.getInstance();
 
+    /**
+     * Method to create Professor menu
+     * @param profId: professor id obtained after logging into the system
+     * It displays all the options for the professor, and provides navigation
+     */
     public void createMenu(String profId)
     {
         //Display the options available for the Professor
@@ -67,6 +75,10 @@ public class ProfessorCRSMenu {
 
     }
 
+    /**
+     * Method to view enrolled Students in courses
+     * @param profId: professor id obtained after logging into the system
+     */
     public void viewEnrolledStudents(String profId)
     {
     	System.out.println("List of Enrolled Students");
@@ -84,11 +96,14 @@ public class ProfessorCRSMenu {
         }
         catch(Exception e)
         {
-        	System.out.println("Something went wrong, please try again later!");
+        	logger.error(e.getMessage()+"Something went wrong, please try again later!");
         }
     }
 
-
+    /**
+     * Method to get list of all Courses Professor has to teach
+     * @param profId: professor id obtained after logging into the system
+     */
     public void getCourses(String profId)
     {
     	System.out.println("List of All Courses taught by Professor");
@@ -104,11 +119,14 @@ public class ProfessorCRSMenu {
         }
         catch(Exception e)
         {
-        	System.out.println("Something went wrong!");
+        	logger.error("Something went wrong!"+e.getMessage());
         }
     }
 
-
+    /**
+     * Method to help Professor grade a student
+     * @param profId: professor id obtained after logging into the system
+     */
     public void addGrade(String profId)
     {
     	System.out.println("Student Courses Data \n");
@@ -145,10 +163,14 @@ public class ProfessorCRSMenu {
             	System.out.println("Invalid data entered, try again!");
             }
         }
-        catch(Exception e)
+        catch(GradeNotAddedException ex)
         {
-        	System.out.println("Grade cannot be added for");
+            logger.error("Grade cannot be added for"+ex.getStudentId());
 
+        }
+        catch(SQLException ex)
+        {
+            logger.error("Grade not added, SQL exception occurred "+ex.getMessage());
         }
        
     }

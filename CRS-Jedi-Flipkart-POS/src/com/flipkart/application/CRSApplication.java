@@ -1,16 +1,21 @@
 package com.flipkart.application;
 
 import java.util.Scanner;
+
+import org.apache.log4j.Logger;
+
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
+import com.flipkart.exceptions.AdminAccountNotCreatedException;
+import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.business.*;
-
-
 
 
 public class CRSApplication {
 
     static boolean loggedin = false;
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
+
     StudentInterface studentInterface = StudentOperation.getInstance();
     UserInterface userInterface = UserOperation.getInstance();
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
@@ -24,7 +29,7 @@ public class CRSApplication {
         createMainMenu();
         userInput = sc.nextInt();
        
-
+        try {
             //until user do not exit the application
             while (userInput != 5) {
                 switch (userInput) {
@@ -49,9 +54,17 @@ public class CRSApplication {
                 createMainMenu();
                 userInput = sc.nextInt();
             }
-        sc.close();
+        } catch (Exception ex) {
+            logger.error("Error occurred " + ex.getMessage());;
+        } finally {
+            sc.close();
+        }
+
     }
 
+    /**
+     * Method to Create Main Menu
+     */
     public static void createMainMenu() {
        
         
@@ -67,15 +80,16 @@ public class CRSApplication {
         
     }
 
-
-
-    public void loginUser() throws Exception {
+    /**
+     * Method for Login functionality
+     */
+    public void loginUser() {
 
         Scanner sc = new Scanner(System.in);
 
         String userId, password;
        
-           
+        try {
             System.out.println("Login Portal");
             System.out.println("=======================================");
             System.out.println("Email:");
@@ -125,12 +139,17 @@ public class CRSApplication {
             else {
             	System.out.println("Invalid Credentials!");
             }
-
+            
+         }	catch (UserNotFoundException ex) {
+               logger.error(ex.getMessage());
+         }
         
     }
 
-  
-    public void registerAdmin() throws Exception {
+    /**
+     * Method to Register Admin
+     */
+    public void registerAdmin()  {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter root password");
         String rt_pwd = sc.nextLine();
@@ -142,7 +161,7 @@ public class CRSApplication {
         }
         String userId, name, password;
    
-      
+        try {
             //input all the student details
         	System.out.println("Administrative Account Creation Portal");
             System.out.println("Name:");
@@ -152,12 +171,17 @@ public class CRSApplication {
             System.out.println("Password:");
             password = sc.next();
             int admin= adminInterface.register(name, userId, password);
+        } catch (AdminAccountNotCreatedException ex) {
+        	logger.error("Error occured! " + ex.getMessage());
+            return;
+        }
        
             System.out.println("Administrative Account Successfully Created!");
     }
    
-
- 
+    /**
+     * Method to help Student register themselves, pending admin approval
+     */
     public void registerStudent() {
         Scanner sc = new Scanner(System.in);
 
@@ -182,35 +206,41 @@ public class CRSApplication {
             notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
 
         } catch (Exception ex) {
-        	System.out.println("Something went wrong! not registered. Please try again");
+        	logger.error(ex.getMessage());
             return;
         }
         System.out.println("Student Successfully Registered!");
     }
 
-  
-    public void updatePassword() throws Exception {
+    /**
+     * Method to update password of User
+     */
+    public void updatePassword() {
         Scanner sc = new Scanner(System.in);
         String userId, newPassword, password;
-   
-        System.out.println("Update Password Portal");
-        System.out.println("Email:");
-        userId = sc.next();
-        System.out.println("old Password:");
-        password = sc.next();
-        loggedin = userInterface.verifyCredentials(userId, password);
-        if (loggedin) {
-
-            System.out.println("New Password:");
-            newPassword = sc.next();
-            boolean isUpdated = userInterface.updatePassword(userId, newPassword);
-            if (isUpdated)
-            	System.out.println("Password updated successfully!");
-            else
-            	System.out.println("Something went wrong, please try again!");
-        }
-        else{
-        	System.out.println("Incorrect Password");
+        try {
+	        System.out.println("Update Password Portal");
+	        System.out.println("Email:");
+	        userId = sc.next();
+	        System.out.println("old Password:");
+	        password = sc.next();
+	        loggedin = userInterface.verifyCredentials(userId, password);
+	        if (loggedin) {
+	
+	            System.out.println("New Password:");
+	            newPassword = sc.next();
+	            boolean isUpdated = userInterface.updatePassword(userId, newPassword);
+	            if (isUpdated)
+	            	System.out.println("Password updated successfully!");
+	            else
+	            	System.out.println("Something went wrong, please try again!");
+	        }
+	        else{
+	        	System.out.println("Incorrect Password");
+	        }
+        } catch (Exception ex) {
+            logger.error("Error Occurred " + ex.getMessage());
+            return;
         }
        
     }
