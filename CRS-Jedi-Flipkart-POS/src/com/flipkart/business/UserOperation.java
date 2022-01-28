@@ -32,7 +32,7 @@ public class UserOperation implements UserInterface {
 	}
 
 
-	public boolean verifyCredentials(String userID, String password) throws Exception {
+	public boolean verifyCredentials(String userID, String password) throws UserNotFoundException {
 		try {
 			return userDaoInterface.verifyCredentials(userID, password);
 		} finally {

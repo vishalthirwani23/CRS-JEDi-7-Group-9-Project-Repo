@@ -1,8 +1,5 @@
 package com.flipkart.business;
-/**
- * @author venkat.karthik
- *
- */
+
 
 import com.flipkart.bean.Student;
 import com.flipkart.application.CRSApplication;
@@ -15,6 +12,7 @@ import com.flipkart.dao.StudentDaoOperation;
 public class StudentOperation implements StudentInterface {
 
 	private static volatile StudentOperation instance = null;
+	private static Logger logger = Logger.getLogger.getLogger(CRSApplication.class);
 	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	private StudentOperation() {
@@ -30,13 +28,13 @@ public class StudentOperation implements StudentInterface {
 	}
 
 
-	public int register(String name, String userId, String password, int batch, String branch) throws Exception {
+	public int register(String name, String userId, String password, int batch, String branch) throws StudentNotRegisteredException {
 		int studentId;
 		try {
 			Student newStudent = new Student(userId, name, Role.STUDENT, password, branch, 0, batch, false, false);
 			studentId = studentDaoInterface.addStudent(newStudent);
 
-		} catch (Exception ex) {
+		} catch (StudentNotRegisteredException ex) {
 			throw ex;
 		}
 		return studentId;
