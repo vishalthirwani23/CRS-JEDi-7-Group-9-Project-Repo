@@ -79,18 +79,22 @@ public class CRSAdminMenu {
 
     private void assignCourseToProfessor() throws Exception {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
+
         System.out.println("\n\n List of Professors Available \n\n");
         System.out.println("ProfessorId	Name	Designation");
+
         for (Professor professor : professorList) {
             System.out.println(professor.getUserId() + "	" + professor.getName() + "	" + professor.getDesignation());
         }
         
 
         List<Course> courseList = adminOperation.viewCourses(1); // add viewCourses method in admin
+
         System.out.println("\n\n List of Courses Available \n\n");
         System.out.println("Course Code	CourseName");
         for (Course course : courseList) {
             System.out.println(course.getCourseCode() + "	" + course.getCourseName());
+
         }
      
         System.out.println("Enter Course Code of the course to be assigned:");
@@ -145,6 +149,7 @@ public class CRSAdminMenu {
             return;
         }
         
+
         System.out.println("\n\n PENDING STUDENTS \n\n");
         System.out.println("Student ID	 Name	 User ID");
         
@@ -153,6 +158,7 @@ public class CRSAdminMenu {
         }
         
         System.out.println("\n\n Approve Student Portal \n\n");
+
         System.out.println("Enter Student's ID:");
         int studentUserIdApproval = scanner.nextInt();
 
@@ -207,6 +213,7 @@ public class CRSAdminMenu {
             System.out.println("No course in the catalogue!");
             return courseList;
         }
+
         System.out.println("\n\n Course Catalogue \n\n");
         System.out.println("COURSE CODE  COURSE NAME    INSTRUCTOR");
         for (Course course : courseList) {
