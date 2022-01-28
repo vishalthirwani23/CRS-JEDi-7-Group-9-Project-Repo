@@ -396,7 +396,7 @@ public class StudentCRSMenu {
                 	System.out.println("Invalid Input");
                 else
                 {
-                    System.out.println("Please Enter The 16 digit Card Number:");
+                    System.out.println("Please Enter The Card Number:");
                     String cardNumber = sc.nextLine();
 
                     System.out.println("Please Enter your CVV Number");
