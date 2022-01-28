@@ -32,4 +32,6 @@ public interface AdminDaoInterface {
 	public List<Course> viewCourses(int catalogId);
 
 	public List<Professor> viewProfessors();
+	
+	public ReportCard generateReportCard(int studentID) throws SQLException, StudentNotRegisteredException, GradeNotAddedException;
 }
