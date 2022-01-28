@@ -26,6 +26,9 @@ public class SQLQueriesConstants {
     public static final String GET_STUDENT_ID="select studentId from student where userId = ? ";
     public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
+    
+    public static final String GET_SPI = "select sum(grade) from registeredcourse where studentid = ?";
+    public static final String GENERATE_REPORT_CARD = "update student set spi = ? where studentId = ?";
 
     // Student Queries
     public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";
@@ -38,7 +41,7 @@ public class SQLQueriesConstants {
     public static final String CALCULATE_FEES  = "select sum(courseFee) from course where courseCode in (select courseCode from registeredcourse where studentId = ?);";
     public static final String VIEW_GRADE = "select course.courseCode,course.courseName,registeredcourse.grade from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?;";
     public static final String GET_SEATS = "select seats from course where courseCode = ?;";
-    public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount,cardNumber,cvv) values(?,?,?,?,?,?);";
+    public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
     public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
     public static final String GET_NOTIFICATION = "select * from notification where referenceId = ?;";
     public static final String ADD_GRADE="update registeredcourse set Grade=? where courseCode=? and studentId=?";
@@ -48,4 +51,7 @@ public class SQLQueriesConstants {
     public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,registeredcourse.studentId from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where course.professorId = ? order by course.courseCode";
     public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
     public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
+	
+    public static final String GET_REPORT = "select * from registeredcourse where studentId = ?";
+
 }

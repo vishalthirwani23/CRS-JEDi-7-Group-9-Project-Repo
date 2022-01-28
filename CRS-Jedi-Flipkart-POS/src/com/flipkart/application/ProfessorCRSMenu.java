@@ -33,9 +33,10 @@ public class ProfessorCRSMenu {
         {
         	
            System.out.println("\n\nProfessor Access Menu \n\n" +  
-           "1. View Enrolled Students \n" + 
-           "2. Add grade for Student \n" + 
-           "3. Logout");
+           "1. View Assigned Courses \n" + 
+           "2. View Enrolled Students \n" + 
+           "3. Add grade for Student \n" + 
+           "4. Logout");
 
             
             //input user

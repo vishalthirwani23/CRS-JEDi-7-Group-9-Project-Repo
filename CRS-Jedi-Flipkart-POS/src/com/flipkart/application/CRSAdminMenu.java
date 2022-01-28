@@ -1,5 +1,6 @@
 package com.flipkart.application;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +12,11 @@ import com.flipkart.bean.Student;
 //import com.flipkart.constant.Color;
 //import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
-import com.flipkart.constant.Role; 
+import com.flipkart.constant.Role;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.exceptions.StudentNotRegisteredException;
 import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperation;
 import com.flipkart.business.NotificationInterface;
@@ -36,7 +41,8 @@ public class CRSAdminMenu {
            System.out.println("4. Approve Student Registration");
            System.out.println("5. Add New Professor");
            System.out.println("6. Assign Courses To Professor");
-           System.out.println("7. Logout\n\n");
+           System.out.println("7. Generate Report Card");
+           System.out.println("8. Logout\n\n");
 
             int choice = scanner.nextInt();
 
@@ -67,6 +73,9 @@ public class CRSAdminMenu {
                     break;
 
                 case 7:
+                	generateReportCard();
+                
+                case 8:
                     CRSApplication.loggedin = false;
                     return;
 
@@ -79,18 +88,22 @@ public class CRSAdminMenu {
 
     private void assignCourseToProfessor() throws Exception {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
+
         System.out.println("\n\n List of Professors Available \n\n");
         System.out.println("ProfessorId	Name	Designation");
+
         for (Professor professor : professorList) {
             System.out.println(professor.getUserId() + "	" + professor.getName() + "	" + professor.getDesignation());
         }
         
 
         List<Course> courseList = adminOperation.viewCourses(1); // add viewCourses method in admin
+
         System.out.println("\n\n List of Courses Available \n\n");
         System.out.println("Course Code	CourseName");
         for (Course course : courseList) {
             System.out.println(course.getCourseCode() + "	" + course.getCourseName());
+
         }
      
         System.out.println("Enter Course Code of the course to be assigned:");
@@ -145,6 +158,7 @@ public class CRSAdminMenu {
             return;
         }
         
+
         System.out.println("\n\n PENDING STUDENTS \n\n");
         System.out.println("Student ID	 Name	 User ID");
         
@@ -153,6 +167,7 @@ public class CRSAdminMenu {
         }
         
         System.out.println("\n\n Approve Student Portal \n\n");
+
         System.out.println("Enter Student's ID:");
         int studentUserIdApproval = scanner.nextInt();
 
@@ -207,6 +222,7 @@ public class CRSAdminMenu {
             System.out.println("No course in the catalogue!");
             return courseList;
         }
+
         System.out.println("\n\n Course Catalogue \n\n");
         System.out.println("COURSE CODE  COURSE NAME    INSTRUCTOR");
         for (Course course : courseList) {
@@ -217,4 +233,15 @@ public class CRSAdminMenu {
         }
         return courseList;
     }
+    
+    
+    private void generateReportCard() throws SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
+		System.out.println("\n\nGENERATE REPORT PORTAL\n\n");
+		System.out.println("Enter Student Id :");
+		adminOperation.generateReportCard(scanner.nextInt());
+		System.out.println("\nReport Card Generated/n");
+	}
 }
+
+
+	

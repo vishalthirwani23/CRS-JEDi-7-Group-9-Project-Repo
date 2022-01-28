@@ -5,10 +5,17 @@ package com.flipkart.business;
  */
 
 import com.flipkart.bean.Student;
+
+import java.sql.SQLException;
+
 import com.flipkart.application.CRSApplication;
 import com.flipkart.constant.Role;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.bean.ReportCard;
 
 
 
@@ -17,7 +24,7 @@ public class StudentOperation implements StudentInterface {
 	private static volatile StudentOperation instance = null;
 	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
-	private StudentOperation() {
+	public StudentOperation() {
 
 	}
 	public static StudentOperation getInstance() {
@@ -50,5 +57,11 @@ public class StudentOperation implements StudentInterface {
 	public boolean isApproved(int studentId) {
 		return studentDaoInterface.isApproved(studentId);
 	}
+	public ReportCard viewReportCard(int StudentID) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException  {
 
+		StudentDaoOperation SDO= StudentDaoOperation.getInstance();
+		return SDO.viewReportCard(StudentID);
+		
+	}
+	
 }

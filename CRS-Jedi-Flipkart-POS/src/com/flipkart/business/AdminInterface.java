@@ -1,5 +1,7 @@
 package com.flipkart.business;
 
+import java.sql.SQLException;
+
 /**
  * @author venkat.karthik
  *
@@ -9,7 +11,12 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.exceptions.StudentNotRegisteredException;
 
 
 public interface AdminInterface {
@@ -37,4 +44,7 @@ public interface AdminInterface {
 	public List<Course> viewCourses(int catalogId);
 
 	public List<Professor> viewProfessors();
+	
+	public ReportCard generateReportCard(int studentID) throws SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException;
+
 }
