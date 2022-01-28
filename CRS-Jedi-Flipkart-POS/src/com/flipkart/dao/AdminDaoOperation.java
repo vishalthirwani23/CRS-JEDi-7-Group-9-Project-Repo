@@ -137,6 +137,7 @@ public class AdminDaoOperation implements AdminDaoInterface{
 				user.setPassword(resultSet.getString(3));
 				user.setRole(Role.stringToName(resultSet.getString(4)));
 				user.setStudentId(resultSet.getInt(5));
+
 				userList.add(user);
 				
 			}
