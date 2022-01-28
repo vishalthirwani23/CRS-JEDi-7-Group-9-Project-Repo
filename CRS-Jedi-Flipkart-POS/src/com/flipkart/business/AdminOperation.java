@@ -1,4 +1,5 @@
 package com.flipkart.business;
+import java.sql.SQLException;
 /**
  * @author venkat.karthik
  *
@@ -10,6 +11,10 @@ import com.flipkart.constant.Role;
 
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.exceptions.StudentNotRegisteredException;
 import com.flipkart.validator.AdminValidator;
 
 public class AdminOperation implements AdminInterface {
@@ -123,6 +128,14 @@ public class AdminOperation implements AdminInterface {
 
 		return adminDaoOperation.viewProfessors();
 
+	}
+
+	@Override
+	public ReportCard generateReportCard(int studentID) throws SQLException, StudentNotRegisteredException,
+			GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
+		// TODO Auto-generated method stub
+		return adminDaoOperation.generateReportCard(studentID);
+		
 	}
 
 }

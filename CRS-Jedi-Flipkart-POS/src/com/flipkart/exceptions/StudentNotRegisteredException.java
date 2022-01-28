@@ -1,10 +1,10 @@
 package com.flipkart.exceptions;
 
 public class StudentNotRegisteredException extends Exception {
-	private String studentName;
+	private int studentId;
 
-	public StudentNotRegisteredException(String studentName) {
-		this.studentName = studentName;
+	public StudentNotRegisteredException(int studentID) {
+		this.studentId = studentID;
 	}
 
 	/**
@@ -12,8 +12,8 @@ public class StudentNotRegisteredException extends Exception {
 	 * 
 	 * @return Student Name
 	 */
-	public String getStudentName() {
-		return studentName;
+	public int getStudentId() {
+		return studentId;
 	}
 
 }

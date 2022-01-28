@@ -2,7 +2,6 @@ package com.flipkart.application;
 
 import java.sql.SQLException;
 import java.util.*;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.flipkart.bean.Course;
@@ -40,7 +39,7 @@ import com.flipkart.bean.ReportCard;
                     "3. Drop Course from Semester\n"+
                     "4. View Available Courses\n"+
                     "5. View Registered Courses\n"+
-                    "6. View Semester Grade Card\n"+
+                    "6. View Grade Card\n"+
                     "7. Pay Fees for Courses\n"+
                     "8. Logout \n");
 
@@ -71,7 +70,7 @@ import com.flipkart.bean.ReportCard;
                     break;
 
                 case 6:
-                    viewGradeCard(studentId,1);
+                    viewGradeCard(studentId);
                     break;
 
                 case 7:
@@ -295,54 +294,19 @@ import com.flipkart.bean.ReportCard;
     }
 
 
-//    private void viewGradeCard(int studentId) {
-//
-//    	System.out.println("GRADE CARD");
-//        List<StudentGrade> gradeCard = null;
-//        try {
-//            gradeCard = registrationInterface.viewGradeCard(studentId);
-//        } catch (SQLException e) {
-//
-//        	System.out.println(e.getMessage());
-//        }
-//
-//        if (gradeCard.isEmpty()) {
-//        	System.out.println("You haven't registered for any course");
-//            return;
-//        }
-//
-//        System.out.println(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
-//
-//        List<StudentGrade> graded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() != null; }).collect(Collectors.toList());
-//        List<StudentGrade> unGraded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() == null; }).collect(Collectors.toList());
-//
-//        double total_score = 0;
-//        if (!graded.isEmpty()) {
-//            System.out.println("Graded Courses : ");
-//            for (StudentGrade studentGrade : graded) {
-//            	System.out.println(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
-//                        studentGrade.getCourseName(), studentGrade.getGrade(), getScore(studentGrade.getGrade())));
-//                total_score += getScore(studentGrade.getGrade());
-//            }
-//        }
-//        if (!unGraded.isEmpty()) {
-//        	System.out.println("Grade Awaited : ");
-//           
-//            unGraded.forEach(studentGrade -> System.out.println(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
-//                    studentGrade.getCourseName(), "NA", "NA")));
-//        }
-//        if(!graded.isEmpty())
-//        {
-//            
-//        	System.out.println(String.format("  %-20s %-20s %-20s %-20s", "",
-//                    "", "CGPA", total_score/(double)graded.size()));
-//        }
-//       
-//    }
-    private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
+  
+
+    
+    
+    private void viewGradeCard(int studentID) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
     	StudentOperation so = new StudentOperation();
-    	ReportCard R = so.viewReportCard(studentID, semesterID);
+    	ReportCard R = so.viewReportCard(studentID);
+    	System.out.println("\n\n Student Report \n\n");
+    	System.out.println("Course Code   Grade");
+    	HashMap<Integer, Double> grades = R.getGrades();
     	
+    	grades.forEach((k, v) -> System.out.println("	" + k + "	" + (v)));
+    	System.out.println("\nTotal : " + R.getSpi());
     }
     private static Map<String, Integer> gradeStrToScore;
 

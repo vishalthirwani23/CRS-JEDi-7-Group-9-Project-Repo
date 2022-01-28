@@ -9,10 +9,13 @@ import com.flipkart.exceptions.*;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
+import com.flipkart.business.ReportCardOperation;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.constant.*;
 import com.flipkart.utils.DBUtils;
 
 
@@ -339,35 +342,31 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		return professorList;
 	}
 	
-	public ReportCard generateReportCard(int studentID) throws StudentNotRegisteredException, GradeNotAddedException {
+	public ReportCard generateReportCard(int studentID) throws StudentNotRegisteredException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
 		
-		Connection connection = DBUtil.getConnection();
+		Connection connection = DBUtils.getConnection();
 		ReportCard R = new ReportCard();
 		
 		try {
-			/* statement = connection.prepareStatement(SQLQueriesConstants.GET_STUDENT(studentID));
-						
-			ResultSet rs = statement.executeQuery();
-			rs.next();
 			
-			if(rs.getBoolean(1)) {
 				
-				StudentDaoOperation sdo = new StudentDaoOperation();
-				R = sdo.viewReportCard(studentID, constants.SemesterID);
+				StudentDaoOperation sdo = StudentDaoOperation.getInstance();
+				R = sdo.viewReportCard(studentID);
 				ReportCardOperation report = new ReportCardOperation();
-				R.setSpi(report.getSPI(R));
+				PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_SPI);
+				statement.setInt(1, studentID);
+				ResultSet rs = statement.executeQuery();
+				rs.next();
+				double spi = rs.getDouble(1);
 				
-				PreparedStatement statement1 = connection.prepareStatement(SQLQueries.GENERATE_REPORT_CARD(studentID,R.getSpi()));
+								
+				PreparedStatement statement1 = connection.prepareStatement(SQLQueriesConstants.GENERATE_REPORT_CARD);
+				statement1.setDouble(1, spi);
+				statement1.setInt(2, studentID);
 				
-				statement1.executeUpdate(); */
+				statement1.executeUpdate();
 				
 				
-			}
-			
-			else {
-				throw new StudentNotRegisteredException(studentID);
-			}
-			
 		} catch (SQLException se) {
 			System.out.println(se.getMessage());
 		}

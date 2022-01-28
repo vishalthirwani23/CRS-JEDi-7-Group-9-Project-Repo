@@ -24,7 +24,7 @@ public interface StudentDaoInterface {
 	
 	public boolean isApproved(int studentId);
 	
-	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException, StudentNotApprovedException, FeesPendingException;
+	public ReportCard viewReportCard(int StudentID) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException, StudentNotApprovedException, FeesPendingException;
 
 }
 

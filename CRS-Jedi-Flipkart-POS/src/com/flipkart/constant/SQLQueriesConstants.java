@@ -26,6 +26,9 @@ public class SQLQueriesConstants {
     public static final String GET_STUDENT_ID="select studentId from student where userId = ? ";
     public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
+    
+    public static final String GET_SPI = "select sum(grade) from registeredcourse where studentid = ?";
+    public static final String GENERATE_REPORT_CARD = "update student set spi = ? where studentId = ?";
 
     // Student Queries
     public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";
@@ -49,9 +52,6 @@ public class SQLQueriesConstants {
     public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
     public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
 	
-    public static final String GET_REPORT(int studentID, int semesterId) {
-		 String qry="select * from registered_courses where student_id = "+studentID+" and semester_id = "+semesterId +" and is_primary=1";
-		 return qry;
-	}
+    public static final String GET_REPORT = "select * from registeredcourse where studentId = ?";
 
 }

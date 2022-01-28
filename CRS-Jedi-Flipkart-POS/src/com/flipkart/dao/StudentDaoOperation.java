@@ -122,41 +122,43 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return false;
 	}
   
-	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
+	public ReportCard viewReportCard(int StudentID) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
 		
 		Connection connection=DBUtils.getConnection();
 		
 		ReportCard R = new ReportCard();
 		R.setStudentId(StudentID);
-		R.setSemester(semesterId);
 		
 		try
 		{ 
-			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.GET_REPORT(StudentID,semesterId));
-			
+			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.GET_REPORT);
+			preparedStatement.setInt(1, StudentID);
 			ResultSet rs = preparedStatement.executeQuery();
-			rs.next();
-			HashMap<String,Double> grades = new HashMap<String, Double>();
+			HashMap<Integer,Double> grades = new HashMap<Integer, Double>();
 
 			while (rs.next()) {
-				if(!rs.getBoolean(7)) {
-					throw new FeesPendingException(StudentID);
-				}
-
-				else if (!rs.getBoolean(6)) {
-					throw new StudentNotApprovedException(StudentID);
-				}
-
-				else {
-					if(rs.getInt(4)==0) {
-						throw new GradeNotAddedException(StudentID);	
-						}
-					grades.put(rs.getString(2), (double) rs.getInt(4));
-				}
+				
+					if(rs.getInt(4) == 0) {
+						continue;	
+					}
+					
+					grades.put(rs.getInt(3), (double) rs.getInt(4));
+					System.out.println(rs.getInt(4));
+			
 			}
 			if(grades.isEmpty()) throw new ReportCardNotGeneratedException();
 			R.setIsVisible(true);
 			R.setGrades(grades);
+			
+			Double spi;
+			PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.GET_SPI);
+			ps.setInt(1, StudentID);
+			
+			rs = ps.executeQuery();
+			rs.next();
+			spi = rs.getDouble(1);
+			System.out.println(spi);
+			R.setSpi(spi);
 				
 		}
 			

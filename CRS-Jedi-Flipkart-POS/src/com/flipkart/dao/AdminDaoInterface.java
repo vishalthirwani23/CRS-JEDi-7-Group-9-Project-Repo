@@ -1,9 +1,11 @@
 package com.flipkart.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.exceptions.*;
@@ -33,5 +35,5 @@ public interface AdminDaoInterface {
 
 	public List<Professor> viewProfessors();
 	
-	public ReportCard generateReportCard(int studentID) throws SQLException, StudentNotRegisteredException, GradeNotAddedException;
+	public ReportCard generateReportCard(int studentID) throws SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException;
 }
