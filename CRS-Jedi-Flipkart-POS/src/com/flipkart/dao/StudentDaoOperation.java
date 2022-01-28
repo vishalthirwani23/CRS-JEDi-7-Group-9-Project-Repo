@@ -6,13 +6,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.HashMap;
 
 import com.flipkart.bean.Student;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.constant.SQLQueriesConstants;
 
 import com.flipkart.business.StudentOperation;
 import com.flipkart.utils.DBUtils;
+
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.StudentNotApprovedException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.ReportCardNotGeneratedException;
 
 
 public class StudentDaoOperation implements StudentDaoInterface {
@@ -116,5 +122,51 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return false;
 	}
   
+	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
+		
+		Connection connection=DBUtils.getConnection();
+		
+		ReportCard R = new ReportCard();
+		R.setStudentId(StudentID);
+		R.setSemester(semesterId);
+		
+		try
+		{ 
+			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.GET_REPORT(StudentID,semesterId));
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			rs.next();
+			HashMap<String,Double> grades = new HashMap<String, Double>();
+
+			while (rs.next()) {
+				if(!rs.getBoolean(7)) {
+					throw new FeesPendingException(StudentID);
+				}
+
+				else if (!rs.getBoolean(6)) {
+					throw new StudentNotApprovedException(StudentID);
+				}
+
+				else {
+					if(rs.getInt(4)==0) {
+						throw new GradeNotAddedException(StudentID);	
+						}
+					grades.put(rs.getString(2), (double) rs.getInt(4));
+				}
+			}
+			if(grades.isEmpty()) throw new ReportCardNotGeneratedException();
+			R.setIsVisible(true);
+			R.setGrades(grades);
+				
+		}
+			
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+
+		return R;
+	}
+
 }
 

@@ -9,14 +9,19 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
+import com.flipkart.exceptions.FeesPendingException;
+import com.flipkart.exceptions.GradeNotAddedException;
+import com.flipkart.exceptions.StudentNotApprovedException;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 import com.flipkart.business.RegistrationInterface;
 import com.flipkart.business.RegistrationOperation;
+import com.flipkart.business.StudentOperation;
+import com.flipkart.bean.ReportCard;
 
-public class StudentCRSMenu {
+ class StudentCRSMenu {
     Scanner sc = new Scanner(System.in);
     RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
     ProfessorInterface professorInterface = ProfessorOperation.getInstance();
@@ -37,7 +42,7 @@ public class StudentCRSMenu {
                     "5. View Registered Courses\n"+
                     "6. View Semester Grade Card\n"+
                     "7. Pay Fees for Courses\n"+
-                    "8. Logout\n");
+                    "8. Logout \n");
 
      
 
@@ -66,13 +71,13 @@ public class StudentCRSMenu {
                     break;
 
                 case 6:
-                    viewGradeCard(studentId);
+                    viewGradeCard(studentId,1);
                     break;
 
                 case 7:
                     make_payment(studentId);
                     break;
-
+               
                 case 8:
                     CRSApplication.loggedin = false;
                     return;
@@ -290,51 +295,55 @@ public class StudentCRSMenu {
     }
 
 
-    private void viewGradeCard(int studentId) {
-
-    	System.out.println("GRADE CARD");
-        List<StudentGrade> gradeCard = null;
-        try {
-            gradeCard = registrationInterface.viewGradeCard(studentId);
-        } catch (SQLException e) {
-
-        	System.out.println(e.getMessage());
-        }
-
-        if (gradeCard.isEmpty()) {
-        	System.out.println("You haven't registered for any course");
-            return;
-        }
-
-        System.out.println(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
-
-        List<StudentGrade> graded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() != null; }).collect(Collectors.toList());
-        List<StudentGrade> unGraded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() == null; }).collect(Collectors.toList());
-
-        double total_score = 0;
-        if (!graded.isEmpty()) {
-            System.out.println("Graded Courses : ");
-            for (StudentGrade studentGrade : graded) {
-            	System.out.println(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
-                        studentGrade.getCourseName(), studentGrade.getGrade(), getScore(studentGrade.getGrade())));
-                total_score += getScore(studentGrade.getGrade());
-            }
-        }
-        if (!unGraded.isEmpty()) {
-        	System.out.println("Grade Awaited : ");
-           
-            unGraded.forEach(studentGrade -> System.out.println(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
-                    studentGrade.getCourseName(), "NA", "NA")));
-        }
-        if(!graded.isEmpty())
-        {
-            
-        	System.out.println(String.format("  %-20s %-20s %-20s %-20s", "",
-                    "", "CGPA", total_score/(double)graded.size()));
-        }
-       
+//    private void viewGradeCard(int studentId) {
+//
+//    	System.out.println("GRADE CARD");
+//        List<StudentGrade> gradeCard = null;
+//        try {
+//            gradeCard = registrationInterface.viewGradeCard(studentId);
+//        } catch (SQLException e) {
+//
+//        	System.out.println(e.getMessage());
+//        }
+//
+//        if (gradeCard.isEmpty()) {
+//        	System.out.println("You haven't registered for any course");
+//            return;
+//        }
+//
+//        System.out.println(String.format("%-20s %-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE", "SCORE"));
+//
+//        List<StudentGrade> graded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() != null; }).collect(Collectors.toList());
+//        List<StudentGrade> unGraded = gradeCard.stream().filter((StudentGrade studentGrade)->{ return studentGrade.getGrade() == null; }).collect(Collectors.toList());
+//
+//        double total_score = 0;
+//        if (!graded.isEmpty()) {
+//            System.out.println("Graded Courses : ");
+//            for (StudentGrade studentGrade : graded) {
+//            	System.out.println(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
+//                        studentGrade.getCourseName(), studentGrade.getGrade(), getScore(studentGrade.getGrade())));
+//                total_score += getScore(studentGrade.getGrade());
+//            }
+//        }
+//        if (!unGraded.isEmpty()) {
+//        	System.out.println("Grade Awaited : ");
+//           
+//            unGraded.forEach(studentGrade -> System.out.println(String.format("  %-20s %-20s %-20s %-20s", studentGrade.getCourseCode(),
+//                    studentGrade.getCourseName(), "NA", "NA")));
+//        }
+//        if(!graded.isEmpty())
+//        {
+//            
+//        	System.out.println(String.format("  %-20s %-20s %-20s %-20s", "",
+//                    "", "CGPA", total_score/(double)graded.size()));
+//        }
+//       
+//    }
+    private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
+    	StudentOperation so = new StudentOperation();
+    	ReportCard R = so.viewReportCard(studentID, semesterID);
+    	
     }
-
     private static Map<String, Integer> gradeStrToScore;
 
     static {

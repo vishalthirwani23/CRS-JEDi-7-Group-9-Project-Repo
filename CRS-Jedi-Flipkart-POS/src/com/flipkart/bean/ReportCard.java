@@ -15,8 +15,8 @@ public class ReportCard {
 	private int semester;
 	private HashMap<String,Double> grades = new HashMap<String,Double>();
 	private ArrayList<Integer> courseIDs = new ArrayList<Integer>();
-	
-	
+	private Boolean isVisible;
+	private Float spi;
 	/**
 	 * @return the studentId
 	 */
@@ -59,12 +59,30 @@ public class ReportCard {
 	public ArrayList<Integer> getCourseIDs() {
 		return courseIDs;
 	}
+	
+	public Float getSpi() {
+		return spi;
+	}
+	
+	public Boolean getIsVisible() {
+		return isVisible;
+	}
+	
+	public void setIsVisible(Boolean isVisible) {
+		this.isVisible = isVisible;
+	} 
+	
+
 	/**
 	 * @param courseIDs the courseIDs to set
 	 */
 	public void setCourseIDs(ArrayList<Integer> courseIDs) {
 		this.courseIDs = courseIDs;
 	}
+	public void setSpi(Float spi) {
+		this.spi = spi;
+	}
+
 
 	
 }

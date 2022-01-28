@@ -48,4 +48,10 @@ public class SQLQueriesConstants {
     public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,registeredcourse.studentId from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where course.professorId = ? order by course.courseCode";
     public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
     public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
+	
+    public static final String GET_REPORT(int studentID, int semesterId) {
+		 String qry="select * from registered_courses where student_id = "+studentID+" and semester_id = "+semesterId +" and is_primary=1";
+		 return qry;
+	}
+
 }
