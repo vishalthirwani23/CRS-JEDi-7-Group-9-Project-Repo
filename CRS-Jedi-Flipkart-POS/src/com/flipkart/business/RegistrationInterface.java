@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.exceptions.CourseLimitExceedException;
+import com.flipkart.exceptions.CourseNotFoundException;
+import com.flipkart.exceptions.SeatNotAvailableException;
 
 /**
  * 
@@ -28,7 +31,7 @@ public interface RegistrationInterface {
 	 * @return boolean indicating if the course is added successfully
 	 */
 	public boolean addCourse(int courseCode, int studentId, List<Course> courseList)
-			throws Exception;
+	throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException;
 	
 	/**
 	 * Method to drop Course selected by student
@@ -41,7 +44,7 @@ public interface RegistrationInterface {
 	 * @return boolean indicating if the course is dropped successfully
 	 */
 	public boolean dropCourse(int courseCode, int studentId, List<Course> registeredCourseList)
-			throws Exception;
+			throws CourseNotFoundException, SQLException;
 	
 	/**
 	 * Method to view the list of available courses

@@ -6,6 +6,7 @@ package com.flipkart.business;
 
 import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperation;
+import com.flipkart.exceptions.UserNotFoundException;
 
 
 public class UserOperation implements UserInterface {

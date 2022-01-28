@@ -9,6 +9,9 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperation;
+import com.flipkart.exceptions.CourseLimitExceedException;
+import com.flipkart.exceptions.CourseNotFoundException;
+import com.flipkart.exceptions.SeatNotAvailableException;
 import com.flipkart.validator.StudentValidator;
 
 
@@ -34,7 +37,7 @@ public class RegistrationOperation implements RegistrationInterface {
 			throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException {
 
 		if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6) {
-			throw new CourseLimitExceedException();
+			throw new CourseLimitExceedException(6);
 		} else if (registrationDaoInterface.isRegistered(courseCode, studentId)) {
 			return false;
 		} else if (!registrationDaoInterface.seatAvailable(courseCode)) {
@@ -50,7 +53,7 @@ public class RegistrationOperation implements RegistrationInterface {
 	public boolean dropCourse(int courseCode, int studentId, List<Course> registeredCourseList)
 			throws CourseNotFoundException, SQLException {
 		if (!StudentValidator.isRegistered(courseCode, studentId, registeredCourseList)) {
-			throw new CourseNotFoundException();
+			throw new CourseNotFoundException(courseCode);
 		}
 
 		return registrationDaoInterface.dropCourse(courseCode, studentId);

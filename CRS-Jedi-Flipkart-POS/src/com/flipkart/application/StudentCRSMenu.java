@@ -13,6 +13,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
+import com.flipkart.exceptions.CourseLimitExceedException;
 import com.flipkart.exceptions.CourseNotFoundException;
 import com.flipkart.exceptions.SeatNotAvailableException;
 import com.flipkart.business.NotificationInterface;

@@ -2,14 +2,14 @@ package com.flipkart.exceptions;
 
 public class SeatNotAvailableException extends Exception {
 
-	private String courseCode;
+	private int courseCode;
 
 	/**
 	 * Constructor
 	 * 
 	 * @param courseCode: User Id for User
 	 */
-	public SeatNotAvailableException(String courseCode) {
+	public SeatNotAvailableException(int courseCode) {
 		this.courseCode = courseCode;
 	}
 

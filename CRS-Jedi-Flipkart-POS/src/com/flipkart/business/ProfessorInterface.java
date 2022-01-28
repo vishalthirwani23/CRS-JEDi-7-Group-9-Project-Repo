@@ -6,6 +6,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.exceptions.GradeNotAddedException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,7 +28,7 @@ public interface ProfessorInterface {
 	 * @return boolean indicating if grade is added or not
 	 * @throws GradeNotAddedException If course is not Found
 	 */
-	public boolean addGrade(int studentId, int courseCode, String grade) throws Exception;
+	public boolean addGrade(int studentId, int courseCode, String grade) throws GradeNotAddedException;
 	
 	/**
 	 * Method to view all the enrolled students

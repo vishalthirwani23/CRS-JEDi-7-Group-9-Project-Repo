@@ -1,5 +1,7 @@
 package com.flipkart.business;
 
+import com.flipkart.exceptions.UserNotFoundException;
+
 /**
  * 
  * 
@@ -25,7 +27,7 @@ public interface UserInterface {
 	 * @return boolean indicating if user exists in the database
 	 * @throws UserNotFoundException If Student is not registered
 	 */
-	public boolean verifyCredentials(String userID, String password) throws Exception;
+	public boolean verifyCredentials(String userID, String password) throws UserNotFoundException;
 	
 	/**
 	 * Method to get role of a specific User

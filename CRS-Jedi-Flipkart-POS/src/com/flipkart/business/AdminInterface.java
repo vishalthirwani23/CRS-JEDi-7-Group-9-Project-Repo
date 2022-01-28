@@ -43,7 +43,7 @@ public interface AdminInterface {
 	 * @throws CourseNotFoundException If course is not found
 	 * @throws CourseNotDeletedException If course not deleted
 	 */
-	public void deleteCourse(String courseCode, List<Course> courseList)
+	public void deleteCourse(int courseCode, List<Course> courseList)
 			throws CourseNotFoundException, CourseNotDeletedException;
 
 	/**

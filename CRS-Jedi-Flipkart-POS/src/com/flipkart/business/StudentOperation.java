@@ -2,17 +2,21 @@ package com.flipkart.business;
 
 
 import com.flipkart.bean.Student;
+
+import org.apache.log4j.Logger;
+
 import com.flipkart.application.CRSApplication;
 import com.flipkart.constant.Role;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
+import com.flipkart.exceptions.StudentNotRegisteredException;
 
 
 
 public class StudentOperation implements StudentInterface {
 
 	private static volatile StudentOperation instance = null;
-	private static Logger logger = Logger.getLogger.getLogger(CRSApplication.class);
+	private static Logger logger = Logger.getLogger(CRSApplication.class);
 	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	private StudentOperation() {

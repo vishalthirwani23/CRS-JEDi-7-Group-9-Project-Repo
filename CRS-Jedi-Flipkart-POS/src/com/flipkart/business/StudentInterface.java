@@ -3,6 +3,8 @@ package com.flipkart.business;
 
 import java.sql.SQLException;
 
+import com.flipkart.exceptions.StudentNotRegisteredException;
+
 /**
  * 
  * 
@@ -26,7 +28,7 @@ public interface StudentInterface {
 	 * @return Student ID
 	 * @throws StudentNotRegisteredException If Student is not registered
 	 */
-	public int register(String name, String userID, String password, int batch, String branch) throws Exception;
+	public int register(String name, String userID, String password, int batch, String branch) throws StudentNotRegisteredException;
 	
 	/**
 	 * Method to get Student ID from User ID

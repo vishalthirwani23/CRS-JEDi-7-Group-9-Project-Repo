@@ -12,6 +12,14 @@ import com.flipkart.constant.Role;
 
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.exceptions.AdminAccountNotCreatedException;
+import com.flipkart.exceptions.CourseFoundException;
+import com.flipkart.exceptions.CourseNotDeletedException;
+import com.flipkart.exceptions.CourseNotFoundException;
+import com.flipkart.exceptions.ProfessorNotAddedException;
+import com.flipkart.exceptions.StudentNotFoundForApprovalException;
+import com.flipkart.exceptions.UserIdAlreadyInUseException;
+import com.flipkart.exceptions.UserNotFoundException;
 import com.flipkart.validator.AdminValidator;
 
 public class AdminOperation implements AdminInterface {
@@ -77,15 +85,15 @@ public class AdminOperation implements AdminInterface {
 	}
 
 
-	public void approveStudent(int studentId, List<Student> studentList) throws StuddentNotFoundForApprovalException {
+	public void approveStudent(int studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
 
 		if (!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
-			throw new StuddentNotFoundForApprovalException(studentId);
+			throw new StudentNotFoundForApprovalException(studentId);
 		}
 
 		try {
 			adminDaoOperation.approveStudent(studentId);
-		} catch (StuddentNotFoundForApprovalException e) {
+		} catch (StudentNotFoundForApprovalException e) {
 			throw e;
 		}
 
