@@ -338,4 +338,39 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		}
 		return professorList;
 	}
+	
+	public ReportCard generateReportCard(int studentID) throws StudentNotRegisteredException, GradeNotAddedException {
+		
+		Connection connection = DBUtil.getConnection();
+		ReportCard R = new ReportCard();
+		
+		try {
+			/* statement = connection.prepareStatement(SQLQueriesConstants.GET_STUDENT(studentID));
+						
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			
+			if(rs.getBoolean(1)) {
+				
+				StudentDaoOperation sdo = new StudentDaoOperation();
+				R = sdo.viewReportCard(studentID, constants.SemesterID);
+				ReportCardOperation report = new ReportCardOperation();
+				R.setSpi(report.getSPI(R));
+				
+				PreparedStatement statement1 = connection.prepareStatement(SQLQueries.GENERATE_REPORT_CARD(studentID,R.getSpi()));
+				
+				statement1.executeUpdate(); */
+				
+				
+			}
+			
+			else {
+				throw new StudentNotRegisteredException(studentID);
+			}
+			
+		} catch (SQLException se) {
+			System.out.println(se.getMessage());
+		}
+		return R;
+	}
 }
