@@ -338,4 +338,37 @@ public class AdminDaoOperation implements AdminDaoInterface{
 		}
 		return professorList;
 	}
+	
+	public List<Student> viewPendingAdmissions() {
+		
+		statement = null;
+		List<Student> userList = new ArrayList<Student>();
+		try {
+			
+			String sql = SQLQueriesConstants.VIEW_PENDING_ADMISSION_QUERY;
+			statement = connection.prepareStatement(sql);
+			ResultSet resultSet = statement.executeQuery();
+
+			while(resultSet.next()) {
+				
+				Student user = new Student();
+				user.setUserId(resultSet.getString(1));
+				user.setName(resultSet.getString(2));
+				user.setPassword(resultSet.getString(3));
+				user.setRole(Role.stringToName(resultSet.getString(4)));
+				user.setGender(Gender.stringToGender( resultSet.getString(5)));
+				user.setAddress(resultSet.getString(6));
+				user.setCountry(resultSet.getString(7));
+				user.setStudentId(resultSet.getInt(8));
+				userList.add(user);
+				
+			}
+			
+			logger.info(userList.size() + " students have pending-approval.");
+			
+		}catch(SQLException se) {
+			
+			logger.error(se.getMessage());
+			
+		}
 }

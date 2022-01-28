@@ -1,9 +1,6 @@
 package com.flipkart.business;
 
-/**
- * @author venkat.karthik
- *
- */
+
 
 import java.sql.SQLException;
 import java.util.List;
@@ -34,16 +31,16 @@ public class RegistrationOperation implements RegistrationInterface {
 	RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
 
 	public boolean addCourse(int courseCode, int studentId, List<Course> availableCourseList)
-			throws Exception {
+			throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException {
 
 		if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6) {
-			throw new Exception();
+			throw new CourseLimitExceedException();
 		} else if (registrationDaoInterface.isRegistered(courseCode, studentId)) {
 			return false;
 		} else if (!registrationDaoInterface.seatAvailable(courseCode)) {
-			throw new Exception();
+			throw new SeatNotAvailableException(courseCode);
 		} else if (!StudentValidator.isValidCourseCode(courseCode, availableCourseList)) {
-			throw new Exception();
+			throw new CourseNotFoundException(courseCode);
 		}
 
 		return registrationDaoInterface.addCourse(courseCode, studentId);
@@ -51,9 +48,9 @@ public class RegistrationOperation implements RegistrationInterface {
 	}
 
 	public boolean dropCourse(int courseCode, int studentId, List<Course> registeredCourseList)
-			throws Exception {
+			throws CourseNotFoundException, SQLException {
 		if (!StudentValidator.isRegistered(courseCode, studentId, registeredCourseList)) {
-			throw new Exception();
+			throw new CourseNotFoundException();
 		}
 
 		return registrationDaoInterface.dropCourse(courseCode, studentId);

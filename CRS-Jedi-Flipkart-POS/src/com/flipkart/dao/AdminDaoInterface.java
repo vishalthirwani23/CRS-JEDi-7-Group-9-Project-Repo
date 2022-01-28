@@ -32,4 +32,11 @@ public interface AdminDaoInterface {
 	public List<Course> viewCourses(int catalogId);
 
 	public List<Professor> viewProfessors();
+	
+	/**
+	 * Method to view Students yet to be approved by Admin
+	 * 
+	 * @return List of Students with pending admissions
+	 */
+	public List<Student> viewPendingAdmissions();
 }
