@@ -10,6 +10,9 @@ import com.flipkart.bean.ReportCard;
 
 public class ReportCardOperation implements ReportCardInterface {
 	
+	/**
+	 *Method to get Grade according to marks obtained
+	 */
 	public Float getSPI(ReportCard RC) {
 		HashMap<Integer, Double> grades = RC.getGrades();
 		float sum = 0.0f;
