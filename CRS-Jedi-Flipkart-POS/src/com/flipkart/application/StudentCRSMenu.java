@@ -48,6 +48,8 @@ public class StudentCRSMenu {
         is_registered = getRegistrationStatus(studentId);
         while (CRSApplication.loggedin)
         {
+            System.out.println("\n_________________________________________\n");
+
             System.out.println("\n\n  Student Access Menu  \n\n "+
             		"1. Register for Courses\n"+
                     "2. Add New Course to Semester\n"+
@@ -58,7 +60,8 @@ public class StudentCRSMenu {
                     "7. Pay Fees for Courses\n"+
                     "8. Logout \n");
 
-     
+            System.out.println("\n_________________________________________\n");
+            System.out.println("Enter your choice : ");
 
             int choice = sc.nextInt();
 
@@ -110,6 +113,8 @@ public class StudentCRSMenu {
      * */
     private void registerCourses(int studentId)
     {
+        System.out.println("\n_________________________________________\n");
+
         if(is_registered)
         {
         	System.out.println("Registration is already completed");
@@ -126,6 +131,7 @@ public class StudentCRSMenu {
 
                 if(courseList==null)
                     return;
+                System.out.println("\n_________________________________________\n");
 
                 System.out.println("Enter Course Code : ");
                 System.out.println("Enter 0 to exit");
@@ -144,6 +150,7 @@ public class StudentCRSMenu {
                 {
                     System.err.println("You have already registered for Course : " + courseCode);
                 }
+
             }
             catch(CourseNotFoundException | CourseLimitExceedException | SeatNotAvailableException | SQLException e)
             {
@@ -174,6 +181,8 @@ public class StudentCRSMenu {
     {
         if(is_registered)
         {
+            System.out.println("\n_________________________________________\n");
+
         	System.out.println("\nAdd Course Portal for Student  \n");
 
             List<Course> availableCourseList=viewCourse(studentId);
@@ -183,6 +192,8 @@ public class StudentCRSMenu {
 
             try
             {
+                System.out.println("\n_________________________________________\n");
+
                 System.out.println("Enter Course Code : " );
                 int courseCode = sc.nextInt();
                 if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
@@ -235,11 +246,14 @@ public class StudentCRSMenu {
     {
         if(is_registered)
         {
+            System.out.println("\n_________________________________________\n");
+
         	System.out.println("\nDrop Course Portal for Student\n");
             List<Course> registeredCourseList=viewRegisteredCourse(studentId);
 
             if(registeredCourseList==null)
                 return;
+            System.out.println("\n_________________________________________\n");
 
             System.out.println("Enter the Course Code : ");
             int courseCode = sc.nextInt();
@@ -277,6 +291,8 @@ public class StudentCRSMenu {
     private List<Course> viewCourse(int studentId)
 
     {
+        System.out.println("\n_________________________________________\n");
+
     	System.out.println("List of Available Courses");
         List<Course> course_available=null;
         try
@@ -315,6 +331,8 @@ public class StudentCRSMenu {
      */
     private List<Course> viewRegisteredCourse(int studentId)
     {
+        System.out.println("\n_________________________________________\n");
+
     	System.out.println("List of Registered Courses");
         List<Course> course_registered=null;
         try
@@ -352,6 +370,7 @@ public class StudentCRSMenu {
      * @param studentId
      */
     private void viewGradeCard(int studentId) {
+        System.out.println("\n_________________________________________\n");
 
     	System.out.println("GRADE CARD");
         List<StudentGrade> gradeCard = null;
@@ -423,6 +442,7 @@ public class StudentCRSMenu {
      */
     private void make_payment(int studentId)
     {
+        System.out.println("\n_________________________________________\n");
 
     	System.out.println("Payment Portal");
         double fee =0.0;

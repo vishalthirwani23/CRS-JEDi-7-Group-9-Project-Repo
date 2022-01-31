@@ -1,0 +1,6 @@
+17:54:16,660 ERROR CRSApplication,main:151 - User with userId: 2 not found.
+09:55:52,111  INFO AdminDaoOperation,main:303 - 3 courses in catalogId: 1.
+10:10:54,236  INFO AdminDaoOperation,main:303 - 3 courses in catalogId: 1.
+10:10:56,785 ERROR AdminOperation,main:65 - courseCode: 11 not present in catalog!
+10:10:56,786 ERROR CRSApplication,main:224 - Course with courseCode: 11 not found.
+10:30:09,372 ERROR CRSApplication,main:151 - User with userId: mehak@gmai.com not found.

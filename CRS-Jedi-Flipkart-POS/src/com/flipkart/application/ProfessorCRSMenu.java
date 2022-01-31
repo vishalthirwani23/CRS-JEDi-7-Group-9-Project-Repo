@@ -39,14 +39,16 @@ public class ProfessorCRSMenu {
         int input;
         while(CRSApplication.loggedin)
         {
-        	
+            System.out.println("\n_________________________________________\n");
+
            System.out.println("\n\nProfessor Access Menu \n\n" +  
            "1. View Assigned Courses \n" + 
            "2. View Enrolled Students \n" + 
            "3. Add grade for Student \n" + 
            "4. Logout");
+           System.out.println("\n_________________________________________\n");
 
-            
+            System.out.println("Enter you choice : ");
             //input user
             input=sc.nextInt();
             switch(input)
@@ -82,6 +84,8 @@ public class ProfessorCRSMenu {
      */
     public void viewEnrolledStudents(String profId)
     {
+        System.out.println("\n_________________________________________\n");
+
     	System.out.println("List of Enrolled Students");
         List<Course> coursesEnrolled=professorInterface.getCourses(profId);
         System.out.println(String.format("%20s %20s  %20s","COURSE CODE","COURSE NAME","STUDENT ID" ));
@@ -107,7 +111,8 @@ public class ProfessorCRSMenu {
      */
     public void getCourses(String profId)
     {
-    	System.out.println("List of All Courses taught by Professor");
+        System.out.println("\n_________________________________________\n");
+        System.out.println("List of All Courses taught by Professor");
         try
         {
             List<Course> coursesEnrolled=professorInterface.getCourses(profId);
@@ -130,7 +135,8 @@ public class ProfessorCRSMenu {
      */
     public void addGrade(String profId)
     {
-    	System.out.println("Student Courses Data \n");
+        System.out.println("\n_________________________________________\n");
+        System.out.println("Student Courses Data \n");
         Scanner sc=new Scanner(System.in);
 
         int studentId;
@@ -145,6 +151,8 @@ public class ProfessorCRSMenu {
             {
             	System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
             }
+            System.out.println("\n_________________________________________\n");
+
             List<Course> coursesEnrolled=new ArrayList<Course>();
             coursesEnrolled	=professorInterface.getCourses(profId);
             System.out.println("Add Grade");
@@ -157,11 +165,11 @@ public class ProfessorCRSMenu {
             if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
             {
                 professorInterface.addGrade(studentId, courseCode, grade);
-                System.out.println("Grade added successfully for "+studentId);
+                System.out.println("\nGrade added successfully for "+studentId);
             }
             else
             {
-            	System.out.println("Invalid data entered, try again!");
+            	System.out.println("\nInvalid data entered, try again!");
             }
         }
         catch(GradeNotAddedException ex)

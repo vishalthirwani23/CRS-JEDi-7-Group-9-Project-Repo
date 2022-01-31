@@ -44,8 +44,9 @@ public class CRSAdminMenu {
     public void createMenu(){
 
         while (CRSApplication.loggedin) {
-		
-	   System.out.println("\n\nAdministrative Control Menu\n");
+       System.out.println("\n_________________________________________\n");
+
+	   System.out.println("\n\nADMINISTRATIVE CONTROL MENU\n");
            System.out.println("1. View course Catalogue");
            System.out.println("2. Add New Course to Catalogue");
            System.out.println("3. Delete Course from Catalogue");
@@ -54,7 +55,9 @@ public class CRSAdminMenu {
            System.out.println("6. Assign Courses To Professor");
            System.out.println("7. Generate Report Card");
            System.out.println("8. Logout\n\n");
+           System.out.println("\n_________________________________________\n");
 
+           System.out.println("Enter your choice");
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -101,24 +104,30 @@ public class CRSAdminMenu {
      */
     private void assignCourseToProfessor() {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
+        System.out.println("\n_________________________________________\n");
 
         System.out.println("\n\n List of Professors Available \n\n");
-        System.out.println("ProfessorId	Name	Designation");
+
+        System.out.println(String.format("%-20s %-20s %-20s","ProfessorId",	"Name",	"Designation"));
 
         for (Professor professor : professorList) {
-            System.out.println(professor.getUserId() + "	" + professor.getName() + "	" + professor.getDesignation());
+            System.out.println(String.format("%-20s %-20s %-20s",professor.getUserId(), professor.getName(), professor.getDesignation()));
         }
         
+        System.out.println("\n_________________________________________\n");
 
         List<Course> courseList = adminOperation.viewCourses(1); // add viewCourses method in admin
+        System.out.println("\n_________________________________________\n");
 
         System.out.println("\n\n List of Courses Available \n\n");
-        System.out.println("Course Code	CourseName");
+
+        System.out.println(String.format("%-20s %-20s","Course Code", "CourseName"));
         for (Course course : courseList) {
-            System.out.println(course.getCourseCode() + "	" + course.getCourseName());
+            System.out.println(String.format("%-20s %-20s", course.getCourseCode(), course.getCourseName()));
 
         }
-     
+        System.out.println("\n_________________________________________\n");
+
         System.out.println("Enter Course Code of the course to be assigned:");
         int courseCode = scanner.nextInt();
 
@@ -142,7 +151,11 @@ public class CRSAdminMenu {
     private void addProfessor() {
 
         Professor professor = new Professor();
+        System.out.println("\n_________________________________________\n");
+
         System.out.println("\n\n Add Professor Portal \n\n");
+        System.out.println("\n_________________________________________\n");
+
         System.out.println("Enter Professor Name: ");
         String professorName = scanner.next();
         professor.setName(professorName);
@@ -185,15 +198,17 @@ public class CRSAdminMenu {
             return;
         }
         
+        System.out.println("\n_________________________________________\n");
 
         System.out.println("\n\n PENDING STUDENTS \n\n");
-        System.out.println("Student ID	 Name	 User ID");
+        System.out.println(String.format("%-20s %-20s %-20s", "Student ID", "Name", "User ID"));
         
         for (Student stud : studentList) {
-        	System.out.println(stud.getStudentId() + "	" + stud.getName() + "	" + stud.getUserId());
+        	System.out.println(String.format("%-20s %-20s %-20s", stud.getStudentId(), stud.getName(), stud.getUserId()));
         }
-        
-        System.out.println("\n\n Approve Student Portal \n\n");
+        System.out.println("\n_________________________________________\n");
+
+        System.out.println("\n Approve Student Portal \n");
 
         System.out.println("Enter Student's ID:");
         int studentUserIdApproval = scanner.nextInt();
@@ -214,8 +229,12 @@ public class CRSAdminMenu {
      * @throws CourseNotFoundException
      */
     private void deleteCourse() {
+        System.out.println("\n_________________________________________\n");
+
         System.out.println("\n\n Delete Course Portal \n\n");
         List<Course> courseList = viewCoursesInCatalogue();
+        System.out.println("\n_________________________________________\n");
+
         System.out.println("Enter Course Code:");
         int courseCode = scanner.nextInt();
         try {
@@ -230,7 +249,11 @@ public class CRSAdminMenu {
      * Method to add Course to catalogue
      */
     private void addCourseToCatalogue() {
+        System.out.println("\n_________________________________________\n");
+
         System.out.println("\n\n Add Course to Catalogue Portal \n\n");
+        System.out.println("\n_________________________________________\n");
+
         List<Course> courseList = viewCoursesInCatalogue();
         scanner.nextLine();
         System.out.println("Enter Course Code:");
@@ -260,20 +283,24 @@ public class CRSAdminMenu {
             System.out.println("No course in the catalogue!");
             return courseList;
         }
+        System.out.println("\n_________________________________________\n");
 
         System.out.println("\n\n Course Catalogue \n\n");
-        System.out.println("COURSE CODE  COURSE NAME    INSTRUCTOR");
+        System.out.println(String.format("%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
         for (Course course : courseList) {
             String instructorId = "No Professor";
             if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
                 instructorId = course.getInstructorId();
-            System.out.println(course.getCourseCode() + "	" +course.getCourseName() + "	" +instructorId);
+            System.out.println(String.format("%-20s %-20s %-20s",course.getCourseCode(), course.getCourseName(), instructorId));
         }
         return courseList;
     }
 
 
     private void generateReportCard() {
+    	
+        System.out.println("\n_________________________________________\n");
+
 		System.out.println("\n\nGENERATE REPORT PORTAL\n\n");
 		System.out.println("Enter Student Id :");
 		try {
@@ -296,6 +323,8 @@ public class CRSAdminMenu {
         	logger.error(e.getMessage());
 		}
 		System.out.println("\nReport Card Generated/n");
+        System.out.println("\n_________________________________________\n");
+
 	}
 }
 
