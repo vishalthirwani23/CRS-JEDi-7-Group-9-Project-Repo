@@ -33,7 +33,7 @@ import com.flipkart.business.NotificationOperation;
 
 public class CRSAdminMenu {
 
-	private static Logger logger = Logger.getLogger(CRSApplication.class);
+	private static Logger logger = Logger.getLogger(CRSAdminMenu.class.getName());
     AdminInterface adminOperation = AdminOperation.getInstance();
     Scanner scanner = new Scanner(System.in);
     NotificationInterface notificationInterface = NotificationOperation.getInstance();
@@ -45,15 +45,15 @@ public class CRSAdminMenu {
 
         while (CRSApplication.loggedin) {
 		
-	   System.out.println("\n\nAdministrative Control Menu\n");
-           System.out.println("1. View course Catalogue");
-           System.out.println("2. Add New Course to Catalogue");
-           System.out.println("3. Delete Course from Catalogue");
-           System.out.println("4. Approve Student Registration");
-           System.out.println("5. Add New Professor");
-           System.out.println("6. Assign Courses To Professor");
-           System.out.println("7. Generate Report Card");
-           System.out.println("8. Logout\n\n");
+	   logger.info("\n\nAdministrative Control Menu\n");
+           logger.info("1. View course Catalogue");
+           logger.info("2. Add New Course to Catalogue");
+           logger.info("3. Delete Course from Catalogue");
+           logger.info("4. Approve Student Registration");
+           logger.info("5. Add New Professor");
+           logger.info("6. Assign Courses To Professor");
+           logger.info("7. Generate Report Card");
+           logger.info("8. Logout\n\n");
 
             int choice = scanner.nextInt();
 
@@ -91,7 +91,7 @@ public class CRSAdminMenu {
                     return;
 
                 default:
-                    System.out.println("***** Wrong Choice *****");
+                    logger.info("***** Wrong Choice *****");
             }
         }
     }
@@ -102,27 +102,27 @@ public class CRSAdminMenu {
     private void assignCourseToProfessor() {
         List<Professor> professorList = adminOperation.viewProfessors(); // add viewProfessors method in admin
 
-        System.out.println("\n\n List of Professors Available \n\n");
-        System.out.println("ProfessorId	Name	Designation");
+        logger.info("\n\n List of Professors Available \n\n");
+        logger.info("ProfessorId	Name	Designation");
 
         for (Professor professor : professorList) {
-            System.out.println(professor.getUserId() + "	" + professor.getName() + "	" + professor.getDesignation());
+            logger.info(professor.getUserId() + "	" + professor.getName() + "	" + professor.getDesignation());
         }
         
 
         List<Course> courseList = adminOperation.viewCourses(1); // add viewCourses method in admin
 
-        System.out.println("\n\n List of Courses Available \n\n");
-        System.out.println("Course Code	CourseName");
+        logger.info("\n\n List of Courses Available \n\n");
+        logger.info("Course Code	CourseName");
         for (Course course : courseList) {
-            System.out.println(course.getCourseCode() + "	" + course.getCourseName());
+            logger.info(course.getCourseCode() + "	" + course.getCourseName());
 
         }
      
-        System.out.println("Enter Course Code of the course to be assigned:");
+        logger.info("Enter Course Code of the course to be assigned:");
         int courseCode = scanner.nextInt();
 
-        System.out.println("Enter Professor's User Id:");
+        logger.info("Enter Professor's User Id:");
         String userId = scanner.next();
 	   
         try {
@@ -142,24 +142,24 @@ public class CRSAdminMenu {
     private void addProfessor() {
 
         Professor professor = new Professor();
-        System.out.println("\n\n Add Professor Portal \n\n");
-        System.out.println("Enter Professor Name: ");
+        logger.info("\n\n Add Professor Portal \n\n");
+        logger.info("Enter Professor Name: ");
         String professorName = scanner.next();
         professor.setName(professorName);
 
-        System.out.println("Enter Department:");
+        logger.info("Enter Department:");
         String department = scanner.next();
         professor.setDepartment(department);
 
-        System.out.println("Enter Designation:");
+        logger.info("Enter Designation:");
         String designation = scanner.next();
         professor.setDesignation(designation);
 
-        System.out.println("Enter Email:");
+        logger.info("Enter Email:");
         String userId = scanner.next();
         professor.setUserId(userId);
 
-        System.out.println("Enter Password:");
+        logger.info("Enter Password:");
         String password = scanner.next();
         professor.setPassword(password);
 
@@ -186,16 +186,16 @@ public class CRSAdminMenu {
         }
         
 
-        System.out.println("\n\n PENDING STUDENTS \n\n");
-        System.out.println("Student ID	 Name	 User ID");
+        logger.info("\n\n PENDING STUDENTS \n\n");
+        logger.info("Student ID	 Name	 User ID");
         
         for (Student stud : studentList) {
-        	System.out.println(stud.getStudentId() + "	" + stud.getName() + "	" + stud.getUserId());
+        	logger.info(stud.getStudentId() + "	" + stud.getName() + "	" + stud.getUserId());
         }
         
-        System.out.println("\n\n Approve Student Portal \n\n");
+        logger.info("\n\n Approve Student Portal \n\n");
 
-        System.out.println("Enter Student's ID:");
+        logger.info("Enter Student's ID:");
         int studentUserIdApproval = scanner.nextInt();
 
         try {
@@ -214,9 +214,9 @@ public class CRSAdminMenu {
      * @throws CourseNotFoundException
      */
     private void deleteCourse() {
-        System.out.println("\n\n Delete Course Portal \n\n");
+        logger.info("\n\n Delete Course Portal \n\n");
         List<Course> courseList = viewCoursesInCatalogue();
-        System.out.println("Enter Course Code:");
+        logger.info("Enter Course Code:");
         int courseCode = scanner.nextInt();
         try {
             adminOperation.deleteCourse(courseCode, courseList);
@@ -230,14 +230,14 @@ public class CRSAdminMenu {
      * Method to add Course to catalogue
      */
     private void addCourseToCatalogue() {
-        System.out.println("\n\n Add Course to Catalogue Portal \n\n");
+        logger.info("\n\n Add Course to Catalogue Portal \n\n");
         List<Course> courseList = viewCoursesInCatalogue();
         scanner.nextLine();
-        System.out.println("Enter Course Code:");
+        logger.info("Enter Course Code:");
         int courseCode = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Enter Course Name:");
+        logger.info("Enter Course Name:");
         String courseName = scanner.nextLine();
         Course course = new Course(courseCode, courseName, null, 10);
         try {
@@ -257,25 +257,25 @@ public class CRSAdminMenu {
     private List<Course> viewCoursesInCatalogue() {
         List<Course> courseList = adminOperation.viewCourses(1);
         if (courseList.size() == 0) {
-            System.out.println("No course in the catalogue!");
+            logger.info("No course in the catalogue!");
             return courseList;
         }
 
-        System.out.println("\n\n Course Catalogue \n\n");
-        System.out.println("COURSE CODE  COURSE NAME    INSTRUCTOR");
+        logger.info("\n\n Course Catalogue \n\n");
+        logger.info("COURSE CODE  COURSE NAME    INSTRUCTOR");
         for (Course course : courseList) {
             String instructorId = "No Professor";
             if (course.getInstructorId() != null && !course.getInstructorId().isEmpty())
                 instructorId = course.getInstructorId();
-            System.out.println(course.getCourseCode() + "	" +course.getCourseName() + "	" +instructorId);
+            logger.info(course.getCourseCode() + "	" +course.getCourseName() + "	" +instructorId);
         }
         return courseList;
     }
 
 
     private void generateReportCard() {
-		System.out.println("\n\nGENERATE REPORT PORTAL\n\n");
-		System.out.println("Enter Student Id :");
+		logger.info("\n\nGENERATE REPORT PORTAL\n\n");
+		logger.info("Enter Student Id :");
 		try {
 			adminOperation.generateReportCard(scanner.nextInt());
 		} catch (SQLException e) {
@@ -295,7 +295,7 @@ public class CRSAdminMenu {
 			// TODO Auto-generated catch block
         	logger.error(e.getMessage());
 		}
-		System.out.println("\nReport Card Generated/n");
+		logger.info("\nReport Card Generated/n");
 	}
 }
 

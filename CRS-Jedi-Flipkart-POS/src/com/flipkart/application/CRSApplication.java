@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class CRSApplication {
 
     static boolean loggedin = false;
-	private static Logger logger = Logger.getLogger(CRSApplication.class);
+	private static Logger logger = Logger.getLogger(CRSApplication.class.getName());
 
     StudentInterface studentInterface = StudentOperation.getInstance();
     UserInterface userInterface = UserOperation.getInstance();
@@ -51,7 +51,8 @@ public class CRSApplication {
                         crsApplication.registerAdmin();
                         break;
                     default:
-                    	System.out.println("Invalid Input");
+                    	logger.info("Invalid Input");
+                    	
                 }
                 createMainMenu();
                 userInput = sc.nextInt();
@@ -70,15 +71,15 @@ public class CRSApplication {
     public static void createMainMenu() {
        
         
-    	System.out.println("\n\n==~~=~~=~~=~~=~~=~CRS~=~~=~~=~~=~~=~~==");
-        System.out.println("Choose an option: ");
-        System.out.println("---------------------------------------");
-        System.out.println("1 : Login");
-        System.out.println("2 : Student Registration");
-        System.out.println("3 : Change password");
-        System.out.println("4 : Admin Account Creation");
-        System.out.println("5 : Exit");
-        System.out.println("=======================================");
+    	logger.info("\n\n==~~=~~=~~=~~=~~=~CRS~=~~=~~=~~=~~=~~==");
+        logger.info("Choose an option: ");
+        logger.info("---------------------------------------");
+        logger.info("1 : Login");
+        logger.info("2 : Student Registration");
+        logger.info("3 : Change password");
+        logger.info("4 : Admin Account Creation");
+        logger.info("5 : Exit");
+        logger.info("=======================================");
         
     }
 
@@ -92,11 +93,11 @@ public class CRSApplication {
         String userId, password;
        
         try {
-            System.out.println("Login Portal");
-            System.out.println("=======================================");
-            System.out.println("Email:");
+            logger.info("Login Portal");
+            logger.info("=======================================");
+            logger.info("Email:");
             userId = sc.next();
-            System.out.println("Password:");
+            logger.info("Password:");
             password = sc.next();
             loggedin = userInterface.verifyCredentials(userId, password);
             //2 cases
@@ -108,19 +109,19 @@ public class CRSApplication {
                 LocalDateTime myDateObj = LocalDateTime.now();
 
                 String formattedDate = myDateObj.format(myFormatObj);
-                System.out.println(formattedDate);
+                logger.info(formattedDate);
 
-                System.out.println("Welcome "+userId);
+                logger.info("Welcome "+userId);
                 String role = userInterface.getRole(userId);
                 Role userRole = Role.stringToName(role);
                 switch (userRole) {
                     case ADMIN:
-                    	System.out.println( " Login Successful as Admin");
+                    	logger.info( " Login Successful as Admin");
                     	CRSAdminMenu adminMenu = new CRSAdminMenu();
                         adminMenu.createMenu();
                         break;
                     case PROFESSOR:
-                    	System.out.println(" Login Successful for Professor");
+                    	logger.info(" Login Successful for Professor");
                         ProfessorCRSMenu professorMenu = new ProfessorCRSMenu();
                         professorMenu.createMenu(userId);
 
@@ -130,12 +131,12 @@ public class CRSApplication {
                         int studentId = studentInterface.getStudentId(userId);
                         boolean isApproved = studentInterface.isApproved(studentId);
                         if (isApproved) {
-                        	System.out.println(" Login Successful for Student");
+                        	logger.info(" Login Successful for Student");
                             StudentCRSMenu studentMenu = new StudentCRSMenu();
                             studentMenu.create_menu(studentId);
 
                         } else {
-                        	System.out.println("Failed to login, you have not been approved by the administration!");
+                        	logger.info("Failed to login, you have not been approved by the administration!");
                             loggedin = false;
                         }
                         break;
@@ -144,7 +145,7 @@ public class CRSApplication {
 
             }
             else {
-            	System.out.println("Invalid Credentials!");
+            	logger.info("Invalid Credentials!");
             }
             
          }	catch (UserNotFoundException ex) {
@@ -158,24 +159,24 @@ public class CRSApplication {
      */
     public void registerAdmin()  {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter root password");
+        logger.info("Enter root password");
         String rt_pwd = sc.nextLine();
 
         if(!rt_pwd.equals("1234567"))
         {
-        	System.out.println("Incorrect Password! Access Denied");
+        	logger.info("Incorrect Password! Access Denied");
             return;
         }
         String userId, name, password;
    
         try {
             //input all the student details
-        	System.out.println("Administrative Account Creation Portal");
-            System.out.println("Name:");
+        	logger.info("Administrative Account Creation Portal");
+            logger.info("Name:");
             name = sc.nextLine();
-            System.out.println("Email:");
+            logger.info("Email:");
             userId = sc.next();
-            System.out.println("Password:");
+            logger.info("Password:");
             password = sc.next();
             int admin= adminInterface.register(name, userId, password);
         } catch (AdminAccountNotCreatedException ex) {
@@ -183,7 +184,7 @@ public class CRSApplication {
             return;
         }
        
-            System.out.println("Administrative Account Successfully Created!");
+            logger.info("Administrative Account Successfully Created!");
     }
    
     /**
@@ -197,16 +198,16 @@ public class CRSApplication {
       
         try {
             //input all the student details
-            System.out.println("Student Registration Portal");
-            System.out.println("Name:");
+            logger.info("Student Registration Portal");
+            logger.info("Name:");
             name = sc.nextLine();
-            System.out.println("Email:");
+            logger.info("Email:");
             userId = sc.next();
-            System.out.println("Password:");
+            logger.info("Password:");
             password = sc.next();
-            System.out.println("Batch:");
+            logger.info("Batch:");
             batch = sc.nextInt();
-            System.out.println("Branch:");
+            logger.info("Branch:");
             branch = sc.next();
 
             int newStudentId = studentInterface.register(name, userId, password, batch, branch);
@@ -216,7 +217,7 @@ public class CRSApplication {
         	logger.error(ex.getMessage());
             return;
         }
-        System.out.println("Student Successfully Registered!");
+        logger.info("Student Successfully Registered!");
     }
 
     /**
@@ -226,24 +227,24 @@ public class CRSApplication {
         Scanner sc = new Scanner(System.in);
         String userId, newPassword, password;
         try {
-	        System.out.println("Update Password Portal");
-	        System.out.println("Email:");
+	        logger.info("Update Password Portal");
+	        logger.info("Email:");
 	        userId = sc.next();
-	        System.out.println("old Password:");
+	        logger.info("old Password:");
 	        password = sc.next();
 	        loggedin = userInterface.verifyCredentials(userId, password);
 	        if (loggedin) {
 	
-	            System.out.println("New Password:");
+	            logger.info("New Password:");
 	            newPassword = sc.next();
 	            boolean isUpdated = userInterface.updatePassword(userId, newPassword);
 	            if (isUpdated)
-	            	System.out.println("Password updated successfully!");
+	            	logger.info("Password updated successfully!");
 	            else
-	            	System.out.println("Something went wrong, please try again!");
+	            	logger.info("Something went wrong, please try again!");
 	        }
 	        else{
-	        	System.out.println("Incorrect Password");
+	        	logger.info("Incorrect Password");
 	        }
         } catch (Exception ex) {
             logger.error("Error Occurred " + ex.getMessage());

@@ -22,7 +22,7 @@ import com.flipkart.validator.ProfessorValidator;
 
 public class ProfessorCRSMenu {
 
-	private static Logger logger = Logger.getLogger(CRSApplication.class);
+	private static Logger logger = Logger.getLogger(ProfessorCRSMenu.class.getName());
 
     ProfessorInterface professorInterface=ProfessorOperation.getInstance();
 
@@ -40,7 +40,7 @@ public class ProfessorCRSMenu {
         while(CRSApplication.loggedin)
         {
         	
-           System.out.println("\n\nProfessor Access Menu \n\n" +  
+           logger.info("\n\nProfessor Access Menu \n\n" +  
            "1. View Assigned Courses \n" + 
            "2. View Enrolled Students \n" + 
            "3. Add grade for Student \n" + 
@@ -69,7 +69,7 @@ public class ProfessorCRSMenu {
                     CRSApplication.loggedin=false;
                     return;
                 default:
-                	System.out.println("***** Wrong Choice *****");
+                	logger.info("***** Wrong Choice *****");
             }
         }
 
@@ -82,16 +82,16 @@ public class ProfessorCRSMenu {
      */
     public void viewEnrolledStudents(String profId)
     {
-    	System.out.println("List of Enrolled Students");
+    	logger.info("List of Enrolled Students");
         List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-        System.out.println(String.format("%20s %20s  %20s","COURSE CODE","COURSE NAME","STUDENT ID" ));
+        logger.info(String.format("%20s %20s  %20s","COURSE CODE","COURSE NAME","STUDENT ID" ));
         try
         {
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
             enrolledStudents=professorInterface.viewEnrolledStudents(profId);
             for(EnrolledStudent obj: enrolledStudents)
             {
-            	System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+            	logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
             }
             
         }
@@ -107,14 +107,14 @@ public class ProfessorCRSMenu {
      */
     public void getCourses(String profId)
     {
-    	System.out.println("List of All Courses taught by Professor");
+    	logger.info("List of All Courses taught by Professor");
         try
         {
             List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-            System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
+            logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","No. of Students  enrolled" ));
             for(Course obj: coursesEnrolled)
             {
-            	System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
+            	logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),10- obj.getSeats()));
             }
          
         }
@@ -130,7 +130,7 @@ public class ProfessorCRSMenu {
      */
     public void addGrade(String profId)
     {
-    	System.out.println("Student Courses Data \n");
+    	logger.info("Student Courses Data \n");
         Scanner sc=new Scanner(System.in);
 
         int studentId;
@@ -140,28 +140,28 @@ public class ProfessorCRSMenu {
         {
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
             enrolledStudents=professorInterface.viewEnrolledStudents(profId);
-            System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
+            logger.info(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME","Student ID" ));
             for(EnrolledStudent obj: enrolledStudents)
             {
-            	System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+            	logger.info(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
             }
             List<Course> coursesEnrolled=new ArrayList<Course>();
             coursesEnrolled	=professorInterface.getCourses(profId);
-            System.out.println("Add Grade");
-            System.out.println("Enter student id");
+            logger.info("Add Grade");
+            logger.info("Enter student id");
             studentId=sc.nextInt();
-            System.out.println("Enter course code");
+            logger.info("Enter course code");
             courseCode=sc.nextInt();
-            System.out.println("Enter grade");
+            logger.info("Enter grade");
             grade=sc.next();
             if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
             {
                 professorInterface.addGrade(studentId, courseCode, grade);
-                System.out.println("Grade added successfully for "+studentId);
+                logger.info("Grade added successfully for "+studentId);
             }
             else
             {
-            	System.out.println("Invalid data entered, try again!");
+            	logger.info("Invalid data entered, try again!");
             }
         }
         catch(GradeNotAddedException ex)

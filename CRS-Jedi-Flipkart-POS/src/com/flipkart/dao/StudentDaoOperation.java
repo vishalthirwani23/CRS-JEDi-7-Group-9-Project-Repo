@@ -26,7 +26,7 @@ import com.flipkart.exceptions.ReportCardNotGeneratedException;
 public class StudentDaoOperation implements StudentDaoInterface {
 
 	private static volatile StudentDaoOperation instance = null;
-	private static Logger logger = Logger.getLogger(StudentOperation.class);
+	private static Logger logger = Logger.getLogger(StudentDaoOperation.class);
 
 
 	private StudentDaoOperation() {

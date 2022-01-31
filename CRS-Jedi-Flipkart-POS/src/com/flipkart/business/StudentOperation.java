@@ -19,7 +19,7 @@ import com.flipkart.bean.ReportCard;
 public class StudentOperation implements StudentInterface {
 
 	private static volatile StudentOperation instance = null;
-	private static Logger logger = Logger.getLogger(CRSApplication.class);
+	private static Logger logger = Logger.getLogger(StudentOperation.class);
 	StudentDaoInterface studentDaoInterface = StudentDaoOperation.getInstance();
 
 	public StudentOperation() {
