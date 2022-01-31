@@ -9,15 +9,15 @@ SQL Queries For CRS project
 public class SQLQueriesConstants {
 
     //AdminDao Queries
-    public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";
-    public static final String ADD_COURSE_QUERY = "insert into Course(courseCode, courseName, catalogId) values (?, ?, ?)";
+    public static final String DELETE_COURSE_QUERY = "delete from course where courseCode = ?";
+    public static final String ADD_COURSE_QUERY = "insert into course(courseCode, courseName, catalogId) values (?, ?, ?)";
     public static final String VIEW_PENDING_ADMISSION_QUERY = "select userId, name, password, role, studentId from student natural join user where isApproved = 0";
-    public static final String APPROVE_STUDENT_QUERY = "update Student set isApproved = 1 where studentId = ?";
-    public static final String ADD_USER_QUERY = "insert into User(userId, name, password, role) values (?, ?, ?, ?)";
-    public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
-    public static final String ASSIGN_COURSE_QUERY = "update Course set professorId = ? where courseCode = ?";
+    public static final String APPROVE_STUDENT_QUERY = "update student set isApproved = 1 where studentId = ?";
+    public static final String ADD_USER_QUERY = "insert into user(userId, name, password, role) values (?, ?, ?, ?)";
+    public static final String ADD_PROFESSOR_QUERY = "insert into professor(userId, department, designation) values (?, ?, ?)";
+    public static final String ASSIGN_COURSE_QUERY = "update course set professorId = ? where courseCode = ?";
     public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, professorId from Course where catalogId = ?";
-    public static final String VIEW_PROFESSOR_QUERY = "select userId, name, department, designation from Professor natural join User";
+    public static final String VIEW_PROFESSOR_QUERY = "select userId, name, department, designation from professor natural join user";
 
     public static final String ADD_STUDENT="insert into student (userId,branchName,batch,isApproved) values (?,?,?,?)";
     public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
@@ -30,7 +30,7 @@ public class SQLQueriesConstants {
     public static final String GET_SPI = "select sum(grade) from registeredcourse where studentid = ?";
     public static final String GENERATE_REPORT_CARD = "update student set spi = ? where studentId = ?";
 
-    // Student Queries
+    // user Queries
     public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";
     public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ? and seats > 0 and professorId is not null";
     public static final String CHECK_COURSE_AVAILABILITY=" select courseCode from registeredcourse where studentId = ? ";
