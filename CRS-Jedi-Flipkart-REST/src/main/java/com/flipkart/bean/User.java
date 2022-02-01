@@ -6,7 +6,7 @@ import com.flipkart.constant.Role;
 /**
  * User Class
  */
-public abstract class User {
+public class User {
 	private String userId;
 	private String name;
 	private Role role;

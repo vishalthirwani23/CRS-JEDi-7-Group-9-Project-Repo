@@ -24,24 +24,23 @@ import com.flipkart.utils.DBUtils;
 public class AdminDaoOperation implements AdminDaoInterface{
 
 	private static volatile AdminDaoOperation instance = null;
-	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
+	Logger logger = Logger.getLogger(AdminDaoOperation.class);
 	private PreparedStatement statement = null;
 
-	private AdminDaoOperation(){}
+	public AdminDaoOperation(){}
 
-	public static AdminDaoOperation getInstance()
-	{
-		if(instance == null)
-		{
-			synchronized(AdminDaoOperation.class){
-				instance = new AdminDaoOperation();
-			}
-		}
-		return instance;
-	}
+//	public static AdminDaoOperation getInstance()
+//	{
+//		if(instance == null)
+//		{
+//			synchronized(AdminDaoOperation.class){
+//				instance = new AdminDaoOperation();
+//			}
+//		}
+//		return instance;
+//	}
 	
 	Connection connection = DBUtils.getConnection();
-
 	public int addAdmin(User admin) throws AdminAccountNotCreatedException {
 		Connection connection = DBUtils.getConnection();
 		int adminId = 0;

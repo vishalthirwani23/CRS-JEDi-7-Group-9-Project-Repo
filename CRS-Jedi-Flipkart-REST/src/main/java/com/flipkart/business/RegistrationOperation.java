@@ -19,19 +19,19 @@ public class RegistrationOperation implements RegistrationInterface {
 
 	private static volatile RegistrationOperation instance = null;
 
-	private RegistrationOperation() {
+	public RegistrationOperation() {
 	}
 
-	public static RegistrationOperation getInstance() {
-		if (instance == null) {
-			synchronized (RegistrationOperation.class) {
-				instance = new RegistrationOperation();
-			}
-		}
-		return instance;
-	}
+//	public static RegistrationOperation getInstance() {
+//		if (instance == null) {
+//			synchronized (RegistrationOperation.class) {
+//				instance = new RegistrationOperation();
+//			}
+//		}
+//		return instance;
+//	}
 
-	RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperation.getInstance();
+	RegistrationDaoInterface registrationDaoInterface = new RegistrationDaoOperation();
 
 	public boolean addCourse(int courseCode, int studentId, List<Course> availableCourseList)
 			throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException {

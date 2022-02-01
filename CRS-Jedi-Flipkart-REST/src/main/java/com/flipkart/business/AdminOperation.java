@@ -31,20 +31,20 @@ public class AdminOperation implements AdminInterface {
 	private static Logger logger = Logger.getLogger(AdminOperation.class);
 	private static volatile AdminOperation instance = null;
 
-	private AdminOperation() {
+	public AdminOperation() {
 
 	}
 
-	public static AdminOperation getInstance() {
-		if (instance == null) {
-			synchronized (AdminOperation.class) {
-				instance = new AdminOperation();
-			}
-		}
-		return instance;
-	}
+//	public static AdminOperation getInstance() {
+//		if (instance == null) {
+//			synchronized (AdminOperation.class) {
+//				instance = new AdminOperation();
+//			}
+//		}
+//		return instance;
+//	}
 
-	AdminDaoInterface adminDaoOperation = AdminDaoOperation.getInstance();
+	AdminDaoInterface adminDaoOperation = new AdminDaoOperation();
 
 	public int register(String name, String userID, String password) throws AdminAccountNotCreatedException{
 		int adminId = 0;

@@ -20,8 +20,8 @@ import java.util.List;
 @Path("/admin")
 public class AdminRESTAPIController {
 
-    AdminInterface adminOperation = AdminOperation.getInstance();
-    NotificationInterface notificationInterface = NotificationOperation.getInstance();
+    AdminInterface adminOperation = new AdminOperation();
+    NotificationInterface notificationInterface = new NotificationOperation();
 
     /**
      * Method to add Professor to DB

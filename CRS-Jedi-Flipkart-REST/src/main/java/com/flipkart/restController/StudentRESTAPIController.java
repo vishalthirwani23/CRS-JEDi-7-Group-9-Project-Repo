@@ -47,9 +47,9 @@ public class StudentRESTAPIController {
         return 0;
     }
 
-    RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
-    ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-    NotificationInterface notificationInterface=NotificationOperation.getInstance();
+    RegistrationInterface registrationInterface = new RegistrationOperation();
+    ProfessorInterface professorInterface = new ProfessorOperation();
+    NotificationInterface notificationInterface = new NotificationOperation();
     private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
 

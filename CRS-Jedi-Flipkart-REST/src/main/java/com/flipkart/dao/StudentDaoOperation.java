@@ -29,7 +29,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	private static Logger logger = Logger.getLogger(StudentOperation.class);
 
 
-	private StudentDaoOperation() {
+	public StudentDaoOperation() {
 
 	}
 

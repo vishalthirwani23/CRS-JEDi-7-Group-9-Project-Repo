@@ -20,7 +20,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	private static volatile ProfessorDaoOperation instance = null;
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
-	private ProfessorDaoOperation() {
+	public ProfessorDaoOperation() {
 
 	}
 

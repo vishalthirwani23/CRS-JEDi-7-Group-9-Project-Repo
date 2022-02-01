@@ -22,8 +22,8 @@ import java.util.List;
 
 @Path("professor")
 public class ProfessorRESTAPIController {
-    final static ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-    final static UserInterface userInterface = UserOperation.getInstance();
+    final static ProfessorInterface professorInterface = new ProfessorOperation();
+    final static UserInterface userInterface = new UserOperation();
 
     /**
      * Method to fetch courses taught by the professor

@@ -18,9 +18,9 @@ import com.flipkart.bean.Course;
 public class ProfessorOperation implements ProfessorInterface {
 
 	private static volatile ProfessorOperation instance = null;
-	ProfessorDaoInterface professorDAOInterface = ProfessorDaoOperation.getInstance();
+	ProfessorDaoInterface professorDAOInterface = new ProfessorDaoOperation();
 
-	private ProfessorOperation() {
+	public ProfessorOperation() {
 
 	}
 

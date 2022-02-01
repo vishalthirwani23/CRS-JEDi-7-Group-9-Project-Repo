@@ -19,11 +19,15 @@ import javax.ws.rs.core.Response;
 @Path("/user")
 public class UserRESTAPIController {
 
-    final static UserInterface userInterface = UserOperation.getInstance();
-    final static StudentInterface studentInterface = StudentOperation.getInstance();
-    final static NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    final static AdminInterface adminInterface = AdminOperation.getInstance();
-
+//    final static UserInterface userInterface = UserOperation.getInstance();
+//    final static StudentInterface studentInterface = StudentOperation.getInstance();
+//    final static NotificationInterface notificationInterface = NotificationOperation.getInstance();
+//    final static AdminInterface adminInterface = AdminOperation.getInstance();
+	
+	UserInterface userInterface = new UserOperation();
+	StudentInterface studentInterface = new StudentOperation();
+	NotificationInterface notificationInterface = new NotificationOperation();
+	AdminInterface adminInterface = new AdminOperation();
     
     /**
      * Method for user login
@@ -49,7 +53,7 @@ public class UserRESTAPIController {
 
         try {
             boolean loggedin = userInterface.verifyCredentials(userId, password);
-
+            System.out.println("1");
             if (!loggedin)
                 return Response.status(401).entity("Login failed.Invalid Credentials").build();
 

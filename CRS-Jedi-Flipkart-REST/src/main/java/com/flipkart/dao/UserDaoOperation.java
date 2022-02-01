@@ -17,19 +17,19 @@ public class UserDaoOperation implements UserDaoInterface {
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
 
-	private UserDaoOperation() {
+	public UserDaoOperation() {
 
 	}
 
-	public static UserDaoOperation getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (UserDaoOperation.class) {
-				instance = new UserDaoOperation();
-			}
-		}
-		return instance;
-	}
+//	public static UserDaoOperation getInstance() {
+//		if (instance == null) {
+//			// This is a synchronized block, when multiple threads will access this instance
+//			synchronized (UserDaoOperation.class) {
+//				instance = new UserDaoOperation();
+//			}
+//		}
+//		return instance;
+//	}
 
 	@Override
 	public boolean updatePassword(String userId, String newPassword) {

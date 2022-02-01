@@ -20,21 +20,28 @@ public class DBUtils {
 
     static Properties prop = new Properties();
     static InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
-//    static String driver = prop.getProperty("driver");
-    static String DB_URL;
-    static String USER;
-    static String PASS;
+//    static String driver;
+//    static String DB_URL;
+//    static String USER;
+//    static String PASS;
 
-    static {
-        try {
-            prop.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        DB_URL = prop.getProperty("url");
-        USER = prop.getProperty("user");
-        PASS = prop.getProperty("password");
-    }
+//    static {
+//        try {
+//            prop.load(inputStream);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        DB_URL = prop.getProperty("url");
+//        USER = prop.getProperty("user");
+//        PASS = prop.getProperty("password");
+//        driver = prop.getProperty("driver");
+//        try {
+//			Class.forName(driver);
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    }
 
     
     
@@ -45,14 +52,42 @@ public class DBUtils {
      */
     public static Connection getConnection() {
         Connection connection = null;
-        try {
+//        try {
+//
+//
+//            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+//        } catch (SQLException e) {
+//            logger.error(e.getMessage());
+//        }
+//        return connection;
+    	
+    	if (connection != null)
+            return connection;
+        else {
+            try {
+//            	Properties prop = new Properties();
+//                InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream("./config.properties");
+//                prop.load(inputStream);
+                String driver = "com.mysql.cj.jdbc.Driver";//prop.getProperty("driver");
+                String url = "jdbc:mysql://localhost:3306/test_schema";//prop.getProperty("url");
+                String user ="root";// prop.getProperty("user");
+                String password = "rootroot";//prop.getProperty("password");
 
-
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
+                Class.forName(driver);
+                connection = DriverManager.getConnection(url, user, password);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } 
+//            catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
-        return connection;
+            return connection;
+            
     }
 
     public static LocalDateTime parseDate(String str) {

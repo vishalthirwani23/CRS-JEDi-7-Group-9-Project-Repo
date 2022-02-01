@@ -14,10 +14,10 @@ import com.flipkart.dao.NotificationDaoOperation;
 public class NotificationOperation implements NotificationInterface {
 
 	private static volatile NotificationOperation instance = null;
-	NotificationDaoInterface notificationDaoInterface = NotificationDaoOperation.getInstance();
+	NotificationDaoInterface notificationDaoInterface = new NotificationDaoOperation();
 	private static Logger logger = Logger.getLogger(NotificationOperation.class);
 
-	private NotificationOperation() {
+	public NotificationOperation() {
 
 	}
 
