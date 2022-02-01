@@ -68,10 +68,10 @@ public class DBUtils {
 //            	Properties prop = new Properties();
 //                InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream("./config.properties");
 //                prop.load(inputStream);
-                String driver = "com.mysql.cj.jdbc.Driver";//prop.getProperty("driver");
-                String url = "jdbc:mysql://localhost:3306/test_schema";//prop.getProperty("url");
+                String driver = "com.mysql.jdbc.Driver";//prop.getProperty("driver");
+                String url = "jdbc:mysql://localhost:3306/test";//prop.getProperty("url");
                 String user ="root";// prop.getProperty("user");
-                String password = "rootroot";//prop.getProperty("password");
+                String password = "root";//prop.getProperty("password");
 
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
