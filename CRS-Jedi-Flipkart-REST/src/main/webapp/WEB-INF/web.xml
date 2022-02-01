@@ -11,7 +11,7 @@
         </init-param>
         <init-param>
 			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>com.flipkart.application.ApplicationConfig</param-value>
+			<param-value>com.flipkart.restController.ApplicationConfig</param-value>
 		</init-param>
 		<init-param>
 			<param-name>jersey.config.beanValidation.enableOutputValidationErrorEntity.server</param-name>
