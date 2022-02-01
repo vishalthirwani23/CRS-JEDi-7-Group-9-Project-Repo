@@ -13,25 +13,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.flipkart.bean.Course;
+import com.flipkart.*;
+import com.flipkart.*;
 
 
 public class ProfessorOperation implements ProfessorInterface {
 
 	private static volatile ProfessorOperation instance = null;
-	ProfessorDaoInterface professorDAOInterface = ProfessorDaoOperation.getInstance();
+	ProfessorDaoInterface professorDAOInterface = new ProfessorDaoOperation();
 
-	private ProfessorOperation() {
+	public ProfessorOperation() {
 
 	}
 
-	public static ProfessorOperation getInstance() {
-		if (instance == null) {
-			synchronized (ProfessorOperation.class) {
-				instance = new ProfessorOperation();
-			}
-		}
-		return instance;
-	}
+	
 
 	public boolean addGrade(int studentId, int courseCode, String grade) throws GradeNotAddedException {
 		try {

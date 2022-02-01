@@ -1,5 +1,6 @@
 package com.flipkart.business;
 
+import com.flipkart.*;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -14,22 +15,14 @@ import com.flipkart.dao.NotificationDaoOperation;
 public class NotificationOperation implements NotificationInterface {
 
 	private static volatile NotificationOperation instance = null;
-	NotificationDaoInterface notificationDaoInterface = NotificationDaoOperation.getInstance();
+	NotificationDaoInterface notificationDaoInterface = new NotificationDaoOperation();
 	private static Logger logger = Logger.getLogger(NotificationOperation.class);
 
-	private NotificationOperation() {
+	public NotificationOperation() {
 
 	}
 
-	public static NotificationOperation getInstance() {
-		if (instance == null) {
-			synchronized (NotificationOperation.class) {
-				instance = new NotificationOperation();
-			}
-		}
-		return instance;
-	}
-
+	
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv) {
 		int notificationId = 0;
 		try {	

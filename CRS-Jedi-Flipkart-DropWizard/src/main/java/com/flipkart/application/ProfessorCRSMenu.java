@@ -18,13 +18,13 @@ import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperation;
 import com.flipkart.exceptions.GradeNotAddedException;
 import com.flipkart.validator.ProfessorValidator;
-
+import com.flipkart.*;
 
 public class ProfessorCRSMenu {
 
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 
-    ProfessorInterface professorInterface=ProfessorOperation.getInstance();
+    ProfessorInterface professorInterface=new ProfessorOperation();
 
     /**
      * Method to create Professor menu

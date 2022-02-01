@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
 import com.flipkart.exceptions.AdminAccountNotCreatedException;
@@ -19,9 +20,9 @@ public class CRSApplication {
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 
     StudentInterface studentInterface = StudentOperation.getInstance();
-    UserInterface userInterface = UserOperation.getInstance();
-    NotificationInterface notificationInterface = NotificationOperation.getInstance();
-    AdminInterface adminInterface = AdminOperation.getInstance();
+    UserInterface userInterface = new UserOperation();
+    NotificationInterface notificationInterface = new NotificationOperation();
+    AdminInterface adminInterface = new AdminOperation();
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);

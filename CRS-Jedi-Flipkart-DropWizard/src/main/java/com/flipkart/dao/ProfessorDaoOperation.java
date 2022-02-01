@@ -14,26 +14,19 @@ import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 
+import com.flipkart.*;
 
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	private static volatile ProfessorDaoOperation instance = null;
 	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 
-	private ProfessorDaoOperation() {
+	public ProfessorDaoOperation() {
 
 	}
 
 
-	public static ProfessorDaoOperation getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (ProfessorDaoOperation.class) {
-				instance = new ProfessorDaoOperation();
-			}
-		}
-		return instance;
-	}
+
 
 
 	public List<Course> getCoursesByProfessor(String profId) {

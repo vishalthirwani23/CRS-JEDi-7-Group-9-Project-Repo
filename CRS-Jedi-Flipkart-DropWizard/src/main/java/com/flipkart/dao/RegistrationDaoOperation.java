@@ -21,6 +21,7 @@ import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
+import com.flipkart.*;
 
 public class RegistrationDaoOperation implements RegistrationDaoInterface {
 
@@ -28,17 +29,10 @@ public class RegistrationDaoOperation implements RegistrationDaoInterface {
 	private static Logger logger = Logger.getLogger(RegistrationDaoOperation.class);
 	private PreparedStatement stmt = null;
 
-	private RegistrationDaoOperation() {
+	public RegistrationDaoOperation() {
 	}
 
-	public static RegistrationDaoOperation getInstance() {
-		if (instance == null) {
-			synchronized (RegistrationDaoOperation.class) {
-				instance = new RegistrationDaoOperation();
-			}
-		}
-		return instance;
-	}
+	
 
 	@Override
 	public boolean addCourse(int courseCode, int studentId) throws SQLException {

@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-
+import com.flipkart.*;
 //import com.flipkart.constant.Color;
 //import com.flipkart.constant.Gender;
 import com.flipkart.constant.NotificationType;
@@ -34,9 +34,9 @@ import com.flipkart.business.NotificationOperation;
 public class CRSAdminMenu {
 
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
-    AdminInterface adminOperation = AdminOperation.getInstance();
+    AdminInterface adminOperation = new AdminOperation();
     Scanner scanner = new Scanner(System.in);
-    NotificationInterface notificationInterface = NotificationOperation.getInstance();
+    NotificationInterface notificationInterface = new NotificationOperation();
 
     /**
      * Method to Create Admin Menu

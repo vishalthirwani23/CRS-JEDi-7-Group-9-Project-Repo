@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.flipkart.exceptions.*;
 
+import com.flipkart.exceptions.*;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -27,23 +27,17 @@ public class AdminDaoOperation implements AdminDaoInterface{
 	private static Logger logger = Logger.getLogger(AdminDaoOperation.class);
 	private PreparedStatement statement = null;
 
-	private AdminDaoOperation(){}
+	public AdminDaoOperation(){}
 
-	public static AdminDaoOperation getInstance()
-	{
-		if(instance == null)
-		{
-			synchronized(AdminDaoOperation.class){
-				instance = new AdminDaoOperation();
-			}
-		}
-		return instance;
-	}
+	
 	
 	Connection connection = DBUtils.getConnection();
-
+	
 	public int addAdmin(User admin) throws AdminAccountNotCreatedException {
+		
 		Connection connection = DBUtils.getConnection();
+		if(connection == null)
+			System.out.println("DB Connection Error");
 		int adminId = 0;
 		try {
 			// open db connection

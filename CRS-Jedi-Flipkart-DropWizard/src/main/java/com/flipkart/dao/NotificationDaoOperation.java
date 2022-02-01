@@ -14,24 +14,16 @@ import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
+import com.flipkart.*;
 
 public class NotificationDaoOperation implements NotificationDaoInterface {
 	private static volatile NotificationDaoOperation instance = null;
 	private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
-	private NotificationDaoOperation() {
+	public NotificationDaoOperation() {
 
 	}
 
-	public static NotificationDaoOperation getInstance() {
-		if (instance == null) {
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized (NotificationDaoOperation.class) {
-				instance = new NotificationDaoOperation();
-			}
-		}
-		return instance;
-	}
 
 	public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount, String cardNumber, String cvv)
 			throws SQLException {

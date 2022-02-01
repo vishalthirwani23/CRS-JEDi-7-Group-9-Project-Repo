@@ -7,26 +7,20 @@ package com.flipkart.business;
 import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperation;
 import com.flipkart.exceptions.UserNotFoundException;
+import com.flipkart.*;
 
 
 public class UserOperation implements UserInterface {
 
 	private static volatile UserOperation instance = null;
-	UserDaoInterface userDaoInterface = UserDaoOperation.getInstance();
+	UserDaoInterface userDaoInterface = new UserDaoOperation();
 
-	private UserOperation() {
+	public UserOperation() {
 
 	}
 
 
-	public static UserOperation getInstance() {
-		if (instance == null) {
-			synchronized (UserOperation.class) {
-				instance = new UserOperation();
-			}
-		}
-		return instance;
-	}
+	
 
 	public boolean updatePassword(String userID, String newPassword) {
 		return userDaoInterface.updatePassword(userID, newPassword);

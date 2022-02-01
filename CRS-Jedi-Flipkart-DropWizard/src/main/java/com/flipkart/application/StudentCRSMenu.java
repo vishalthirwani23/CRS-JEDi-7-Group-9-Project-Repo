@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.ModeOfPayment;
@@ -32,9 +33,9 @@ public class StudentCRSMenu {
 	private static Logger logger = Logger.getLogger(CRSApplication.class);
 
     Scanner sc = new Scanner(System.in);
-    RegistrationInterface registrationInterface = RegistrationOperation.getInstance();
-    ProfessorInterface professorInterface = ProfessorOperation.getInstance();
-    NotificationInterface notificationInterface=NotificationOperation.getInstance();
+    RegistrationInterface registrationInterface = new RegistrationOperation();
+    ProfessorInterface professorInterface = new ProfessorOperation();
+    NotificationInterface notificationInterface=new NotificationOperation();
     private boolean is_registered;
 
     /**
