@@ -133,13 +133,13 @@ public class UserRESTAPIController {
     @Path("/updatePassword")
     @PUT
     @Produces("text/plain")
-    public Response registerNewStudent(@NotNull
+    public Response registerNewStudent(
 //                                       @Email(message = "Email not in right")
-                                       @QueryParam("userId") String userId,
-                                       @NotNull
-                                       @QueryParam("newPassword") String newPassword,
-                                       @NotNull
-                                       @QueryParam("oldPassword") String oldPassword
+                                       @NotNull@QueryParam("userId") String userId,
+                                       
+                                       @NotNull@QueryParam("newPassword") String newPassword,
+                                      
+                                       @NotNull@QueryParam("oldPassword") String oldPassword
     ) {
 
         //Input validation req?

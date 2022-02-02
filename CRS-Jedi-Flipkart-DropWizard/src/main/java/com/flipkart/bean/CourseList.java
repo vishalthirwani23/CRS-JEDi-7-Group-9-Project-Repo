@@ -9,14 +9,15 @@ import java.util.List;
  * @author jayant
  *
  */
-public class POJO {
+// used for creating JSON payloads for registerCourse API
+public class CourseList {
 	public List<Integer> courseIds;
     public int studentId;
-    public POJO()
+    public CourseList()
     {	
     	
     }
-    public POJO(List<Integer> courseIds,int studentId)
+    public CourseList(List<Integer> courseIds,int studentId)
     {
    
     	this.courseIds = courseIds;
