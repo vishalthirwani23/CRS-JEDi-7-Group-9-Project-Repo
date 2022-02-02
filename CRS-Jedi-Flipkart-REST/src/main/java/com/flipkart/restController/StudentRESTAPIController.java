@@ -64,8 +64,10 @@ public class StudentRESTAPIController {
     @POST
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerCourses(List<Integer> courseIds,@QueryParam("studentId") int studentId)
+    public Response registerCourses(CourseList pojo)
     {
+    	 int studentId = pojo.studentId;
+    	 List<Integer> courseIds = pojo.courseIds; 
 
         // If courses selected are not 6, during start of semester
         if (courseIds.size() != 6)
