@@ -94,8 +94,11 @@ public class AdminRESTAPIController {
 	    @PUT
 	    @Path("/approveStudent")
 	    @Produces(MediaType.APPLICATION_JSON)
-	    @Consumes(MediaType.APPLICATION_JSON)
-	    public Response approveStudent(int studentUserIdApproval) {
+	    //@Consumes(MediaType.APPLICATION_JSON)
+	    public Response approveStudent(
+	    		@QueryParam("studentUserIdApproval") int studentUserIdApproval) {
+
+	   
 
 
 	        List<Student> studentList = viewPendingAdmissions();
