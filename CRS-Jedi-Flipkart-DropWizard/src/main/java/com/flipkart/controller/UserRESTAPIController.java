@@ -1,5 +1,5 @@
 package com.flipkart.controller;
-import com.flipkart.*;
+
 
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Student;
@@ -179,11 +179,10 @@ public class UserRESTAPIController {
     @Produces("text/plain")
     public Response registerNewStudent(Admin admin) {
         admin.setRole(Role.ADMIN);
-
+       
         String userId = admin.getUserId();
         String name = admin.getName();
         String password = admin.getPassword();
-
         String role = userInterface.getRole(userId);
 
         //Input validation req?
@@ -196,7 +195,7 @@ public class UserRESTAPIController {
         }  else if (role != null) {
             return Response.status(400).entity("User Id " + admin.getUserId() + " already in Use").build();
         }
-
+        
         userId = userId.trim();
         name = name.trim();
         password = password.trim();

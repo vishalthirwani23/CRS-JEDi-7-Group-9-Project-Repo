@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.flipkart.*;
+
 
 import com.flipkart.bean.*;
 import com.flipkart.constant.Role;
