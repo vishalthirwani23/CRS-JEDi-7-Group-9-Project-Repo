@@ -11,6 +11,8 @@ import com.flipkart.exceptions.*;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.constant.NotificationType;
+
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -95,8 +97,9 @@ public class AdminRESTAPIController {
     @PUT
     @Path("/approveStudent")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response approveStudent(int studentUserIdApproval) {
+//    @Consumes(MediaType.APPLICATION_JSON)
+    public Response approveStudent(
+    		@QueryParam("studentUserIdApproval") int studentUserIdApproval) {
 
 
         List<Student> studentList = viewPendingAdmissions();

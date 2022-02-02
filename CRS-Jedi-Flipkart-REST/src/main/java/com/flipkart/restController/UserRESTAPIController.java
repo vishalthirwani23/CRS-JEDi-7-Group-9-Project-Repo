@@ -138,7 +138,6 @@ public class UserRESTAPIController {
     @PUT
     @Produces("text/plain")
     public Response registerNewStudent(@NotNull
-//                                       @Email(message = "Email not in right")
                                        @QueryParam("userId") String userId,
                                        @NotNull
                                        @QueryParam("newPassword") String newPassword,
@@ -187,7 +186,6 @@ public class UserRESTAPIController {
         String userId = admin.getUserId();
         String name = admin.getName();
         String password = admin.getPassword();
-        String role = userInterface.getRole(userId);
 
         //Input validation req?
         if (userId == null || userId.trim().length() == 0) {
@@ -196,8 +194,6 @@ public class UserRESTAPIController {
             return Response.status(400).entity("Name can not be empty").build();
         } else if (password == null || password.trim().length() == 0) {
             return Response.status(400).entity("Password can not be empty").build();
-        } else if (role != null) {
-            return Response.status(400).entity("User Id " + admin.getUserId() + " already in Use").build();
         }
 
         userId = userId.trim();
@@ -205,9 +201,7 @@ public class UserRESTAPIController {
         password = password.trim();
 
         try {
-            //String name, String userID, String password, Gender gender, String address,String country
-            int newStudentId = adminInterface.register(name, userId, password);
-            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null, 0, null, null);
+        	int adm = adminInterface.register(name, userId, password);
             return Response.status(201).entity("Admin Successfully Registered!").build();
         } catch (Exception ex) {
             return Response.status(400).entity("Something went wrong! not registered. Please try again" + ex.getMessage()).build();
