@@ -46,7 +46,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	@Override
 	public int addStudent(Student student) throws StudentNotRegisteredException {
 
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		int studentId = 0;
 		try {
 			// open db connection
@@ -89,7 +89,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public int getStudentId(String userId) {
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_STUDENT_ID);
 			statement.setString(1, userId);
@@ -108,7 +108,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public boolean isApproved(int studentId) {
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.IS_APPROVED);
 			statement.setInt(1, studentId);
@@ -127,7 +127,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
   
 	public ReportCard viewReportCard(int StudentID) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
 
-		Connection connection=DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 
 		ReportCard R = new ReportCard();
 		R.setStudentId(StudentID);

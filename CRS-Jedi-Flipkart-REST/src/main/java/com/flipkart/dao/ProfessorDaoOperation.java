@@ -37,7 +37,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 
 	public List<Course> getCoursesByProfessor(String profId) {
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		List<Course> courseList = new ArrayList<Course>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_COURSES);
@@ -64,7 +64,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 
 	public List<EnrolledStudent> getEnrolledStudents(String profId) {
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
@@ -90,7 +90,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 
 	public Boolean addGrade(int studentId, int courseCode, String grade) {
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.ADD_GRADE);
 
@@ -119,7 +119,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	public String getProfessorById(String profId) {
 		String prof_Name = null;
-		Connection connection = DBUtils.getConnection();
+		DBUtils connectionObj = new DBUtils(); Connection connection = connectionObj.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_PROF_NAME);
 
