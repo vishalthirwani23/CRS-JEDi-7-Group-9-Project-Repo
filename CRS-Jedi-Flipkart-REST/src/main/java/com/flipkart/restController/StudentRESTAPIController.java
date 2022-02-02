@@ -14,6 +14,7 @@ import com.flipkart.exceptions.SeatNotAvailableException;
 import com.flipkart.exceptions.UserNotFoundException;
 import org.apache.log4j.Logger;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -142,7 +143,7 @@ public class StudentRESTAPIController {
     @Path("/addCourse")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") int courseId)
+    public Response addCourse(@NotNull@QueryParam("studentId") int studentId, @NotNull@QueryParam("courseId") int courseId)
     {
         boolean is_registered = false;
         try
@@ -201,7 +202,7 @@ public class StudentRESTAPIController {
     @Path("/dropCourse")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response dropCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") int courseId)
+    public Response dropCourse(@NotNull@QueryParam("studentId") int studentId, @NotNull@QueryParam("courseId") int courseId)
     {
         boolean is_registered = false;
         try
@@ -261,7 +262,7 @@ public class StudentRESTAPIController {
     @Path("/viewRegisteredCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewRegisteredCourses(@QueryParam("studentId") int studentId)
+    public List<Course> viewRegisteredCourses(@NotNull@QueryParam("studentId") int studentId)
     {
 
         List<Course> coursesRegistered=null;
@@ -292,7 +293,7 @@ public class StudentRESTAPIController {
     @Path("/viewAvailableCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewCourse(@QueryParam("studentId") int studentId) throws SQLException {
+    public List<Course> viewCourse(@NotNull@QueryParam("studentId") int studentId) throws SQLException {
         return registrationInterface.viewCourses(studentId);
     }
 
@@ -304,7 +305,7 @@ public class StudentRESTAPIController {
     @Path("/viewGradeCard")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<StudentGrade> viewGradeCard(@QueryParam("studentId") int studentId)
+    public List<StudentGrade> viewGradeCard(@NotNull@QueryParam("studentId") int studentId)
     {
         List<StudentGrade> gradeCard = null;
         try {
@@ -330,10 +331,10 @@ public class StudentRESTAPIController {
     @Path("/makePayment")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response makePayment(@QueryParam("studentId") int studentId,
-                            @QueryParam("modeOfPayment") int modeOfPayment,
-                            @QueryParam("cardNumber") String cardNumber,
-                            @QueryParam("cvv") String cvv)
+    public Response makePayment(@NotNull@QueryParam("studentId") int studentId,
+    		@NotNull@QueryParam("modeOfPayment") int modeOfPayment,
+    		@NotNull@QueryParam("cardNumber") String cardNumber,
+    		@NotNull@QueryParam("cvv") String cvv)
     {
 
         double fee = 0.0;

@@ -98,7 +98,7 @@ public class AdminRESTAPIController {
     @Path("/approveStudent")
     @Produces(MediaType.APPLICATION_JSON)
 //    @Consumes(MediaType.APPLICATION_JSON)
-    public Response approveStudent(
+    public Response approveStudent(@NotNull
     		@QueryParam("studentUserIdApproval") int studentUserIdApproval) {
 
 
