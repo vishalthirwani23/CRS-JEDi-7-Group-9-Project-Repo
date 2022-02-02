@@ -26,7 +26,9 @@ public class Admin extends User {
 	public Admin(String userId, String name, Role role, String password) {
 		super(userId, name, role, password);
 	}
-	
+	public Admin() {
+		
+	}
 	/**
 	 * Method to get Date of joining
 	 * 

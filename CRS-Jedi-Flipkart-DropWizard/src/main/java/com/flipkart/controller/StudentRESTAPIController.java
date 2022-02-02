@@ -4,7 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.User;
 import com.flipkart.bean.*;
 import com.flipkart.business.*;
-
+import com.flipkart.bean.CourseList;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
@@ -15,6 +15,7 @@ import com.flipkart.exceptions.SeatNotAvailableException;
 import com.flipkart.exceptions.UserNotFoundException;
 import org.apache.log4j.Logger;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -52,7 +53,8 @@ public class StudentRESTAPIController {
     NotificationInterface notificationInterface=new NotificationOperation();
     private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
-
+    
+    
 
     /**
      * Handle API request for Registering for Courses
@@ -64,8 +66,10 @@ public class StudentRESTAPIController {
     @POST
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerCourses(List<Integer> courseIds,@QueryParam("studentId") int studentId)
+    public Response registerCourses(CourseList c)
     {
+    	 int studentId = c.studentId;
+    	 List<Integer> courseIds = c.courseIds; 
 
         // If courses selected are not 6, during start of semester
         if (courseIds.size() != 6)
@@ -140,7 +144,7 @@ public class StudentRESTAPIController {
     @Path("/addCourse")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") int courseId)
+    public Response addCourse(@NotNull@QueryParam("studentId") int studentId, @NotNull@QueryParam("courseId") int courseId)
     {
         boolean is_registered = false;
         try
@@ -199,7 +203,7 @@ public class StudentRESTAPIController {
     @Path("/dropCourse")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response dropCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") int courseId)
+    public Response dropCourse(@NotNull@QueryParam("studentId") int studentId, @NotNull@QueryParam("courseId") int courseId)
     {
         boolean is_registered = false;
         try
@@ -259,7 +263,7 @@ public class StudentRESTAPIController {
     @Path("/viewRegisteredCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewRegisteredCourses(@QueryParam("studentId") int studentId)
+    public List<Course> viewRegisteredCourses(@NotNull@QueryParam("studentId") int studentId)
     {
 
         List<Course> coursesRegistered=null;
@@ -290,7 +294,7 @@ public class StudentRESTAPIController {
     @Path("/viewAvailableCourses")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewCourse(@QueryParam("studentId") int studentId) throws SQLException {
+    public List<Course> viewCourse(@NotNull@QueryParam("studentId") int studentId) throws SQLException {
         return registrationInterface.viewCourses(studentId);
     }
 
@@ -302,7 +306,7 @@ public class StudentRESTAPIController {
     @Path("/viewGradeCard")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<StudentGrade> viewGradeCard(@QueryParam("studentId") int studentId)
+    public List<StudentGrade> viewGradeCard(@NotNull@QueryParam("studentId") int studentId)
     {
         List<StudentGrade> gradeCard = null;
         try {
@@ -328,10 +332,10 @@ public class StudentRESTAPIController {
     @Path("/makePayment")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response makePayment(@QueryParam("studentId") int studentId,
-                            @QueryParam("modeOfPayment") int modeOfPayment,
-                            @QueryParam("cardNumber") String cardNumber,
-                            @QueryParam("cvv") String cvv)
+    public Response makePayment(@NotNull@QueryParam("studentId") int studentId,
+                            @NotNull@QueryParam("modeOfPayment") int modeOfPayment,
+                            @NotNull@QueryParam("cardNumber") String cardNumber,
+                            @NotNull@QueryParam("cvv") String cvv)
     {
 
         double fee = 0.0;
