@@ -4,7 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.User;
 import com.flipkart.bean.*;
 import com.flipkart.business.*;
-
+import com.flipkart.bean.POJO;
 import com.flipkart.constant.ModeOfPayment;
 import com.flipkart.constant.NotificationType;
 import com.flipkart.constant.Role;
@@ -52,7 +52,8 @@ public class StudentRESTAPIController {
     NotificationInterface notificationInterface=new NotificationOperation();
     private static Logger logger = Logger.getLogger(NotificationDaoOperation.class);
 
-
+    
+    
 
     /**
      * Handle API request for Registering for Courses
@@ -64,8 +65,10 @@ public class StudentRESTAPIController {
     @POST
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerCourses(List<Integer> courseIds,@QueryParam("studentId") int studentId)
+    public Response registerCourses(POJO pojo)
     {
+    	 int studentId = pojo.studentId;
+    	 List<Integer> courseIds = pojo.courseIds; 
 
         // If courses selected are not 6, during start of semester
         if (courseIds.size() != 6)
