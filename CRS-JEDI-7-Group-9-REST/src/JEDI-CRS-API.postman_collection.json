@@ -1,0 +1,577 @@
+{
+	"info": {
+		"_postman_id": "f557209f-cfd3-4213-bf47-df8f196e9713",
+		"name": "JEDI-CRS-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin: addCourseToCatalogue",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseCode\":\"789\",\n    \"courseName\":\"DS\",\n    \"seats\":20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/addCourseToCatalogue",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"addCourseToCatalogue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin: viewPendingAdmissions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/admin/viewPendingAdmissions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"viewPendingAdmissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin: deleteCourse",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseCode\":\"123\",\n    \"courseName\":\"odpd\",\n    \"seats\":8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/deleteCourse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"deleteCourse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin: viewCoursesInCatalogue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/admin/viewCoursesInCatalogue",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"viewCoursesInCatalogue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin: approveStudent",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/admin/approveStudent?studentUserIdApproval=3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"approveStudent"
+					],
+					"query": [
+						{
+							"key": "studentUserIdApproval",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin: addProfessor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"prof1@gmail.com\",\n    \"name\":\"prof1\",\n    \"password\":\"prof1\",\n    \"role\":\"professor\",\n    \"department\":\"mnc\",\n    \"designation\":\"assistant\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/addProfessor",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"addProfessor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin: assignCourseToProfessor",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"courseCode\" : 987,\n\t\"courseName\" : \"cg\",\n\t\"instructorId\" : \"hancy@bar.com\",\n\t\"seats\" : 10\n\t\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/admin/assignCourseToProfessor",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"assignCourseToProfessor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User: studentRegistration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"student1@gmail,com\",\n    \"name\":\"student1\",\n    \"branchName\":\"cse\",\n    \"batch\":\"2022\",\n    \"password\":\"student1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/studentRegistration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"studentRegistration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User: login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"student2@gmail.com\",\n    \"password\":\"student2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User: update password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/user/updatePassword?userId=student2@gmail,com&newPassword=student2&oldPassword=Student2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"updatePassword"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "student2@gmail,com"
+						},
+						{
+							"key": "newPassword",
+							"value": "student2"
+						},
+						{
+							"key": "oldPassword",
+							"value": "Student2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User: adminRegistration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"root@gmail.com\",\n    \"name\":\"root\",\n    \"password\":\"root\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/user/adminRegistration",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"adminRegistration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor: Add Grade",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/professor/addGrade?profId=hancy@gmail.com&password=1234567&studentId=3&courseCode=321&grade=A",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"professor",
+						"addGrade"
+					],
+					"query": [
+						{
+							"key": "profId",
+							"value": "hancy@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "1234567"
+						},
+						{
+							"key": "studentId",
+							"value": "3"
+						},
+						{
+							"key": "courseCode",
+							"value": "321"
+						},
+						{
+							"key": "grade",
+							"value": "A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor: getCourses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/professor/getCourses?profId=hancy@gmail.com",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"professor",
+						"getCourses"
+					],
+					"query": [
+						{
+							"key": "profId",
+							"value": "hancy@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Professor: getEnrolledStudents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/professor/getEnrolledStudents?profId=hancy@gmail.com",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"professor",
+						"getEnrolledStudents"
+					],
+					"query": [
+						{
+							"key": "profId",
+							"value": "hancy@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student: addCourse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/student/addCourse?studentId=3&courseId=456",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"student",
+						"addCourse"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": "3"
+						},
+						{
+							"key": "courseId",
+							"value": "456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student: registerCourses",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseIds\":[123, 321, 456, 654, 789, 987],\n    \"studentId\":3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/student/registerCourses",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"student",
+						"registerCourses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student: dropCourse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/student/dropCourse?studentId=3&courseId=456",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"student",
+						"dropCourse"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": "3"
+						},
+						{
+							"key": "courseId",
+							"value": "456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student: makePayment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/student/makePayment?studentId=2&modeOfPayment=2&cardNumber=1234567890&cvv=345",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"student",
+						"makePayment"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": "2"
+						},
+						{
+							"key": "modeOfPayment",
+							"value": "2"
+						},
+						{
+							"key": "cardNumber",
+							"value": "1234567890"
+						},
+						{
+							"key": "cvv",
+							"value": "345"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student: viewAvailableCourses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/student/viewAvailableCourses?studentId=1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"student",
+						"viewAvailableCourses"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student: viewGradeCard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/student/viewGradeCard?studentId=1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"student",
+						"viewGradeCard"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student: viewRegisteredCourses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/student/viewRegisteredCourses?studentId=3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"student",
+						"viewRegisteredCourses"
+					],
+					"query": [
+						{
+							"key": "studentId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
